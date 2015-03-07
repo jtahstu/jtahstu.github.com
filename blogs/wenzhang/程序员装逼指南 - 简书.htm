@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!-->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"1255494d3a","applicationID":"1070872","transactionName":"e1daR0JWVV9RER9ZWkxdRxxDUVZE","queueTime":0,"applicationTime":177,"agent":"js-agent.newrelic.com/nr-593.min.js"}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"XAUOVFNACQMHVFlVBQ=="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t){try{i.console&&console.log(t)}catch(e){}}var n,r=t("ee"),o=t(1),i={};try{n=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(i.console=!0,-1!==n.indexOf("dev")&&(i.dev=!0),-1!==n.indexOf("nr_dev")&&(i.nrDev=!0))}catch(a){}i.nrDev&&r.on("internal-error",function(t){e(t.stack)}),i.dev&&r.on("fn-err",function(t,n,r){e(r.stack)}),i.dev&&(e("NR AGENT IN DEVELOPMENT MODE"),e("flags: "+o(i,function(t){return t}).join(", ")))},{1:20,ee:"QJf3ax"}],4:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,t(3),window.onerror=e;try{throw new Error}catch(f){"stack"in f&&(t(4),t(5),"addEventListener"in window&&t(1),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(2),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:5,2:8,3:3,4:7,5:6,6:21,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:21,2:22,ee:"QJf3ax",gos:"7eSDFh"}],6:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:22,2:21,ee:"QJf3ax"}],7:[function(t,e){function n(t,e,n){var r=t[0];"string"==typeof r&&(r=new Function(r)),t[0]=o(r,"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:22,2:21,ee:"QJf3ax"}],8:[function(t,e){function n(){f.inPlace(this,p,"fn-")}function r(t,e){f.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}function i(t,e){for(var n in t)e[n]=t[n];return e}var a=t("ee").create(),s=t(1),c=t(2),f=c(a),u=c(s),d=window.XMLHttpRequest,p=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=a,window.XMLHttpRequest=function(t){var e=new d(t);try{a.emit("new-xhr",[],e),u.inPlace(e,["addEventListener","removeEventListener"],"-",function(t,e){return e}),e.addEventListener("readystatechange",n,!1)}catch(r){try{a.emit("internal-error",[r])}catch(o){}}return e},i(d,XMLHttpRequest),XMLHttpRequest.prototype=d.prototype,f.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),a.on("send-xhr-start",r),a.on("open-xhr-start",r)},{1:5,2:22,ee:"QJf3ax"}],9:[function(t){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=e(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(n.cat=d.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r,this.startTime])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=e(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",[e])}catch(r){}}};for(var u=0;c>u;u++)n.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:10,3:8,4:5,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],10:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],11:[function(t,e){function n(t){return function(){r(t,[(new Date).getTime()].concat(i(arguments)))}}var r=t("handle"),o=t(1),i=t(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(t,e){window.NREUM[e]=n("api-"+e)}),e.exports=window.NREUM},{1:20,2:21,handle:"D5DuLP"}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=l.info=NREUM.info;if(t&&t.licenseKey&&t.applicationID&&f&&f.body){s(h,function(e,n){e in t||(t[e]=n)}),l.proto="https"===p.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=f.createElement("script");e.src=l.proto+t.agent,f.body.appendChild(e)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=t(1),c=(t(2),window),f=c.document,u="addEventListener",d="attachEvent",p=(""+location).split("?")[0],h={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-593.min.js"},l=e.exports={offset:i(),origin:p,features:{}};f[u]?(f[u]("DOMContentLoaded",o,!1),c[u]("load",n,!1)):(f[d]("onreadystatechange",r),c[d]("onload",n)),a("mark",["firstbyte",i()])},{1:20,2:11,handle:"D5DuLP"}],20:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],21:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],22:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s,t))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:21,ee:"QJf3ax"}]},{},["G9z0Bl",4,9]);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="一、准备工作 
+ “工欲善其事必先利其器。” 1.电脑不一定要配置高，但是双屏是必须的，越大越好，能一个横屏一个竖屏更好。一个用来查资料，一个用来写代码 。总之要显得信息量很大，效率很高。 2.椅子不一定要舒服，但是一定要可以半躺着。 3.大量的便签，各种的颜色的，用来记录每天要完成的事务，多...">
+    <script data-apikey="5abb12613f217476dc531df54ad96676" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/bugsnag-2.js"></script>
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/c2f71148cec6">
+    <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="程序员装逼指南" property="twitter:title">
+  <meta content="一、准备工作 
+ “工欲善其事必先利其器。” 1.电脑不一定要配置高，但是双屏是必须的，越大越好，能一个横屏一个竖屏更好。一个用来查资料，一个用来写代码 。总之要显得信息量很大，效率很高。 2.椅子不一定要舒服，但是一定要可以半躺着。 3.大量的便签，各种的颜色的，用来记录每天要完成的事务，多..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/c2f71148cec6" property="twitter:url">
+
+  <!--  Meta for OpenGraph -->
+  <meta content="程序员装逼指南" property="og:title">
+  <meta content="一、准备工作 
+ “工欲善其事必先利其器。” 1.电脑不一定要配置高，但是双屏是必须的，越大越好，能一个横屏一个竖屏更好。一个用来查资料，一个用来写代码 。总之要显得信息量很大，效率很高。 2...." property="og:description">
+  <meta content="简书" property="og:site_name">
+  <meta content="website" property="og:type">
+  <meta content="http://www.jianshu.com/p/c2f71148cec6" property="og:url">
+
+  <title>程序员装逼指南 - 简书</title>
+  <meta content="authenticity_token" name="csrf-param">
+<meta content="mI4on7sAlE6kFWmB/OYPta9vt/mAJxqDWIyckI5ypgw=" name="csrf-token">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link href="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/base-49c9248727f216f86a1c2438f7570620.css" media="all" rel="stylesheet">
+
+    <link href="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/reading-note-b43582251c6b63c60b981cb37148e50c.css" media="all" rel="stylesheet">
+  <script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/modernizr-d8c155d62eb597d8459f5b6270089a38.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link href="http://static.jianshu.io/assets/scaffolding/for_ie-14ba2a622a00976f31155e41f89cc728.css" media="all" rel="stylesheet" /><![endif]-->
+  <!--[if lt IE 9]><link href="http://static.jianshu.io/assets/scaffolding/for_ie-14ba2a622a00976f31155e41f89cc728.css" media="all" rel="stylesheet" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+  <link rel="apple-touch-icon-precomposed" href="http://static.jianshu.io/assets/icon114-fcef1133c955e46bf55e2a60368f687b.png">
+  
+  
+  <script>
+    var _czc = _czc || [];
+    _czc.push(["_setAccount", "1253183112"]);
+  </script>
+<style type="text/css"></style></head>
+
+  <body class="post output zh cn win mozilla reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+    
+    <div class="navbar navbar-jianshu shrink">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li class="">
+      <a href="http://www.jianshu.com/">
+        <i class="icon-home"></i> 首页
+</a>      </li>
+      <li>
+      <a href="http://www.jianshu.com/collections">
+        <i class="icon-th"></i> 专题
+</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="navbar navbar-user">
+  <div class="container">
+    <div class="nav-collapse collapse">
+      <ul class="nav pull-right">
+          <li><a class="daytime set-view-mode" href="javascript:void(0)"><i class="icon-moon"></i></a></li>
+
+            <li class="signin">
+              <a data-signin-link="true" data-toggle="modal" href="#login-modal"><i class="icon-signin"></i> 登录</a>
+            </li>
+            <li class="signin"><a data-signup-link="true" data-toggle="modal" href="#login-modal"><i class="icon-user"></i> 注册</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" data-container="div.expanded" data-original-title="个人主页" href="http://www.jianshu.com/" role="button">
+        <b>简</b><i class="icon-home"></i><span class="title">首页</span>
+</a>      <a data-container="div.expanded" data-original-title="专题" data-placement="right" data-toggle="tooltip" href="http://www.jianshu.com/collections">
+        <i class="icon-th"></i><span class="title">专题</span>
+</a>    <a data-container="body" data-original-title="下载手机应用" data-placement="right" data-toggle="tooltip" href="http://www.jianshu.com/apps">
+      <i class="icon-mobile-phone"></i><span class="title">下载手机应用</span>
+</a>  </div>
+  <div class="nav-user">
+      <a href="#view-mode-modal" data-toggle="modal"><i class="icon-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-container="div.expanded" data-original-title="登录" data-placement="right" data-signin-link="true" data-toggle="modal" href="#login-modal">
+        <i class="icon-signin"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+    <div tabindex="-1" aria-hidden="true" id="login-modal" class="modal hide fade login-modal" data-js-module="login-modal">
+  <div class="modal-header">
+    <h4 class="title">
+      <span>
+        <a class="active" href="javascript:void(null);" id="signin-link">登录</a>
+        <b>·</b>
+        <a href="javascript:void(null);" id="signup-link">注册</a>
+      </span>
+    </h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+
+  <div class="modal-body large-login">
+    <div class="sign-up">
+      <form accept-charset="UTF-8" action="/users.json" class="form-horizontal" data-remote="true" id="sign_up" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+        <p id="signup_errors" class="signin_error hide"></p>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-envelope-alt"></i></span>
+  <input class="span2" id="sign_up_email" name="email" placeholder="你的邮件地址" type="text">
+</div>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-user"></i></span>
+  <input class="span2" id="nickname" name="nickname" placeholder="选一个昵称" value="jtahstu" type="text">
+</div>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-unlock-alt"></i></span>
+  <input class="span2" id="sign_up_password" name="password" placeholder="输入密码" type="password">
+</div>
+<div class="input-prepend captcha">
+  <div class="captcha_fields">
+    
+  </div>
+</div>
+
+<button class="ladda-button submit-button" data-color="green">
+  <span class="ladda-label">注册</span>
+</button>
+</form>    </div>
+    <div class="sign-in">
+      <form accept-charset="UTF-8" action="/sessions.json" class="form-horizontal" data-remote="true" id="sign_in" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+        <p id="signin_errors" class="signin_error hide"></p>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-envelope-alt"></i></span>
+  <input class="span2" id="sign_in_email" name="email" placeholder="邮箱" value="jtahstu" type="text">
+</div>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-unlock-alt"></i></span>
+  <input class="span2" id="sign_in_password" name="password" placeholder="密码" type="password">
+</div>
+<div class="input-prepend captcha">
+  <div class="captcha_fields">
+    
+  </div>
+</div>
+
+<button class="ladda-button submit-button" data-color="blue">
+  <span class="ladda-label">登 录</span>
+</button>
+<div class="control-group text-left">
+  <div style="position: relative;" class="icheckbox_minimal checked"><input style="position: absolute; opacity: 0;" checked="checked" id="remember_me" name="remember_me" value="true" type="checkbox"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div> 记住我
+  <a href="http://www.jianshu.com/users/password/new">忘记密码</a>
+</div>
+
+</form>    </div>
+
+    <div class="login-sns">
+      <p>您还可以通过以下方式直接登录</p>
+      <ul class="login-sns">
+        <li class="weibo"><a href="http://www.jianshu.com/users/auth/weibo"></a></li>
+        <li class="qq"><a href="http://www.jianshu.com/users/auth/qq_connect"></a></li>
+        <li class="douban"><a href="http://www.jianshu.com/users/auth/douban"></a></li>
+        <li class="google"><a href="http://www.jianshu.com/users/auth/google_oauth2"></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="go-top hide-go-top"><a href="#"> <i class="icon-circle-arrow-up"></i></a></div>
+
+    <div id="show-note-container">
+      
+<div class="post-bg" id="flag">
+  <div class="wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-target="#collection-menu" data-toggle="modal" href="javascript:void(null);">
+            <i class="icon-th"></i>
+</a>          <a class="notebooks-menu-btn" data-target="#notebooks-menu" data-toggle="modal" href="javascript:void(null);"><i class="icon-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="#login-modal">
+    <i class="icon-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="#login-modal">
+    <i class="icon-signin"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <h1 class="title">程序员装逼指南</h1>
+          <div class="meta-top">
+            <a href="http://www.jianshu.com/users/8faa58cbfde1">
+              <div class="avatar" style="display:inline-block;"><img alt="1" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/1.jpg"></div>
+              <span>严爬爬</span>
+</a>            <span>2015.03.06 17:57</span>
+            <span class="wordage">1274 字</span>
+            <span class="views-count">1147 次阅读</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share">  
+    <a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="icon-bookmark-empty"></i><span>收藏文章</span>
+</a>
+  <span>
+    <a href="javascript:void(null)" data-toggle="dropdown"><i class="icon-share"></i>分享</a>
+    <ul class="dropdown-menu arrow-top">
+        <li><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/757651/weibo/image_b05d68eba6a4.jpg',%20'%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/c2f71148cec6','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/weibo.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;title='+e('%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/douban.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&amp;p[url]='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;p[title]='+e('%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6%E7%A4%BE')+'&amp;p[summary]='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/c2f71148cec6'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;description='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B')+'&amp;title='+e('%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/renren.png"></a></li>
+    </ul>
+  </span>
+</div>
+          <!-- -->
+
+          <div class="show-content"><h2>一、准备工作</h2>
+<p>“工欲善其事必先利其器。”<br>1.电脑不一定要配置高，但是双屏是必须的，越大越好，能一个横屏一个竖屏更好。一个用来查资料，一个用来写代码 。总之要显得信息量很大，效率很高。<br>2.椅子不一定要舒服，但是一定要可以半躺着。<br>3.大量的便签，各种的颜色的，用来记录每天要完成的事务，多多益善。沿着电脑屏幕的边框，尽量贴满，显出有很多事情的样子。<br>4.工具书，orelly的，机械工业，电子工业什么的都可以，能英文就英文，不行影印版的也可以，反正越厚越好，而且千万不要放在书架上，一定要堆在桌上，半打<span id="transmark"></span>开状。</p>
+<h2>二、从进门开始</h2>
+<p>1.着装！着装！不管你是去实验室，或者去公司的大楼，在或者是小公司的民宅，或是自己创业的黑作坊；无论是春夏秋冬白天晚上刮风下雨电闪雷鸣台风
+龙卷风，一个装b的程序员都要十分在意自己着装！这里只提出参考建议。初级装：衬衣+牛仔裤+休闲鞋。中级装：T恤+宽松短裤+拖鞋。高级装：背心+宽松
+大花裤衩+人字拖。<br>2.得体的举止。在走廊以及任何形式的过道里，一定要双手插兜，走得像个痞子，至少要看起来有点反社会，如若不行，可走文弱天才型geek路线。。<br>3.如果有女性在你背后指指点点，小声嘀咕说这一定是一个技术男的时候，应该先低头，然后保持低头状态，缓缓回头，坏坏地蔑笑但是不要出声，然后快步前行。<br>4.进门后，一定不要跟任何人打招呼，笔直走向自己的位置，最多路过打一杯咖啡，千万不要有多余的动作，显示出自己的专注与心无旁骛。</p>
+<h2>三、坐下就不要再动了</h2>
+<p>1.坐下以后，姿势需要略微后仰，能翘着二郎腿最好了，然后在后仰的情况下低着头，以便看到屏幕，然后千万就不要再动了。<br>2.粗暴地把电脑前的大堆书推开一个口，然后摘下电脑上的一个便签，看一眼，不过3秒，可以开始coding了。<br>3.能不用IDE就不要用，实在装不了，无论IDE是什么，一定要调成DOS那种黑色背景的。<br>4.如果写前台界面，就不停地调试后台代码；如果写java，就在里面混编C；如果写C，就在里面混编汇编。不光要coding，还要时不时的翻出一本什么英文的书翻一翻，看不懂就看看插图，然后扔到面前假装懂了继续coding。<br>5.什么看起来高端就用什么，不要管实用不实用。例如对C++：switch统统重构成多态；如果有指针，统统改成智能的；C++一定要自己写 template；数字是全部要替换成宏的名字能起多长就起多长；struct就不要出现了，如果出现，也一定要用<strong>attriburte</strong>修
+饰一下；运算都是位操作的；操作符都是重载的；网络都是并发缓冲线程池的；int只用int32_t声明的;继承不用普通的，什么多继承虚继承
+啊；helloworld也要写捕获异常的；后人一看代码，中间一堆关键字 
+extern,asm,auto,XXXXX_cast,volatile,explicit,register,template，让一般总在敲 
+int,if,else,for的小程序员 顿时心生崇拜。<br>6.注释？算了吧。只有两个路线可以选：一，变量名起得巨长无比，看代码就和读英文文章一样顺畅，根本不需要加注释。 二，代码无比晦涩，加不加注释根本无影响。<br>7.千万不要用IM工具交流，千万不要问同事问题，显得自己没有水平，都是自己上网或者查书。<br>8.无论是同事间开玩笑或者发生任何群体性时间，不要抬头，更不要东张西望，即使地震火灾，也一定要先提交代码再行离开。</p>
+<h2>四、潇洒地离开</h2>
+<p>1.人走，主机是千万千万不能关的，至少要跑个daily build，实在不行正在svn提交也勉强算过关。<br>2.书应该已经又堆到屏幕前了，千万不要整理，明天再来推开。<br>3.不强求最后一个走，但一定要所有的非程序员，什么市场啊前台啊pm啊都走光了，才可以走。<br>4.走得时候一定要率性，千万不要收拾任何东西，站起来，出门，好的，就这样。<br>5.如果今天一定要说句话的话，找到那个最苦逼的程序员 ，跟他说，你进度太慢了啊，不要老让我等你。</p>
+</div>
+        </div>
+      </div>
+
+      <!-- further readings -->
+      <div id="further-readings" class="further-reading" data-user-slug="" data-user-nickname="">
+        <div id="further-reading-line" class="hide further-reading-line"></div>
+        <ul id="further-readings-list" class="reading-list unstyled"></ul>
+        <div id="further-reading-new" class="reading-edit">
+            <a data-signin-link="true" data-toggle="modal" href="#login-modal">
+              <i class="icon-plus-sign"></i> 推荐拓展阅读
+</a>          <div id="further-reading-form"></div>
+        </div>
+      </div>
+
+      <!-- article share button -->
+      <div class="meta-bottom clearfix">
+        <div class="share-group">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/757651/weibo/image_b05d68eba6a4.jpg',%20'%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/c2f71148cec6','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));" data-name="weibo">
+            <img class="kantofnxdrdeamobstqq" alt="Icon weibo" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/icon_weibo-33d2a49bfe8444d050b2787542a1768f.png"><span>分享到微博</span>
+          </a>
+            <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
+              <img class="kantofnxdrdeamobstqq" alt="Icon weixin" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/icon_weixin-5ac572ecb5a5b2f73a9385ce9440da38.png"><span>分享到微信</span>
+            </a>
+          <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;title='+e('%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" class="share-douban" data-name="douban">豆</a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown"><i class="icon-ellipsis-horizontal"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/757651/weibo/image_b05d68eba6a4.jpg" target="_blank" data-name="changweibo"><i class="icon-download"></i>下载长微博图片</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="tweibo"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png">分享到腾讯微博</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="qzone"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png">分享到QQ空间</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="twitter"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png">分享到Twitter</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&amp;p[url]='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;p[title]='+e('%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6%E7%A4%BE')+'&amp;p[summary]='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="facebook"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png">分享到Facebook</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/c2f71148cec6'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="google_plus"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png">分享到Google+</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/c2f71148cec6')+'&amp;description='+e('%E6%8E%A8%E8%8D%90%20%E4%B8%A5%E7%88%AC%E7%88%AC%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%E3%80%8B')+'&amp;title='+e('%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="renren"><img class="kantofnxdrdeamobstqq" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/renren.png">分享到人人网</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!--  Like Button -->
+      <div class="like">
+          <a class="btn like-button" data-signin-link="true" data-toggle="modal" href="#login-modal" id="like-note">
+            <span class="like-content"><i class="icon-heart-empty"></i> 32个喜欢</span>
+</a>      </div>
+      <!-- -->
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+        <img alt="C2f71148cec6" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/c2f71148cec6.png">
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img alt="Tiny" class="loader-tiny" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img alt="Tiny" class="loader-tiny" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif"></div>
+
+    <!-- Bottom Author Info -->
+      <div class="author-info clearfix">
+        <h4 class="title">作者</h4>
+        <div class="pull-left basic-info">
+          <a class="avatar" href="http://www.jianshu.com/users/8faa58cbfde1"><img alt="1" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/1.jpg"></a>
+          <div class="info-r">
+            <p><a href="http://www.jianshu.com/users/8faa58cbfde1">严爬爬</a></p>
+            <div class="btn-group" id="follow_mail_block_user_201279">
+    <a class="btn btn-small btn-success follow" data-signin-link="true" data-toggle="modal" href="#login-modal">
+    <i class="icon-plus icon-ok"></i> 添加关注
+</a>
+  
+<a class="btn btn-small btn-list btn-success" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-reorder"></i></a>
+<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
+    <li><a data-signin-link="true" data-toggle="modal" href="#login-modal"><i class="icon-envelope"></i> 写简信</a></li>
+    <li class="divider"></li>
+  <li><a data-signin-link="true" data-toggle="modal" href="#login-modal"><i class="icon-lock"></i> 加入黑名单</a></li>
+</ul>
+</div>
+            <div class="sns"></div>
+          </div>
+        </div>
+
+        <div class="pull-left user-stats">
+          <a href="http://www.jianshu.com/users/8faa58cbfde1">
+            <b>14</b><span>文章</span>
+</a>          <a class="follow-user" href="http://www.jianshu.com/users/8faa58cbfde1/followers">
+            <b>54</b><span>粉丝</span>
+</a>          <a href="http://www.jianshu.com/users/8faa58cbfde1/top_articles">
+            <b>627</b><span>喜欢</span>
+</a>        </div>
+      </div>
+    <!-- -->
+
+    <!-- Likes Items -->
+    <div id="like-list" class="like-list clearfix"><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T10:36:40+08:00" data-nickname="76fcb45c24f8" href="http://www.jianshu.com/users/76fcb45c24f8" id="like_item_like_2275551">
+  <img alt="30" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/30.png"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T10:28:03+08:00" data-nickname="iSCloud" href="http://www.jianshu.com/users/SP5e4X" id="like_item_like_2275468">
+  <img alt="1" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/1_003.jpg"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T10:21:14+08:00" data-nickname="smoclock" href="http://www.jianshu.com/users/39490a697ee7" id="like_item_like_2275413">
+  <img alt="Fd9dc461eee4" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/fd9dc461eee4.jpg" thumbnail="90x90"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T10:18:34+08:00" data-nickname="天壤" href="http://www.jianshu.com/users/e0ef35423b18" id="like_item_like_2275382">
+  <img alt="909d968a23db" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/909d968a23db.jpg" thumbnail="90x90"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T10:08:38+08:00" data-nickname="truelie" href="http://www.jianshu.com/users/cbfea7b4759a" id="like_item_like_2275215">
+  <img alt="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/100_003.jpg"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T09:55:49+08:00" data-nickname="南城以北" href="http://www.jianshu.com/users/9d76ecf97a65" id="like_item_like_2275049">
+  <img alt="9f1ef3634699" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/9f1ef3634699.png" thumbnail="90x90"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T09:55:19+08:00" data-nickname="SoonEspresso" href="http://www.jianshu.com/users/6ddc5f1a2ae1" id="like_item_like_2275036">
+  <img alt="0aefecbba393" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/0aefecbba393.jpg" thumbnail="90x90"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T09:50:47+08:00" data-nickname="Richardo92" href="http://www.jianshu.com/users/4a5a11e054c4" id="like_item_like_2274985">
+  <img alt="Default avatar" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"><i class="icon-heart"></i>
+</a>
+  <a class="more" data-max-id="2274984" href="javascript:void(null);"><i class="icon-ellipsis-horizontal"></i></a>
+</div>
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="#login-modal">
+      登录后发表评论
+</a>  </p>
+
+        <div id="comment-list"><div id="comment-188781" class="note-comment" data-id="188781" data-user-id="264980" data-user-name="笑俞歌">
+  <a class="avatar" href="http://www.jianshu.com/users/3507195a3a25"><img alt="1" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/1_002.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/3507195a3a25">笑俞歌</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188781#comment-188781">2015.03.07 09:41</a></span>
+    </div>
+    <p>都是好几年前的老帖子了，还敢一字不动的粘贴过来，po主确实是够装逼的。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188757" class="note-comment" data-id="188757" data-user-id="228670" data-user-name="Valinor">
+  <a class="avatar" href="http://www.jianshu.com/users/75a63745a7d3"><img alt="682d985272c7" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/682d985272c7.png" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/75a63745a7d3">Valinor</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188757#comment-188757">2015.03.07 09:05</a></span>
+    </div>
+    <p>太搞笑了</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188746" class="note-comment" data-id="188746" data-user-id="153050" data-user-name="逃离孤岛">
+  <a class="avatar" href="http://www.jianshu.com/users/a69d942d9fef"><img alt="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/100_002.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/a69d942d9fef">逃离孤岛</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188746#comment-188746">2015.03.07 08:51</a></span>
+    </div>
+    <p>裝逼 果然是剛需。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188743" class="note-comment" data-id="188743" data-user-id="187476" data-user-name="芝华塔尼奥">
+  <a class="avatar" href="http://www.jianshu.com/users/6904b1aecb79"><img alt="34d3c6860189" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/34d3c6860189.png" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/6904b1aecb79">芝华塔尼奥</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188743#comment-188743">2015.03.07 08:50</a></span>
+    </div>
+    <p>我还是初级装吧 我腿毛多</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188721" class="note-comment" data-id="188721" data-user-id="205215" data-user-name="失落的羊">
+  <a class="avatar" href="http://www.jianshu.com/users/b8819cfbb524"><img alt="U44294567 2" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/u44294567-2.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/b8819cfbb524">失落的羊</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188721#comment-188721">2015.03.07 08:24</a></span>
+    </div>
+    <p>麻痹，笑尿了。我身后那大神就这死德行，真是见一回想打一回，“你不装逼会死啊！”</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188670" class="note-comment" data-id="188670" data-user-id="195258" data-user-name="风絮奋斗在北纬399">
+  <a class="avatar" href="http://www.jianshu.com/users/9768b160def4"><img alt="30" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/30.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/9768b160def4">风絮奋斗在北纬399</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188670#comment-188670">2015.03.07 05:44</a></span>
+    </div>
+    <p>装的有点假</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188505" class="note-comment" data-id="188505" data-user-id="122795" data-user-name="Ricky廖泽嗣">
+  <a class="avatar" href="http://www.jianshu.com/users/c2de0682d4c2"><img alt="A90b6cf726f2" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/a90b6cf726f2.png" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/c2de0682d4c2">Ricky廖泽嗣</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188505#comment-188505">2015.03.06 22:17</a></span>
+    </div>
+    <p>确实装逼，不过我喜欢你写的，能不能模仿你的风格写一个我职业的装逼指南呢？</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188494" class="note-comment" data-id="188494" data-user-id="231354" data-user-name="孤单的演讲家">
+  <a class="avatar" href="http://www.jianshu.com/users/c8c1537a6309"><img alt="454a6a341311" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/454a6a341311.png" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/c8c1537a6309">孤单的演讲家</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188494#comment-188494">2015.03.06 22:01</a></span>
+    </div>
+    <p>真的，新手程序员穿这样，真的会给人一种大神的赶脚！</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188448" class="note-comment" data-id="188448" data-user-id="97592" data-user-name="秦无邪">
+  <a class="avatar" href="http://www.jianshu.com/users/394c2c00c8e5"><img alt="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/100.png"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/394c2c00c8e5">秦无邪</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188448#comment-188448">2015.03.06 21:10</a></span>
+    </div>
+    <p>哈哈</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188410" class="note-comment" data-id="188410" data-user-id="72128" data-user-name="granton_zhuang">
+  <a class="avatar" href="http://www.jianshu.com/users/1212c3cb0ea2"><img alt="A49d22493fb0" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/a49d22493fb0.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/1212c3cb0ea2">granton_zhuang</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188410#comment-188410">2015.03.06 20:37</a></span>
+    </div>
+    <p>hello world 都用反射写 <img src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/joy.png" class="emoji"> </p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188404" class="note-comment" data-id="188404" data-user-id="207895" data-user-name="聂秋瑾">
+  <a class="avatar" href="http://www.jianshu.com/users/6daa90d5cad8"><img alt="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/100.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/6daa90d5cad8">聂秋瑾</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188404#comment-188404">2015.03.06 20:30</a></span>
+    </div>
+    <p>本来就这样吧真的装的吗</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188360" class="note-comment" data-id="188360" data-user-id="228584" data-user-name="腹肌撕裂者">
+  <a class="avatar" href="http://www.jianshu.com/users/f46e4436541b"><img alt="779b698a7f56" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/779b698a7f56.png" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/f46e4436541b">腹肌撕裂者</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188360#comment-188360">2015.03.06 19:42</a></span>
+    </div>
+    <p>逼格不够高 高逼格程序猿都是git好嘛！不过还是要顶！</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188351" class="note-comment" data-id="188351" data-user-id="145805" data-user-name="寒慕">
+  <a class="avatar" href="http://www.jianshu.com/users/ee6c75107d3f"><img alt="Ac187c68ca00" quality="100" src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/ac187c68ca00.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/ee6c75107d3f">寒慕</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/c2f71148cec6/comments/188351#comment-188351">2015.03.06 19:29</a></span>
+    </div>
+    <p>确实装逼</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+
+  
+</div>
+    </div>
+    <!-- -->
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":757651,"abbr":"一、准备工作 \n “工欲善其事必先利其器。” 1.电脑不一定要配置高，但是双屏是必须的，越大越好，能一个横屏一个竖屏更好。一个用来查资料，一个用来写代码 。总之要显得信息量很大，效率很高。 2.椅子不一定要舒服，但是一定要可以半躺着。 3.大量的便签，各种的颜色的，用来记录每天要完成的事务，多...","slug":"c2f71148cec6","url":"http://www.jianshu.com/p/c2f71148cec6","image_url":"http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/757651/weibo/image_b05d68eba6a4.jpg","wordage":1274,"has_further_readings":false,"views_count":1147,"likes_count":32}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":201279,"nickname":"严爬爬","slug":"8faa58cbfde1","public_notes_count":14,"followers_count":54,"total_likes_count":627,"is_current_user":false}
+  </script>
+
+
+      <div class="author-article">
+        <div class="content">
+          <h5>作者的其他热门文章：</h5>
+          <ul class="article-list clearfix">
+              <li>
+                <div class="article">
+                  <a class="title" href="http://www.jianshu.com/p/307c8d0fbf22?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_author_hots&amp;utm_source=recommendation">(干货）Linux学习资源推荐</a>
+                  <div class="article-info">
+                      收获了 178 个喜欢, 7 条评论
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="article">
+                  <a class="title" href="http://www.jianshu.com/p/fe0e5a515696?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_author_hots&amp;utm_source=recommendation">Python学习网络资源整理</a>
+                  <div class="article-info">
+                      收获了 133 个喜欢, 4 条评论
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="article">
+                  <a class="title" href="http://www.jianshu.com/p/4280cd7fe43f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_author_hots&amp;utm_source=recommendation">程序员编程武器大盘点</a>
+                  <div class="article-info">
+                      收获了 106 个喜欢, 12 条评论
+                  </div>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </div>
+
+    <div class="other-article">
+      <div class="content">
+        <h5>你可能会感兴趣：</h5>
+        <ul class="article-list clearfix">
+            <li>
+              <div class="article">
+                <a class="title" href="http://www.jianshu.com/p/676a11b6edad?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation">英语是一门不难掌握的skill</a>
+                <div class="article-info">
+                  <a class="author" href="http://www.jianshu.com/users/9155eaec8763">Kellerman</a>
+                    收获了 1300 个喜欢, 148 条评论
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="article">
+                <a class="title" href="http://www.jianshu.com/p/9e830d085417?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation">同学聚会到底有什么意义？</a>
+                <div class="article-info">
+                  <a class="author" href="http://www.jianshu.com/users/8f1db264cca8">杨Dannie</a>
+                    收获了 302 个喜欢, 115 条评论
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="article">
+                <a class="title" href="http://www.jianshu.com/p/45b3e4033156?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation">Quora，人生忠告top10摘录</a>
+                <div class="article-info">
+                  <a class="author" href="http://www.jianshu.com/users/074085c32183">wonderui</a>
+                    收获了 500 个喜欢, 20 条评论
+                </div>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+    </div>
+    
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="icon-sun"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="icon-moon"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+
+    <script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/base-81f019e7e24d7776a64c77263c244efc.js"></script>
+    
+    <script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/reading-base-ba04d445a172c94249503ae943f8069a.js"></script>
+    <script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/note_show-f3947df66dbcf05e455c65b4bf947dcf.js"></script>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<div style="display:none">
+<script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/z_stat.php" language="JavaScript"></script>
+</div>
+  
+
+<div id="atwho-container"></div><script src="%E7%A8%8B%E5%BA%8F%E5%91%98%E8%A3%85%E9%80%BC%E6%8C%87%E5%8D%97%20-%20%E7%AE%80%E4%B9%A6_files/nr-593.js"></script></body></html>

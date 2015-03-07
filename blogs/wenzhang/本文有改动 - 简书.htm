@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!-->
+<html class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"1255494d3a","applicationID":"1070872","transactionName":"e1daR0JWVV9RER9ZWkxdRxxDUVZE","queueTime":0,"applicationTime":154,"agent":"js-agent.newrelic.com/nr-593.min.js"}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"XAUOVFNACQMHVFlVBQ=="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o?o:e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t){try{i.console&&console.log(t)}catch(e){}}var n,r=t("ee"),o=t(1),i={};try{n=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(i.console=!0,-1!==n.indexOf("dev")&&(i.dev=!0),-1!==n.indexOf("nr_dev")&&(i.nrDev=!0))}catch(a){}i.nrDev&&r.on("internal-error",function(t){e(t.stack)}),i.dev&&r.on("fn-err",function(t,n,r){e(r.stack)}),i.dev&&(e("NR AGENT IN DEVELOPMENT MODE"),e("flags: "+o(i,function(t){return t}).join(", ")))},{1:20,ee:"QJf3ax"}],4:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,t(3),window.onerror=e;try{throw new Error}catch(f){"stack"in f&&(t(4),t(5),"addEventListener"in window&&t(1),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&t(2),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:5,2:8,3:3,4:7,5:6,6:21,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=(t(1),t("ee").create()),i=t(2)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t){if(t[1]){var e=t[1];"function"==typeof e?this.wrapped=t[1]=a(e,"nr@wrapped",function(){return i(e,"fn-",null,e.name||"anonymous")}):"function"==typeof e.handleEvent&&i.inPlace(e,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:21,2:22,ee:"QJf3ax",gos:"7eSDFh"}],6:[function(t,e){var n=(t(2),t("ee").create()),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:22,2:21,ee:"QJf3ax"}],7:[function(t,e){function n(t,e,n){var r=t[0];"string"==typeof r&&(r=new Function(r)),t[0]=o(r,"fn-",null,n)}var r=(t(2),t("ee").create()),o=t(1)(r);e.exports=r,o.inPlace(window,["setTimeout","setInterval","setImmediate"],"setTimer-"),r.on("setTimer-start",n)},{1:22,2:21,ee:"QJf3ax"}],8:[function(t,e){function n(){f.inPlace(this,p,"fn-")}function r(t,e){f.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}function i(t,e){for(var n in t)e[n]=t[n];return e}var a=t("ee").create(),s=t(1),c=t(2),f=c(a),u=c(s),d=window.XMLHttpRequest,p=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=a,window.XMLHttpRequest=function(t){var e=new d(t);try{a.emit("new-xhr",[],e),u.inPlace(e,["addEventListener","removeEventListener"],"-",function(t,e){return e}),e.addEventListener("readystatechange",n,!1)}catch(r){try{a.emit("internal-error",[r])}catch(o){}}return e},i(d,XMLHttpRequest),XMLHttpRequest.prototype=d.prototype,f.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),a.on("send-xhr-start",r),a.on("open-xhr-start",r)},{1:5,2:22,ee:"QJf3ax"}],9:[function(t){function e(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function n(t){var n=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!n.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){n.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=e(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(n.cat=d.split(", ").pop())}}else n.status=0;r.cbTime=this.cbTime,o("xhr",[n,r,this.startTime])}}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1);t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=n,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,n){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=e(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof n.onload))&&i.end(n)}catch(e){try{a.emit("internal-error",[e])}catch(r){}}};for(var u=0;c>u;u++)n.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof XMLHttpRequest&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof XMLHttpRequest&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:10,3:8,4:5,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],10:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],11:[function(t,e){function n(t){return function(){r(t,[(new Date).getTime()].concat(i(arguments)))}}var r=t("handle"),o=t(1),i=t(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(t,e){window.NREUM[e]=n("api-"+e)}),e.exports=window.NREUM},{1:20,2:21,handle:"D5DuLP"}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):(o[t]||(o[t]=[]),void o[t].push(e))}var r=t("ee").create(),o={};e.exports=n,n.ee=r,r.q=o},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],G9z0Bl:[function(t,e){function n(){var t=l.info=NREUM.info;if(t&&t.licenseKey&&t.applicationID&&f&&f.body){s(h,function(e,n){e in t||(t[e]=n)}),l.proto="https"===p.split(":")[0]||t.sslForHttp?"https://":"http://",a("mark",["onload",i()]);var e=f.createElement("script");e.src=l.proto+t.agent,f.body.appendChild(e)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=t(1),c=(t(2),window),f=c.document,u="addEventListener",d="attachEvent",p=(""+location).split("?")[0],h={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-593.min.js"},l=e.exports={offset:i(),origin:p,features:{}};f[u]?(f[u]("DOMContentLoaded",o,!1),c[u]("load",n,!1)):(f[d]("onreadystatechange",r),c[d]("onload",n)),a("mark",["firstbyte",i()])},{1:20,2:11,handle:"D5DuLP"}],20:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],21:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],22:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@wrapper",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=!0,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s,t))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:21,ee:"QJf3ax"}]},{},["G9z0Bl",4,9]);</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="description" content="    其实这个问题我不是第一次发现了——作为一个学生，我见到的文章往往都是不完整的。      我曾经以为我们所见的“名篇”必然都是真正的名篇，都是真正可以放心品读的。但在我上初中时发现小学课本里的某篇著名小说的选段被改得不成样子之后，我开始不相信了——而且我认为课本里那种改法几乎就是把原文...">
+    <script data-apikey="5abb12613f217476dc531df54ad96676" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/bugsnag-2.js"></script>
+  <meta property="wb:webmaster" content="294ec9de89e7fadb">
+  <meta property="qc:admins" content="104102651453316562112116375">
+  <meta property="qc:admins" content="11635613706305617">
+  <meta property="qc:admins" content="1163561616621163056375">
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4">
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI">
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/e7e41c425a45">
+    <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="本文有改动" property="twitter:title">
+  <meta content="    其实这个问题我不是第一次发现了——作为一个学生，我见到的文章往往都是不完整的。      我曾经以为我们所见的“名篇”必然都是真正的名篇，都是真正可以放心品读的。但在我上初中时发现小学课本里的某篇著名小说的选段被改得不成样子之后，我开始不相信了——而且我认为课本里那种改法几乎就是把原文..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/e7e41c425a45" property="twitter:url">
+
+  <!--  Meta for OpenGraph -->
+  <meta content="本文有改动" property="og:title">
+  <meta content="    其实这个问题我不是第一次发现了——作为一个学生，我见到的文章往往都是不完整的。      我曾经以为我们所见的“名篇”必然都是真正的名篇，都是真正可以放心品读的。但在我上初中时发现小学课..." property="og:description">
+  <meta content="简书" property="og:site_name">
+  <meta content="website" property="og:type">
+  <meta content="http://www.jianshu.com/p/e7e41c425a45" property="og:url">
+
+  <title>本文有改动 - 简书</title>
+  <meta content="authenticity_token" name="csrf-param">
+<meta content="mI4on7sAlE6kFWmB/OYPta9vt/mAJxqDWIyckI5ypgw=" name="csrf-token">
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link href="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/base-49c9248727f216f86a1c2438f7570620.css" media="all" rel="stylesheet">
+
+    <link href="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/reading-note-b43582251c6b63c60b981cb37148e50c.css" media="all" rel="stylesheet">
+  <script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/modernizr-d8c155d62eb597d8459f5b6270089a38.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link href="http://static.jianshu.io/assets/scaffolding/for_ie-14ba2a622a00976f31155e41f89cc728.css" media="all" rel="stylesheet" /><![endif]-->
+  <!--[if lt IE 9]><link href="http://static.jianshu.io/assets/scaffolding/for_ie-14ba2a622a00976f31155e41f89cc728.css" media="all" rel="stylesheet" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+  <link rel="apple-touch-icon-precomposed" href="http://static.jianshu.io/assets/icon114-fcef1133c955e46bf55e2a60368f687b.png">
+  
+  
+  <script>
+    var _czc = _czc || [];
+    _czc.push(["_setAccount", "1253183112"]);
+  </script>
+<style type="text/css"></style></head>
+
+  <body class="post output zh cn win mozilla reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+    
+    <div class="navbar navbar-jianshu shrink">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li class="">
+      <a href="http://www.jianshu.com/">
+        <i class="icon-home"></i> 首页
+</a>      </li>
+      <li>
+      <a href="http://www.jianshu.com/collections">
+        <i class="icon-th"></i> 专题
+</a>      </li>
+    </ul>
+  </div>
+</div>
+<div class="navbar navbar-user">
+  <div class="container">
+    <div class="nav-collapse collapse">
+      <ul class="nav pull-right">
+          <li><a class="daytime set-view-mode" href="javascript:void(0)"><i class="icon-moon"></i></a></li>
+
+            <li class="signin">
+              <a data-signin-link="true" data-toggle="modal" href="#login-modal"><i class="icon-signin"></i> 登录</a>
+            </li>
+            <li class="signin"><a data-signup-link="true" data-toggle="modal" href="#login-modal"><i class="icon-user"></i> 注册</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" data-container="div.expanded" data-original-title="个人主页" href="http://www.jianshu.com/" role="button">
+        <b>简</b><i class="icon-home"></i><span class="title">首页</span>
+</a>      <a data-container="div.expanded" data-original-title="专题" data-placement="right" data-toggle="tooltip" href="http://www.jianshu.com/collections">
+        <i class="icon-th"></i><span class="title">专题</span>
+</a>    <a data-container="body" data-original-title="下载手机应用" data-placement="right" data-toggle="tooltip" href="http://www.jianshu.com/apps">
+      <i class="icon-mobile-phone"></i><span class="title">下载手机应用</span>
+</a>  </div>
+  <div class="nav-user">
+      <a href="#view-mode-modal" data-toggle="modal"><i class="icon-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-container="div.expanded" data-original-title="登录" data-placement="right" data-signin-link="true" data-toggle="modal" href="#login-modal">
+        <i class="icon-signin"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+    <div tabindex="-1" aria-hidden="true" id="login-modal" class="modal hide fade login-modal" data-js-module="login-modal">
+  <div class="modal-header">
+    <h4 class="title">
+      <span>
+        <a class="active" href="javascript:void(null);" id="signin-link">登录</a>
+        <b>·</b>
+        <a href="javascript:void(null);" id="signup-link">注册</a>
+      </span>
+    </h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+
+  <div class="modal-body large-login">
+    <div class="sign-up">
+      <form accept-charset="UTF-8" action="/users.json" class="form-horizontal" data-remote="true" id="sign_up" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+        <p id="signup_errors" class="signin_error hide"></p>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-envelope-alt"></i></span>
+  <input class="span2" id="sign_up_email" name="email" placeholder="你的邮件地址" type="text">
+</div>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-user"></i></span>
+  <input class="span2" id="nickname" name="nickname" placeholder="选一个昵称" value="jtahstu" type="text">
+</div>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-unlock-alt"></i></span>
+  <input class="span2" id="sign_up_password" name="password" placeholder="输入密码" type="password">
+</div>
+<div class="input-prepend captcha">
+  <div class="captcha_fields">
+    
+  </div>
+</div>
+
+<button class="ladda-button submit-button" data-color="green">
+  <span class="ladda-label">注册</span>
+</button>
+</form>    </div>
+    <div class="sign-in">
+      <form accept-charset="UTF-8" action="/sessions.json" class="form-horizontal" data-remote="true" id="sign_in" method="post"><div style="display:none"><input name="utf8" value="✓" type="hidden"></div>
+        <p id="signin_errors" class="signin_error hide"></p>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-envelope-alt"></i></span>
+  <input class="span2" id="sign_in_email" name="email" placeholder="邮箱" value="jtahstu" type="text">
+</div>
+<div class="input-prepend">
+  <span class="add-on"><i class="icon-unlock-alt"></i></span>
+  <input class="span2" id="sign_in_password" name="password" placeholder="密码" type="password">
+</div>
+<div class="input-prepend captcha">
+  <div class="captcha_fields">
+    
+  </div>
+</div>
+
+<button class="ladda-button submit-button" data-color="blue">
+  <span class="ladda-label">登 录</span>
+</button>
+<div class="control-group text-left">
+  <div style="position: relative;" class="icheckbox_minimal checked"><input style="position: absolute; opacity: 0;" checked="checked" id="remember_me" name="remember_me" value="true" type="checkbox"><ins style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div> 记住我
+  <a href="http://www.jianshu.com/users/password/new">忘记密码</a>
+</div>
+
+</form>    </div>
+
+    <div class="login-sns">
+      <p>您还可以通过以下方式直接登录</p>
+      <ul class="login-sns">
+        <li class="weibo"><a href="http://www.jianshu.com/users/auth/weibo"></a></li>
+        <li class="qq"><a href="http://www.jianshu.com/users/auth/qq_connect"></a></li>
+        <li class="douban"><a href="http://www.jianshu.com/users/auth/douban"></a></li>
+        <li class="google"><a href="http://www.jianshu.com/users/auth/google_oauth2"></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div class="go-top"><a href="#"> <i class="icon-circle-arrow-up"></i></a></div>
+
+    <div id="show-note-container">
+      
+<div class="post-bg" id="flag">
+  <div class="wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-target="#collection-menu" data-toggle="modal" href="javascript:void(null);">
+            <i class="icon-th"></i>
+</a>          <a class="notebooks-menu-btn" data-target="#notebooks-menu" data-toggle="modal" href="javascript:void(null);"><i class="icon-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="#login-modal">
+    <i class="icon-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="#login-modal">
+    <i class="icon-signin"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <h1 class="title">本文有改动</h1>
+          <div class="meta-top">
+            <a href="http://www.jianshu.com/users/9ef664a564ff">
+              <div class="avatar" style="display:inline-block;"><img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30.jpg"></div>
+              <span>秋叶九月</span>
+</a>            <span>2015.03.06 00:28</span>
+            <span class="wordage">1207 字</span>
+            <span class="views-count">746 次阅读</span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share">  
+    <a class="bookmark" data-signin-link="true" data-toggle="modal" href="http://www.jianshu.com/sign_in">
+    <i class="icon-bookmark-empty"></i><span>收藏文章</span>
+</a>
+  <span>
+    <a href="javascript:void(null)" data-toggle="dropdown"><i class="icon-share"></i>分享</a>
+    <ul class="dropdown-menu arrow-top">
+        <li><a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/754974/weibo/image_d1e4882e4551.jpg',%20'%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/e7e41c425a45','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/weibo.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;title='+e('%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/douban.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&amp;p[url]='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;p[title]='+e('%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6%E7%A4%BE')+'&amp;p[summary]='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/e7e41c425a45'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png"></a></li>
+        <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;description='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B')+'&amp;title='+e('%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/renren.png"></a></li>
+    </ul>
+  </span>
+</div>
+          <!-- -->
+
+          <div class="show-content"><p>&nbsp; &nbsp; &nbsp; &nbsp; 其实这个问题我不是第一次发现了——作为一个学生，我见到的文章往往都是不完整的。</p><p>&nbsp;
+ &nbsp; &nbsp; &nbsp; 
+我曾经以为我们所见的“名篇”必然都是真正的名篇，都是真正可以放心品读的。但在我上初中时发现小学课本里的某篇著名小说的选段被改得不成样子之后，我开
+始不相信了——而且我认为课本里那种改法几乎就是把原文给扭曲了生加了一个所谓主题。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 之后我会在看完每篇文章以后注意一下文末的小字——那里可能有一句不起眼的“本文有改动”。然后如果那是一篇看起来不错的文章，我会去翻一翻它的原文，找一找作者真正传达的东西。</p><p><span id="transmark"></span>&nbsp;
+ &nbsp; &nbsp; &nbsp; 
+于是习惯了。许多我们课本里的白话文和几乎所有的考试阅读题目都会在文尾附上一句“本文有改动”——我只能说幸而还没有人敢乱改那些流传千年的文言名著
+——不过我的老师倒是常说一些关键的注解被改动了。我们就那么学着，分析着，理解着一篇篇被阉割，被改变了的作品。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 今天语文课老师拿了一套寒假作业册里附的卷子来给我们做。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 由于是阅读专题，所以卷子里有挺长的一篇小说——当然它是短篇小说，但相对于试卷的版面，它已经很长了。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 我认真地读了一遍，有反复看了某些部分，发现——这情节根本就连不上啊！莫名其妙的情节，不可理喻的人物感情——而且文末没有“本文有改动”的小字。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 写完卷子，我发现许多同学都觉得那篇阅读太怪了，于是开始讨论其中不合情理之处，又疑惑这么一篇文章也能被选进一张试卷——其实那一系列的寒假作业质量还是不错的。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 直到后排的同学说了一句:“这小说改得，删得也太多了吧。”</p><p>&nbsp;
+ &nbsp; &nbsp; &nbsp; 
+于是我有些愤怒——既然是改过的文章为什么不标明？为什么把好好的文章删改以致面目全非？哪怕它只出现在一张试卷上，哪怕是版面不够，至少也应该给个标注
+——至少让我们知道作者不会写出那么不可理喻的文章，给我们一个找到原文的机会。</p><p>&nbsp; &nbsp; &nbsp; &nbsp;
+ 
+还有一个问题，来自于我文科生对于文学作品的体会——作者深思熟虑写出来的东西，除非作者本人，没有人有资格随意改动——那会破坏原作者的立意和文章的价
+值。但是为什么那些改得看不出原样的文章会成为我们的阅读题目和课本内容？一篇小说情节被删掉了一半却还让考生去“分析情节”——是不是很可笑？一篇连基
+本主题都被改动了的作品却被用来教育小学生——是不是很可悲？</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 难道我们学了那么多年的语文就是为了学几篇被阉割了的课文，再去分析一篇被阉割了的阅读，然后拿到一个被阉割了的成绩？</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 看过那些未经改动的原文以后，我发现被“改动”的往往是涉及所谓“爱情”，所谓“脏话”，所谓“不重要”的部分。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 为什么要删掉它们！为什么要改动它们！难道青春的萌动就是那么见不得人？难道一句真实的感叹就那么不得入目？难道所谓“过渡情节”就都是没用的？为什么不能让我们，让学生们，让孩子们看一看真正的人，真正的世界。</p><p>&nbsp;
+ &nbsp; &nbsp; &nbsp; 
+最后一点，出于对所有作家和作者的尊重。随意改动任何一篇不属于自己的作品都是对作者以及作品的不敬，甚至是侮辱。如果我的一篇文章被印在某出版物上，我
+却发现我的原文被改得不成样子——我一定会觉得我被扇了一个响亮的耳光——我想写过东西的人应该都能体会。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 但我能怎么样呢。我只能去查找原文，自己读一读，以示对文字和作者的尊重。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 我能怎么办呢。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 当我面对一篇被标为“大作”的文章时——</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 本文有改动。</p><p>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p></div>
+        </div>
+      </div>
+
+      <!-- further readings -->
+      <div id="further-readings" class="further-reading" data-user-slug="" data-user-nickname="">
+        <div id="further-reading-line" class="hide further-reading-line"></div>
+        <ul id="further-readings-list" class="reading-list unstyled"></ul>
+        <div id="further-reading-new" class="reading-edit">
+            <a data-signin-link="true" data-toggle="modal" href="#login-modal">
+              <i class="icon-plus-sign"></i> 推荐拓展阅读
+</a>          <div id="further-reading-form"></div>
+        </div>
+      </div>
+
+      <!-- article share button -->
+      <div class="meta-bottom clearfix">
+        <div class="share-group">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/754974/weibo/image_d1e4882e4551.jpg',%20'%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@%E7%AE%80%E4%B9%A6%20%EF%BC%89','http://www.jianshu.com/p/e7e41c425a45','%E9%A1%B5%E9%9D%A2%E7%BC%96%E7%A0%81gb2312|utf-8%E9%BB%98%E8%AE%A4gb2312'));" data-name="weibo">
+            <img class="kantofnxdrdeamobstqq" alt="Icon weibo" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/icon_weibo-33d2a49bfe8444d050b2787542a1768f.png"><span>分享到微博</span>
+          </a>
+            <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
+              <img class="kantofnxdrdeamobstqq" alt="Icon weixin" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/icon_weixin-5ac572ecb5a5b2f73a9385ce9440da38.png"><span>分享到微信</span>
+            </a>
+          <a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;title='+e('%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8')+'&amp;sel='+e(s)+'&amp;v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&amp;r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" class="share-douban" data-name="douban">豆</a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown"><i class="icon-ellipsis-horizontal"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/754974/weibo/image_d1e4882e4551.jpg" target="_blank" data-name="changweibo"><i class="icon-download"></i>下载长微博图片</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshuio%20%EF%BC%89'),x=function(){if(!window.open(r,'tweibo','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="tweibo"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/tweibo.png">分享到腾讯微博</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;title='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B'),x=function(){if(!window.open(r,'qzone','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="qzone"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/qzone.png">分享到QQ空间</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://twitter.com/share?url='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;text='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B%EF%BC%88%20%E5%88%86%E4%BA%AB%E8%87%AA%20@jianshucom%20%EF%BC%89')+'&amp;related='+e('jianshucom'),x=function(){if(!window.open(r,'twitter','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="twitter"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/twitter.png">分享到Twitter</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://www.facebook.com/sharer.php?s=100&amp;p[url]='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;p[title]='+e('%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6%E7%A4%BE')+'&amp;p[summary]='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B'),x=function(){if(!window.open(r,'facebook','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="facebook"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/facebook.png">分享到Facebook</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='https://plus.google.com/share?url='+e('http://www.jianshu.com/p/e7e41c425a45'),x=function(){if(!window.open(r,'google_plus','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="google_plus"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/google_plus.png">分享到Google+</a></li>
+                <li><a href="javascript:void(function(){var%20d=document,e=encodeURIComponent,r='http://widget.renren.com/dialog/share?resourceUrl='+e('http://www.jianshu.com/p/e7e41c425a45')+'&amp;description='+e('%E6%8E%A8%E8%8D%90%20%E7%A7%8B%E5%8F%B6%E4%B9%9D%E6%9C%88%20%E7%9A%84%E6%96%87%E7%AB%A0%E3%80%8A%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%E3%80%8B')+'&amp;title='+e('%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8'),x=function(){if(!window.open(r,'renren','toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600'))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="renren"><img class="kantofnxdrdeamobstqq" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/renren.png">分享到人人网</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!--  Like Button -->
+      <div class="like">
+          <a class="btn like-button" data-signin-link="true" data-toggle="modal" href="#login-modal" id="like-note">
+            <span class="like-content"><i class="icon-heart-empty"></i> 34个喜欢</span>
+</a>      </div>
+      <!-- -->
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-content">
+      <div class="modal-body">
+        <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+        <img alt="E7e41c425a45" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/e7e41c425a45.png">
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img alt="Tiny" class="loader-tiny" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif"></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img alt="Tiny" class="loader-tiny" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/tiny.gif"></div>
+
+    <!-- Bottom Author Info -->
+      <div class="author-info clearfix">
+        <h4 class="title">作者</h4>
+        <div class="pull-left basic-info">
+          <a class="avatar" href="http://www.jianshu.com/users/9ef664a564ff"><img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30.jpg"></a>
+          <div class="info-r">
+            <p><a href="http://www.jianshu.com/users/9ef664a564ff">秋叶九月</a></p>
+            <div class="btn-group" id="follow_mail_block_user_265276">
+    <a class="btn btn-small btn-success follow" data-signin-link="true" data-toggle="modal" href="#login-modal">
+    <i class="icon-plus icon-ok"></i> 添加关注
+</a>
+  
+<a class="btn btn-small btn-list btn-success" data-toggle="dropdown" href="javascript:void(0)"><i class="icon-reorder"></i></a>
+<ul class="dropdown-menu arrow-top" role="menu" aria-labelledby="dLabel">
+    <li><a data-signin-link="true" data-toggle="modal" href="#login-modal"><i class="icon-envelope"></i> 写简信</a></li>
+    <li class="divider"></li>
+  <li><a data-signin-link="true" data-toggle="modal" href="#login-modal"><i class="icon-lock"></i> 加入黑名单</a></li>
+</ul>
+</div>
+            <div class="sns"></div>
+          </div>
+        </div>
+
+        <div class="pull-left user-stats">
+          <a href="http://www.jianshu.com/users/9ef664a564ff">
+            <b>10</b><span>文章</span>
+</a>          <a class="follow-user" href="http://www.jianshu.com/users/9ef664a564ff/followers">
+            <b>2</b><span>粉丝</span>
+</a>          <a href="http://www.jianshu.com/users/9ef664a564ff/top_articles">
+            <b>39</b><span>喜欢</span>
+</a>        </div>
+      </div>
+    <!-- -->
+
+    <!-- Likes Items -->
+    <div id="like-list" class="like-list clearfix"><a title="" data-original-title="" class="avatar" data-created-at="2015-03-07T00:07:53+08:00" data-nickname="成王败寇" href="http://www.jianshu.com/users/9cf368dcc104" id="like_item_like_2271503">
+  <img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30.png"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T19:36:12+08:00" data-nickname="akuaku" href="http://www.jianshu.com/users/t5xtxg" id="like_item_like_2267080">
+  <img alt="1" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/1.gif"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T16:23:21+08:00" data-nickname="木洲" href="http://www.jianshu.com/users/e3ef8c084de4" id="like_item_like_2264182">
+  <img alt="536fe02395d5" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/536fe02395d5.jpg" thumbnail="90x90"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T13:16:11+08:00" data-nickname="刘小博" href="http://www.jianshu.com/users/1f24967eb86a" id="like_item_like_2261617">
+  <img alt="Default avatar" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T12:24:31+08:00" data-nickname="骊殇" href="http://www.jianshu.com/users/28c3d8989070" id="like_item_like_2260986">
+  <img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30_003.jpg"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T12:10:02+08:00" data-nickname="IntellectZealot" href="http://www.jianshu.com/users/a4a47a9a106d" id="like_item_like_2260796">
+  <img alt="Default avatar" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T11:59:58+08:00" data-nickname="b944c244b2b6" href="http://www.jianshu.com/users/b944c244b2b6" id="like_item_like_2260608">
+  <img alt="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/100.jpg"><i class="icon-heart"></i>
+</a><a title="" data-original-title="" class="avatar" data-created-at="2015-03-06T11:07:37+08:00" data-nickname="f0d85562fdee" href="http://www.jianshu.com/users/f0d85562fdee" id="like_item_like_2259775">
+  <img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30_004.jpg"><i class="icon-heart"></i>
+</a>
+  <a class="more" data-max-id="2259774" href="javascript:void(null);"><i class="icon-ellipsis-horizontal"></i></a>
+</div>
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="#login-modal">
+      登录后发表评论
+</a>  </p>
+
+        <div id="comment-list"><div id="comment-188345" class="note-comment" data-id="188345" data-user-id="260431" data-user-name="刘小博">
+  <a class="avatar" href="http://www.jianshu.com/users/1f24967eb86a"><img alt="Default avatar" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/1f24967eb86a">刘小博</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/188345#comment-188345">2015.03.06 19:23</a></span>
+    </div>
+    <p> <a href="http://www.jianshu.com/users/9ef664a564ff" class="maleskine-author" target="_blank" data-user-slug="9ef664a564ff">@秋叶九月</a> 啊转到日志里，那是当然了必须标明原作者\^o^/</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-188194" class="note-comment" data-id="188194" data-user-id="239775" data-user-name="木洲">
+  <a class="avatar" href="http://www.jianshu.com/users/e3ef8c084de4"><img alt="536fe02395d5" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/536fe02395d5.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/e3ef8c084de4">木洲</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/188194#comment-188194">2015.03.06 16:29</a></span>
+    </div>
+    <p>语文的教育最坑爹了，，偶尔看到表妹的试卷，什么中心思想、修辞手法、什么情怀、什么烘托，恶心的想吐</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187991" class="note-comment" data-id="187991" data-user-id="265276" data-user-name="秋叶九月">
+  <a class="avatar" href="http://www.jianshu.com/users/9ef664a564ff"><img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/9ef664a564ff">秋叶九月</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187991#comment-187991">2015.03.06 13:35</a></span>
+    </div>
+    <p> <a href="http://www.jianshu.com/users/1f24967eb86a" class="maleskine-author" target="_blank" data-user-slug="1f24967eb86a">@刘小博</a> 你转到哪里？告诉我一下吧~<br>转载请注明原作者哦⊙▽⊙</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187970" class="note-comment" data-id="187970" data-user-id="260431" data-user-name="刘小博">
+  <a class="avatar" href="http://www.jianshu.com/users/1f24967eb86a"><img alt="Default avatar" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/1f24967eb86a">刘小博</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187970#comment-187970">2015.03.06 13:15</a></span>
+    </div>
+    <p>嘿嘿悄悄转载一下，不过我就不改动了哈哈哈哈。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187739" class="note-comment" data-id="187739" data-user-id="268646" data-user-name="星言">
+  <a class="avatar" href="http://www.jianshu.com/users/2c2f24aa5dea"><img alt="6addd522f669" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/6addd522f669.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/2c2f24aa5dea">星言</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187739#comment-187739">2015.03.06 10:39</a></span>
+    </div>
+    <p>天朝的应试教育，没办法</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187675" class="note-comment" data-id="187675" data-user-id="200091" data-user-name="大维斯基">
+  <a class="avatar" href="http://www.jianshu.com/users/545fc08616ad"><img alt="E1082556fbe1" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/e1082556fbe1.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/545fc08616ad">大维斯基</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187675#comment-187675">2015.03.06 10:06</a></span>
+    </div>
+    <p>孩纸，语文试卷随便写写就好了。搞好数学、英语才是正道。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187618" class="note-comment" data-id="187618" data-user-id="140563" data-user-name="Marron_阿飞">
+  <a class="avatar" href="http://www.jianshu.com/users/fb8c48217e4e"><img alt="4b4831e56d4a" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/4b4831e56d4a.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/fb8c48217e4e">Marron_阿飞</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187618#comment-187618">2015.03.06 09:34</a></span>
+    </div>
+    <p>应试教育，你懂的</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187612" class="note-comment" data-id="187612" data-user-id="30022" data-user-name="逸之">
+  <a class="avatar" href="http://www.jianshu.com/users/af8d5ddcb7c5"><img alt="3542d97fd491" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/3542d97fd491.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/af8d5ddcb7c5">逸之</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187612#comment-187612">2015.03.06 09:32</a></span>
+    </div>
+    <p> <img src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/clap.png" class="emoji"> </p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187605" class="note-comment" data-id="187605" data-user-id="150319" data-user-name="吉萝葶">
+  <a class="avatar" href="http://www.jianshu.com/users/333e2e0ad8e8"><img alt="4ab148f7172d" quality="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/4ab148f7172d.jpg" thumbnail="90x90"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/333e2e0ad8e8">吉萝葶</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187605#comment-187605">2015.03.06 09:29</a></span>
+    </div>
+    <p>课堂上试卷上的语文本就是一个考核测试学生在某一阶段应试能力的工具，而不是供学生欣赏品评的文学，这么想你就舒服了。想看完整的还是有时间的时候自己掏腰包看吧。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187570" class="note-comment" data-id="187570" data-user-id="268637" data-user-name="赤贫的石头">
+  <a class="avatar" href="http://www.jianshu.com/users/c9221bbb93dd"><img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30_005.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/c9221bbb93dd">赤贫的石头</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187570#comment-187570">2015.03.06 08:54</a></span>
+    </div>
+    <p>语文，不是语言学，不是文学，甚至不是什么学。语文，就是说话，就是一段文字。原著作者，有他的思想，编辑者有编辑者的思想。等你真正买书
+的时候还会发现更大的猫腻，某某著，某某编。不用多说，以后会懂的。但是对于语文书，无需吐槽，语文阅读能力，其实是考察你的理解能力，而且那份理解，必
+须建立在言之确凿的文字上，一旦你加入个人想法，那么理解题注定跑偏。而且，你要去猜的不是原著的心思，而是命题人的心思。命题人的心思跟原著相关，通过
+编辑表达了命题人的心思。所以既然能够看出来命题人删减了什么，就该猜他为什么这么改，究竟想要表达什么。那才是得分点，才是考试真谛。至于无删减，等大
+学了自然有一片天。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187566" class="note-comment" data-id="187566" data-user-id="163489" data-user-name="阿拉阿拉">
+  <a class="avatar" href="http://www.jianshu.com/users/6f2780ad0a33"><img alt="100" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/100_002.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/6f2780ad0a33">阿拉阿拉</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187566#comment-187566">2015.03.06 08:50</a></span>
+    </div>
+    <p>你们已经很好了，我们那时候根本不会注明有改动。毛的“数风流人物，还看今朝”，课文说是指老百姓，这明显是指自己好不。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187549" class="note-comment" data-id="187549" data-user-id="195223" data-user-name="majorgoh">
+  <a class="avatar" href="http://www.jianshu.com/users/85bb82cdabf2"><img alt="Default avatar" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/85bb82cdabf2">majorgoh</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187549#comment-187549">2015.03.06 08:38</a></span>
+    </div>
+    <p>想起高三一次模拟考的阅读就是这样  完全看不懂的文章。。。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187546" class="note-comment" data-id="187546" data-user-id="264769" data-user-name="黑屏了">
+  <a class="avatar" href="http://www.jianshu.com/users/3f957cf99b6c"><img alt="Default avatar" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/default_avatar-0409f90c8150e4be46d407d391a4848e.png"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/3f957cf99b6c">黑屏了</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187546#comment-187546">2015.03.06 08:35</a></span>
+    </div>
+    <p>我读高中的时候有过类似的困惑。尤其是语文阅读理解的时候，卷纸上莫名其妙的文章真的让人不知所云，却偏偏要生搬硬套出许多的意义出来。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+<div id="comment-187527" class="note-comment" data-id="187527" data-user-id="186751" data-user-name="神风无名">
+  <a class="avatar" href="http://www.jianshu.com/users/e60fa213f45f"><img alt="30" src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/30_002.jpg"></a>
+  <div class="content">
+    <div class="comment-header">
+      <a class="author-name" href="http://www.jianshu.com/users/e60fa213f45f">神风无名</a>
+      <span class="reply-time"><a href="http://www.jianshu.com/p/e7e41c425a45/comments/187527#comment-187527">2015.03.06 08:15</a></span>
+    </div>
+    <p>其实作者，中国对于这些东西还是太过敏感，广电局教育局对这些还是有把控，是人类思想的控制？那以后后人会改。那是不是道德观影响？老子的思想，相信国人取其精华，去其糟粕就可以让世界变得更好。</p>
+    <div class="comment-footer clearfix"> <a class="reply pull-right" data-toggle="modal" href="#login-modal"><i class="icon-reply"></i>回复</a></div>
+  </div>
+</div>
+
+  
+</div>
+    </div>
+    <!-- -->
+  </div>
+
+  <script type="application/json" data-name="note">
+    {"id":754974,"abbr":"    其实这个问题我不是第一次发现了——作为一个学生，我见到的文章往往都是不完整的。      我曾经以为我们所见的“名篇”必然都是真正的名篇，都是真正可以放心品读的。但在我上初中时发现小学课本里的某篇著名小说的选段被改得不成样子之后，我开始不相信了——而且我认为课本里那种改法几乎就是把原文...","slug":"e7e41c425a45","url":"http://www.jianshu.com/p/e7e41c425a45","image_url":"http://prod-jianshu-cwb.b0.upaiyun.com/notes/images/754974/weibo/image_d1e4882e4551.jpg","wordage":1207,"has_further_readings":false,"views_count":746,"likes_count":34}
+  </script>
+
+  <script type="application/json" data-name="author">
+    {"id":265276,"nickname":"秋叶九月","slug":"9ef664a564ff","public_notes_count":10,"followers_count":2,"total_likes_count":39,"is_current_user":false}
+  </script>
+
+
+      <div class="author-article">
+        <div class="content">
+          <h5>作者的其他热门文章：</h5>
+          <ul class="article-list clearfix">
+              <li>
+                <div class="article">
+                  <a class="title" href="http://www.jianshu.com/p/18e55cf46fae?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_author_hots&amp;utm_source=recommendation">贻我握椒</a>
+                  <div class="article-info">
+                      收获了 2 个喜欢, 0 条评论
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="article">
+                  <a class="title" href="http://www.jianshu.com/p/de02c9c32bde?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_author_hots&amp;utm_source=recommendation">唤醒自己</a>
+                  <div class="article-info">
+                      收获了 1 个喜欢, 1 条评论
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="article">
+                  <a class="title" href="http://www.jianshu.com/p/7b0673d5f62f?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_author_hots&amp;utm_source=recommendation">星空</a>
+                  <div class="article-info">
+                      收获了 1 个喜欢, 0 条评论
+                  </div>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </div>
+
+    <div class="other-article">
+      <div class="content">
+        <h5>你可能会感兴趣：</h5>
+        <ul class="article-list clearfix">
+            <li>
+              <div class="article">
+                <a class="title" href="http://www.jianshu.com/p/d9af20afebf6?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation">别闹，让我严肃地说说单身这件事</a>
+                <div class="article-info">
+                  <a class="author" href="http://www.jianshu.com/users/f41a4f7a2575">珥珥</a>
+                    收获了 379 个喜欢, 140 条评论
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="article">
+                <a class="title" href="http://www.jianshu.com/p/08efa6585c05?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation">狗哥学英语的一点经验</a>
+                <div class="article-info">
+                  <a class="author" href="http://www.jianshu.com/users/90875ba854b1">大象的印象</a>
+                    收获了 902 个喜欢, 37 条评论
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="article">
+                <a class="title" href="http://www.jianshu.com/p/45b3e4033156?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=pc_all_hots&amp;utm_source=recommendation">Quora，人生忠告top10摘录</a>
+                <div class="article-info">
+                  <a class="author" href="http://www.jianshu.com/users/074085c32183">wonderui</a>
+                    收获了 499 个喜欢, 20 条评论
+                </div>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+    </div>
+    
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module="view-mode-modal">
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="icon-sun"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="icon-moon"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+
+    <script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/base-81f019e7e24d7776a64c77263c244efc.js"></script>
+    
+    <script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/reading-base-ba04d445a172c94249503ae943f8069a.js"></script>
+    <script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/note_show-f3947df66dbcf05e455c65b4bf947dcf.js"></script>
+    <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<div style="display:none">
+<script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/z_stat.php" language="JavaScript"></script>
+</div>
+  
+
+<div id="atwho-container"></div><script src="%E6%9C%AC%E6%96%87%E6%9C%89%E6%94%B9%E5%8A%A8%20-%20%E7%AE%80%E4%B9%A6_files/nr-593.js"></script></body></html>
