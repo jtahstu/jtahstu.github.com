@@ -10,6 +10,23 @@ Version: 1.1
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Welcome to nice articles list</title>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+
+<script language="javascript" type="text/javascript">     //统计博客开创日期
+  window.onload = function(){
+　　showtime();
+    }
+    function showtime(){
+    	var timedate= new Date("February 17,2015");     //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+　　var now =  new Date()  ;    //获取当前时间
+　　var date = now.getTime() - timedate.getTime();    //得出的为毫秒
+　　var time = Math.ceil(date/(1000*60*60*24));  //1000 * 60 * 60 * 24一天的秒数
+    if(time > 0 ){
+      document.getElementById('timeShow').innerHTML = time;
+      document.getElementById('now').innerHTML = now;
+	}
+	setTimeout(showtime,500);
+    }
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -112,7 +129,8 @@ Version: 1.1
 	<!-- end #page -->
 </div>
 <div id="footer">
-	<p>All Copyright Reserved 2015/2-2017/7 by jtahstu </p>
+	<p>All Copyright Reserved 2015/2-2017/7 by jtahstu . 
+    时至<span id="now"></span> 博客开创已<span id="timeShow"></span>天
 </div>
 <!-- end #footer -->
 </body>
