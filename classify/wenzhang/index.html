@@ -5,23 +5,29 @@ Version: 1.1
 -->
 <html>
 <head>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Welcome to nice articles list</title>
-<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Welcome to nice articles list</title>
+	<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 
-<script language="javascript" type="text/javascript">     //统计博客开创日期
+	<script language="javascript" type="text/javascript">     //统计博客开创日期
   window.onload = function(){
 　　showtime();
     }
     function showtime(){
-    	var timedate= new Date("February 17,2015");     //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+    	var timedate= new Date("February 17 0:00:00,2015");     //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
 　　var now =  new Date()  ;    //获取当前时间
 　　var date = now.getTime() - timedate.getTime();    //得出的为毫秒
 　　var time = Math.ceil(date/(1000*60*60*24));  //1000 * 60 * 60 * 24一天的秒数
+	var time1=Math.ceil(date/(1000*60*60)%24);
+	var time2=Math.ceil(date/(1000*60)%60);
+	var time3=Math.ceil(date/(1000)%60);
     if(time > 0 ){
-      document.getElementById('timeShow').innerHTML = time;
+      document.getElementById('timeShow').innerHTML = time;//天数
+      document.getElementById('timeShow1').innerHTML = time1;//小时
+      document.getElementById('timeShow2').innerHTML = time2;//分钟
+      document.getElementById('timeShow3').innerHTML = time3;//秒
       document.getElementById('now').innerHTML = now;
 	}
 	setTimeout(showtime,500);
@@ -29,57 +35,103 @@ Version: 1.1
 </script>
 </head>
 <body>
-<div id="wrapper">
-	<div id="header-wrapper">
-		<div id="header">
-			<div id="logo">
-				<h1><a href="#">jtahstu's Blogs</a></h1>
-				<p> design by jtahstu</p>
-			</div>
-			<div id="menu">
-				<ul>
-                <!--
+	<div id="wrapper">
+		<div id="header-wrapper">
+			<div id="header">
+				<div id="logo">
+					<h1>
+						<a href="#">jtahstu's Blogs</a>
+					</h1>
+					<p>design by jtahstu</p>
+				</div>
+				<div id="menu">
+					<ul>
+						<!--
                  	靠，这里copy index 的链接竟然不行,because不在一个目录，要加../../
                 -->
-					<li><a href="../../index.html">Home</a></li>
-					<li><a href="https://jtahstu.github.io/akoj.github.io/" target="_blank">OJ题解</a></li>
-					<li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
-					<li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
-					<li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
-					<li><a href="../../aboute me/resume/index.html">About me</a></li>
-				</ul>
+						<li>
+							<a href="../../index.html">Home</a>
+						</li>
+						<li>
+							<a href="https://jtahstu.github.io/akoj.github.io/" target="_blank">OJ题解</a>
+						</li>
+						<li>
+							<a href="../../classify/biji/index.html" target="_blank">笔记</a>
+						</li>
+						<li>
+							<a href="../../classify/zongjie/index.html" target="_blank">总结</a>
+						</li>
+						<li>
+							<a href="../../classify/wenzhang/index.html" target="_blank">文章</a>
+						</li>
+						<li>
+							<a href="../../aboute me/resume/index.html">About me</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- end #header -->
-	<div id="page">
-		<div id="page-bgtop">
-			<div id="page-bgbtm">
-				<div id="content">
-					<div class="post">
-						<h2 class="title"><a href="#">Welcome to </a> nice articles list.</h2>
-						<p class="meta"><span class="posted">Writed by <a href="#">jtahstu</a></span></p>
-						<div style="clear: both;">&nbsp;</div>
-						<div class="entry">
-							<p><a href="../../blogs/wenzhang/程序员装逼指南 - 简书.htm" target="_blank">程序员装逼指南 - 简书</a> by jtahstu on 2015/3/7</p> 
-							<p><a href="../../blogs/wenzhang/本文有改动 - 简书.htm" target="_blank">本文有改动 - 简书</a> by jtahstu on 2015/3/7</p>
-							<p><a href="../../blogs/wenzhang/我们该信仰什么 - 简书.htm" target="_blank">我们该信仰什么 - 简书</a> by jtahstu on 2015/3/7</p>
-							<p><a href="../../blogs/wenzhang/图灵社区   图书   极客爱情：程序员遇上程序员.htm" target="_blank">图灵社区 图书 极客爱情：程序员遇上程序员</a> by jtahstu on 2015/3/10</p>
-							<p><a href="../../blogs/wenzhang/学计算机的都是一群疯子.html" target="_blank">学计算机的都是一群疯子</a> by jtahstu on 2015/3/20</p> 
-							
-						  <p><a href="../../blogs/wenzhang/真正低调的人.html" target="_blank">真正低调的人</a> by jtahstu on 2015/3/24</p>
-						  <p><a href="../../blogs/wenzhang/分享一百多套开发视频教程的下载地址.html" target="_blank">分享一百多套开发视频教程的下载地址</a> by jtahstu on 2015/3/26</p>
-						  <p><a href="../../blogs/第一个Web应用程序/script01.html">第一个Web应用程序</a></p>
+		<!-- end #header -->
+		<div id="page">
+			<div id="page-bgtop">
+				<div id="page-bgbtm">
+					<div id="content">
+						<div class="post">
+							<h2 class="title">
+								<a href="#">Welcome to</a>
+								nice articles list.
+							</h2>
+							<p class="meta">
+								<span class="posted">
+									Writed by
+									<a href="#">jtahstu</a>
+								</span>
+							</p>
+							<div style="clear: both;">&nbsp;</div>
+							<div class="entry">
+								<p>
+									<a href="../../blogs/wenzhang/程序员装逼指南 - 简书.htm" target="_blank">程序员装逼指南 - 简书</a>
+									by jtahstu on 2015/3/7
+								</p>
+								<p>
+									<a href="../../blogs/wenzhang/本文有改动 - 简书.htm" target="_blank">本文有改动 - 简书</a>
+									by jtahstu on 2015/3/7
+								</p>
+								<p>
+									<a href="../../blogs/wenzhang/我们该信仰什么 - 简书.htm" target="_blank">我们该信仰什么 - 简书</a>
+									by jtahstu on 2015/3/7
+								</p>
+								<p>
+									<a href="../../blogs/wenzhang/图灵社区   图书   极客爱情：程序员遇上程序员.htm" target="_blank">图灵社区 图书 极客爱情：程序员遇上程序员</a>
+									by jtahstu on 2015/3/10
+								</p>
+								<p>
+									<a href="../../blogs/wenzhang/学计算机的都是一群疯子.html" target="_blank">学计算机的都是一群疯子</a>
+									by jtahstu on 2015/3/20
+								</p>
+
+								<p>
+									<a href="../../blogs/wenzhang/真正低调的人.html" target="_blank">真正低调的人</a>
+									by jtahstu on 2015/3/24
+								</p>
+								<p>
+									<a href="../../blogs/wenzhang/分享一百多套开发视频教程的下载地址.html" target="_blank">分享一百多套开发视频教程的下载地址</a>
+									by jtahstu on 2015/3/26
+								</p>
+								<!-- <p>
+								<a href="../../blogs/第一个Web应用程序/script01.html">第一个Web应用程序</a>
+							</p>
+							-->
 							<p>&nbsp;</p>
 							<p>&nbsp;</p>
 							<p>&nbsp;</p>
 							<p>&nbsp;</p>
 							<p>&nbsp;</p>
-						  <p>&nbsp;</p>
-						  <p>&nbsp;</p>
-						  <p>&nbsp;</p>
-						 
-                      </div>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+
+						</div>
 					</div>
 					<div style="clear: both;">&nbsp;</div>
 				</div>
@@ -100,27 +152,44 @@ Version: 1.1
 						<li>
 							<h2>Introduce</h2>
 							<ul>
-                            	<li>This is 精彩文章列表</li>
-                            </ul>
+								<li>This is 精彩文章列表</li>
+							</ul>
 						</li>
 						<li>
-							<h2><span class="title">Articles</span> List</h2>
+							<h2>
+								<span class="title">Articles</span>
+								List
+							</h2>
 							<ul>
-								<li><a href="../../blogs/wenzhang/程序员装逼指南 - 简书.htm" target="_blank">程序员装逼指南 - 简书</a></li>
-								<li><a href="../../blogs/wenzhang/本文有改动 - 简书.htm" target="_blank">本文有改动 - 简书</a></li>
-								<li><a href="../../blogs/wenzhang/我们该信仰什么 - 简书.htm" target="_blank">我们该信仰什么 - 简书</a></li>
-								<li><a href="../../blogs/wenzhang/图灵社区   图书   极客爱情：程序员遇上程序员.htm" target="_blank">图灵社区 图书 极客爱情:程序员遇上程序员</a></li>
-								<li><a href="../../blogs/wenzhang/学计算机的都是一群疯子.html" target="_blank">学计算机的都是一群疯子</a></li> 
-								<li><a href="../../blogs/wenzhang/真正低调的人.html" target="_blank">真正低调的人</a></li>
-								<li><a href="../../blogs/wenzhang/分享一百多套开发视频教程的下载地址.html" target="_blank">分享一百多套开发视频教程的下载地址</a></li>
+								<li>
+									<a href="../../blogs/wenzhang/程序员装逼指南 - 简书.htm" target="_blank">程序员装逼指南 - 简书</a>
+								</li>
+								<li>
+									<a href="../../blogs/wenzhang/本文有改动 - 简书.htm" target="_blank">本文有改动 - 简书</a>
+								</li>
+								<li>
+									<a href="../../blogs/wenzhang/我们该信仰什么 - 简书.htm" target="_blank">我们该信仰什么 - 简书</a>
+								</li>
+								<li>
+									<a href="../../blogs/wenzhang/图灵社区   图书   极客爱情：程序员遇上程序员.htm" target="_blank">图灵社区 图书 极客爱情:程序员遇上程序员</a>
+								</li>
+								<li>
+									<a href="../../blogs/wenzhang/学计算机的都是一群疯子.html" target="_blank">学计算机的都是一群疯子</a>
+								</li>
+								<li>
+									<a href="../../blogs/wenzhang/真正低调的人.html" target="_blank">真正低调的人</a>
+								</li>
+								<li>
+									<a href="../../blogs/wenzhang/分享一百多套开发视频教程的下载地址.html" target="_blank">分享一百多套开发视频教程的下载地址</a>
+								</li>
 							</ul>
 						</li>
 						<li>
 							<h2>&nbsp;</h2>
 						</li>
-						<li> </li>
+						<li></li>
 					</ul>
-      </div>
+				</div>
 				<!-- end #sidebar -->
 				<div style="clear: both;">&nbsp;</div>
 			</div>
@@ -129,9 +198,20 @@ Version: 1.1
 	<!-- end #page -->
 </div>
 <div id="footer">
-	<p>All Copyright Reserved 2015/2-2017/7 by jtahstu . 
-    时至<span id="now"></span> 博客开创已<span id="timeShow"></span>天
-</div>
-<!-- end #footer -->
+	<p>
+		All Copyright Reserved 2015/2-2017/7 by jtahstu . 
+    时至
+		<span id="now"></span>
+		博客开创已
+		<span id="timeShow"></span>
+		天
+		<span id="timeShow1"></span>
+		小时
+		<span id="timeShow2"></span>
+		分
+		<span id="timeShow3"></span>
+		秒
+	</div>
+	<!-- end #footer -->
 </body>
 </html>
