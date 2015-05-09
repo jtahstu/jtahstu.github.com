@@ -8,7 +8,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 body {
 	margin: 0;
 	padding: 0;
-	background: #FFFFFF;
+	background: #FFFFFF url(images/img03.jpg) repeat left top;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #A19D9A;
@@ -18,7 +18,7 @@ h1, h2, h3 {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
-	color: #3E3530;
+	color: #FF3000;
 }
 
 h1 {
@@ -58,8 +58,8 @@ a:hover {
 
 #header-wrapper {
 	height: 100px;
-	background: #1582AB;
-	border-bottom: 10px solid #2AA1CC;
+	background: #FFFFFF url(images/img03.jpg) repeat left top;
+	/*border-bottom: 10px solid #2AA1CC;*/
 }
 
 #header {
@@ -83,20 +83,21 @@ a:hover {
 }
 
 #logo h1 {
-	margin-left: 60px;
+	margin-left: 0px;
 	padding: 40p 0px 0px 80px;
 	letter-spacing: -1px;
 	text-transform: lowercase;
 	font-size: 3.8em;
 	background: redc;
+	color: #FF3000;
 }
 
 #logo p {
 	margin: 0;
-	padding: 0px 0 0 62px;
+	padding: 0px 0 0 2px;
 	font: normal 14px Georgia, "Times New Roman", Times, serif;
 	font-style: italic;
-	color: #FFFFFF;
+	color: #666666;
 } 
 
 #logo a {
@@ -177,6 +178,7 @@ a:hover {
 	font-weight: bold;
 	color: #FFFFFF;
 	border: none;
+	background: #D8DBCD;
 }
 
 #menu a:hover, #menu .current_page_item a {
@@ -218,7 +220,7 @@ a:hover {
 }
 
 .post .title a {
-	color: #333333;
+	color: #FF3000;
 	border: none;
 }
 
@@ -351,8 +353,8 @@ a:hover {
 	height: 50px;
 	margin: 0 auto;
 	padding: 0px 0 15px 0;
-	background: #1582AB;
-	border-top: 1px solid #1885B0;
+	background: #FFFFFF url(images/img03.jpg) repeat left top;
+	
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -363,9 +365,10 @@ a:hover {
 	font-size: 9px;
 	text-transform: uppercase;
 	text-align: center;
-	color: #FFFFFF;
+/*	color: #666666;*/
+	color: #2AA1CC;;
 }
 
 #footer a {
-	color: #FFFFFF;
+	background: #2AA1CC;
 }

@@ -8,7 +8,7 @@ Released for free under a Creative Commons Attribution 2.5 License
 body {
 	margin: 0;
 	padding: 0;
-	background: #FFFFFF;
+	background: #FFFFFF url(images/img03.jpg) repeat left top;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	color: #A19D9A;
@@ -58,13 +58,14 @@ a:hover {
 
 #header-wrapper {
 	height: 100px;
-	background: #F2F3F0;
+	background: #FFFFFF url(images/img03.jpg) repeat left top;
 }
 
 #header {
 	width: 950px;
 	margin: 0 auto;
 	padding: 0px 0px 0px 30px;
+	
 }
 
 /* Logo */
@@ -74,7 +75,7 @@ a:hover {
 	width: 350px;
 	margin: 0;
 	padding: 0;
-	color: #000000;
+	color: #0000000;
 	background: url(images/img02.jpg) no-repeat left 15px;
 }
 
@@ -82,7 +83,7 @@ a:hover {
 }
 
 #logo h1 {
-	margin-left: 70px;
+	margin-left: 0px;
 	padding: 40p 0px 0px 80px;
 	letter-spacing: -1px;
 	text-transform: lowercase;
@@ -100,7 +101,7 @@ a:hover {
 
 #logo p {
 	margin: 0;
-	padding: 0px 0 0 62px;
+	padding: 0px 0 0 2px;
 	font: normal 14px Georgia, "Times New Roman", Times, serif;
 	font-style: italic;
 	color: #666666;
@@ -362,7 +363,7 @@ a:hover {
 	height: 50px;
 	margin: 0 auto;
 	padding: 0px 0 15px 0;
-	background: #F2F3F0;
+	background: #FFFFFF url(images/img03.jpg) repeat left top;
 	font-family: Arial, Helvetica, sans-serif;
 }
 
