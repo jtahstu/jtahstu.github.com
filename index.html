@@ -37,8 +37,12 @@ Version: 1.2
 	</head>
 
 	<body>
-		<a href="nice/toTaoTao/index.html" target="_blank"><img src="nice/toTaoTao/totaotao.png" alt="totaotao"/></a>
-		<a href="http://www.baidu.com" target="_blank"><img src="nice/toTaoTao/totaotao.png" style="float: right;" alt="anyway"/></a>
+		<a href="nice/toTaoTao/index.html" target="_blank">
+			<img src="nice/toTaoTao/totaotao.png" alt="totaotao" />
+		</a>
+		<a href="http://www.baidu.com" target="_blank">
+			<img src="nice/toTaoTao/totaotao.png" style="float: right;" alt="anyway" />
+		</a>
 		<div id="outercontainer">
 
 			<!-- HEADER -->
@@ -50,12 +54,14 @@ Version: 1.2
 								<img src="images/logo.png" alt="这是我的主页logo" />
 							</a>
 						</div>
+						<!--搜索引擎-->
 						<div id="headerright" class="nine columns omega">
-							<form method="post" action="http://www.baidu.com" id="searchform" />
-							<div class="search">
-								<input type="text" name="s" id="s" size="26" />
-								<input type="submit" value="Google一下" />
-							</div>
+							<form action="http://www.baidu.com/baidu" target="_blank" id="searchform">
+								<div class="search">
+									<input name=tn type=hidden value=baidu>
+									<input type=text name=word size="24" id="s" value="有问题为什么不问问度娘呢">
+									<input type="submit" value="百度一下">
+								</div>
 							</form>
 						</div>
 
@@ -127,6 +133,7 @@ Version: 1.2
 									<div class="flex-caption">
 										<h1>Think Real</h1>
 										<div class="slidetext1"><font face="楷体">
+
 											命舛,但知勤奋力。</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										</div>
 										<div class="slidetext1"><font face="楷体">位卑,未是忘国忧。</font>
@@ -176,16 +183,22 @@ Version: 1.2
 								<li>
 									<span class="circle alignleft">2</span>
 									<h5 class="titleSemibold colortext margin_bottomoff">
+
                                             <a href="https://jtahstu.github.io/akoj.github.io/" target="_blank"> OJ题解
+
                                             </a>
+
                                         </h5>
 									<div class="indentleft">Here something about OJ problems.</div>
 								</li>
 								<li>
 									<span class="circle alignleft">3</span>
 									<h5 class="titleSemibold colortext margin_bottomoff">
+
                                             <a href="classify/biji/index.html" target="_blank"> <strong>笔记</strong>
+
                                             </a>
+
                                         </h5>
 									<div class="indentleft">Here something about notes.</div>
 								</li>
@@ -196,25 +209,35 @@ Version: 1.2
 								<li>
 									<span class="circle alignleft">4</span>
 									<h5 class="titleSemibold colortext margin_bottomoff">
+
                                             <a href="classify/zongjie/index.html" target="_blank">
+
                                                 <strong>总结</strong>
+
                                             </a>
+
                                         </h5>
 									<div class="indentleft">Here something about summaries.</div>
 								</li>
 								<li>
 									<span class="circle alignleft">5</span>
 									<h5 class="titleSemibold colortext margin_bottomoff">
+
                                             <a href="classify/wenzhang/index.html" target="_blank">
+
                                                 <strong>文章</strong>
+
                                             </a>
+
                                         </h5>
 									<div class="indentleft">Here something about articles.</div>
 								</li>
 								<li>
 									<span class="circle alignleft">6</span>
 									<h5 class="titleSemibold colortext margin_bottomoff">
+
                                             <a href="aboute me/resume/index.html" target="_blank">About me</a>
+
                                         </h5>
 									<div class="indentleft">Here something about me.</div>
 								</li>
@@ -235,7 +258,9 @@ Version: 1.2
 		<div id="outerfooter">
 			<div class="container">
 				<div id="footercontainer" class="twelve columns">
-					<footer id="footer">All Copyright Reserved &copy; 2015/2-2017/7 by jtahstu . 时至<span id="now">
+					<!--Copyright &copy; , All Rights Reserved.-->
+					<footer id="footer">Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至<span id="now">
+
                         </span> 博客开创已<span id="timeShow"></span>天</footer>
 					<div id="toTop">^ Back to Top</div>
 				</div>
@@ -275,7 +300,7 @@ Version: 1.2
 			});
 		</script>
 		<script language="javascript" type="text/javascript">
-			//统计博客开创日期
+			 //统计博客开创日期
 			window.onload = function() {　　
 				showtime();
 			}

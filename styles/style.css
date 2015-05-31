@@ -313,13 +313,13 @@ code {
 	-khtml-border-radius:3px 0 0 3px;
 	border-radius:3px 0 0 3px;
 	border:solid 1px;
-	border-width:1px 0px 1px 1px;
+	border-width:1px 1px 1px 1px;
 	margin:0;
 	line-height:normal;
 	vertical-align:middle;
 }
 #headerright input[type="submit"]{
-	font-size:12px; 
+	font-size:11px; 
 	font-family:Arial;
 	text-transform:capitalize;
 	padding:7px 10px 8px 10px;
