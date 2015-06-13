@@ -24,6 +24,7 @@ Version: 1.2
 		<link rel="stylesheet" href="styles/flexslider.css" />
 		<link rel="stylesheet" href="styles/color.css" />
 		<link rel="stylesheet" href="styles/layout.css" />
+		<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css"/>
 
 		<!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,9 +41,9 @@ Version: 1.2
 		<a href="nice/toTaoTao/index.html" target="_blank">
 			<img src="nice/toTaoTao/totaotao.png" alt="totaotao" />
 		</a>
-		<a href="http://www.baidu.com" target="_blank">
+		<!--<a href="http://www.baidu.com" target="_blank">
 			<img src="nice/toTaoTao/totaotao.png" style="float: right;" alt="anyway" />
-		</a>
+		</a>-->
 		<div id="outercontainer">
 
 			<!-- HEADER -->
@@ -244,6 +245,13 @@ Version: 1.2
 							</ul>
 						</div>
 					</div>
+					<div>
+						<i class="fa fa-2x fa-weibo"><a href="http://weibo.com/jtahstu"> 微博</a></i>
+						<i class="fa fa-3x fa-weixin"><a href="http://weibo.com/jtahstu"> 微博</a></i>
+						<i class="fa fa-4x fa-wechat"><a href="http://weibo.com/jtahstu"> QQ</a></i>
+						<i class="fa fa-5x fa-qq"> : <a href="http://weibo.com/jtahstu"> QQ</a></i>
+					</div>
+						
 					<div class="clear"></div>
 					<!-- clear float -->
 				</section>
@@ -259,7 +267,7 @@ Version: 1.2
 			<div class="container">
 				<div id="footercontainer" class="twelve columns">
 					<!--Copyright &copy; , All Rights Reserved.-->
-					<footer id="footer">Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至<span id="now">
+					<footer id="footer">Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至<span id="now2">
 
                         </span> 博客开创已<span id="timeShow"></span>天</footer>
 					<div id="toTop">^ Back to Top</div>
@@ -309,21 +317,21 @@ Version: 1.2
 				var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
 				　　
 				var now = new Date(); //获取当前时间
-				　　
+				var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 				var date = now.getTime() - timedate.getTime(); //得出的为毫秒
 				　　
 				var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
 				if (time > 0) {
 					document.getElementById('timeShow').innerHTML = time;
-					document.getElementById('now').innerHTML = now;
+					document.getElementById('now2').innerHTML = now2;
 				}
 				setTimeout(showtime, 500);
 			}
 		</script>
-		<p align="center">
-			<!--设置背景音乐-->
-			<!--<embed src="http://play.baidu.com/?__m=mboxCtrl.playSong&__a=253569#" height="618" width="1000" hidden="true"></embed></p>-->
-			<!--<audio src="images/music/五月天 - 如烟.mp3" controls="controls" autoplay="autoplay" hidden="hidden" ></audio>-->
+		<!--<p align="center">-->
+		<!--设置背景音乐-->
+		<!--<embed src="http://play.baidu.com/?__m=mboxCtrl.playSong&__a=253569#" height="618" width="1000" hidden="true"></embed></p>-->
+		<!--<audio src="images/music/五月天 - 如烟.mp3" controls="controls" autoplay="autoplay" hidden="hidden" ></audio>-->
 	</body>
 
 </html>

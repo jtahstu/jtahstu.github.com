@@ -1,0 +1,1155 @@
+/* 通用设置 */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 背景灰色 */
+body {
+    background-image: none;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #DFDFDF;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+li {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+a:link, a:visited {
+    background-color: #FFFFFF;
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    background-color: #019875;
+    color: #FFFFFF;
+    text-decoration: underline;
+    border-radius: 3px;
+}
+
+.clear {
+    clear: both;
+}
+
+/* 自定义的最大容器 */
+#home {
+    background-color: #FFFFFF;
+    color: #000000;
+    word-wrap: break-word;
+    position: relative;
+    font-family: "Helvetica","Microsoft Yahei","Verdana","Arial","sans-serif";
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0px auto;
+    padding-top: 0px;
+    padding-right: 25px;
+    max-width: 1000px;
+    min-width: 1000px;
+    box-shadow: 0 0 0px #FFFFFF;
+}
+
+/* 标题 */
+#header {
+    margin-bottom: 0px;
+    padding-left: 45px;
+}
+
+/* 博客Logo导航 */
+#lnkBlogLogo {
+    background-color: #019875 !important;
+    color: #019875 !important;
+    width: 20px;
+    height: 110px;
+    display: block;
+    position: absolute;
+    left: 0px;
+    text-decoration: none;
+}
+
+    #lnkBlogLogo:hover {
+        background-color: #019875 !important;
+        color: #019875 !important;
+        text-decoration: none;
+    }
+
+/* 博客Logo */
+#blogLogo {
+    display: none;
+}
+
+/* 博客的标题和副标题 */
+#blogTitle {
+    margin-bottom: 5px;
+}
+
+    #blogTitle h1 {
+        display: inline;
+        font-size: 400%;
+    }
+
+    #blogTitle a:hover {
+        background-color: #FFFFFF;
+        color: #019875;
+        text-decoration: none;
+    }
+
+    #blogTitle h2 {
+        display: inline;
+        font-family: "Comic Sans MS","Helvetica","Microsoft Yahei","Verdana","Arial","sans-serif";
+        color: #019875;
+        font-size: 150%;
+        font-style: italic;
+        margin-left: 240px;
+    }
+
+/* 博客头部标题 */
+#Header1_HeaderTitle {
+    font-family: "Comic Sans MS","Helvetica","Microsoft Yahei","Verdana","Arial","sans-serif";
+    color: #019875;
+    text-decoration: none;
+}
+
+/* 博客导航栏 */
+#navigator {
+    color: #019875;
+    background-color: #FFFFFF;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 48px;
+}
+
+/* 博客导航栏 */
+#navList {
+    overflow: inherit;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    #navList li {
+        float: left;
+        line-height: 40px;
+        display: inline-block;
+        margin: 0;
+    }
+
+    #navList a {
+        color: #000000;
+        padding: 1px 3px 1px 3px;
+    }
+
+        #navList a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+        #navList a[href="http://www.cnblogs.com/"] {
+            color: #000000;
+        }
+
+/* 博客导航栏菜单间距 */
+.menu {
+    margin-right: 30px;
+    color: #000000 !important;
+    font-size: 18pt;
+}
+
+/* 博客统计 */
+.blogStats {
+    color: #000000;
+    text-align: right;
+    display: block;
+    padding: 0;
+    margin: 0;
+    height: 48px;
+    line-height: 48px;
+}
+
+/* 主要内容 */
+#main {
+    overflow: auto;
+    padding-left: 25px;
+}
+
+/* 主体内容容器 */
+#mainContent {
+    float: left;
+    margin-right: -250px;
+    width: 100%;
+}
+
+    #mainContent .forFlow {
+        padding-right: 250px;
+    }
+
+/* 文章按天排列 */
+.day {
+    margin-bottom: 10px;
+    border-bottom: 0px;
+}
+
+.dayTitle {
+    padding-top: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+    background-color: #019875;
+    border-radius: 3px;
+    display: none;
+}
+
+    .dayTitle a {
+        background-color: #019875;
+        color: #FFFFFF;
+    }
+
+        .dayTitle a:hover {
+            background-color: #019875;
+            color: #FFFFFF;
+            border-radius: 3px;
+        }
+
+/* 文章标题 */
+.postTitle {
+    background-image: url("http://images.cnblogs.com/cnblogs_com/gaochundong/638641/o_green_title.png");
+    background-repeat: repeat-y;
+    background-position: -10px 0;
+    margin-bottom: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 3px;
+}
+
+    .postTitle a {
+        background-color: #FFFFFF !important;
+        color: #019875 !important;
+    }
+
+        .postTitle a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+
+/* 文章标题 */
+.postTitle2 {
+    font-size: 200%;
+    text-decoration: none;
+}
+
+/* 文章描述 */
+.postCon {
+    font-size: 120%;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
+    overflow: auto;
+}
+
+    .postCon a {
+        background-color: #FFFFFF !important;
+        color: #019875 !important;
+    }
+
+        .postCon a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            border-radius: 3px;
+        }
+
+/* 文章描述 */
+.c_b_p_desc {
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+    line-height: 25px;
+}
+
+/* 阅读全文 */
+.c_b_p_desc_readmore {
+    background-color: #FFFFFF !important;
+    color: #019875 !important;
+}
+
+    .c_b_p_desc_readmore:hover {
+        background-color: #019875 !important;
+        color: #FFFFFF !important;
+        border-radius: 3px;
+    }
+
+/* 发表时间 */
+.postDesc {
+    color: #019875 !important;
+    text-align: right;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 5px;
+}
+
+    .postDesc a {
+        background-color: #FFFFFF !important;
+        color: #019875 !important;
+    }
+
+        .postDesc a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            border-radius: 3px;
+        }
+
+.postSeparator {
+    border-bottom: 1px dashed #019875;
+    margin-bottom: 10px;
+    display: none;
+}
+
+/* 仅列出标题 下一页 */
+.topicListFooter {
+    font-size: 130%;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .topicListFooter a {
+        background-color: #FFFFFF !important;
+        color: #019875 !important;
+    }
+
+        .topicListFooter a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            border-radius: 3px;
+        }
+
+/* 侧边栏容器 */
+#sideBar {
+    width: 250px;
+    float: right;
+}
+
+/* 侧边栏 */
+#sideBarMain {
+    font-size: 116%;
+    line-height: 22px;
+}
+
+    #sideBarMain li {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        line-height: 22px;
+    }
+
+/* 侧边栏 最多评论 */
+#TopViewPostsBlock li {
+    margin-top: 5px;
+}
+
+#TopFeedbackPostsBlock li {
+    margin-top: 5px;
+}
+
+#TopDiggPostsBlock li {
+    margin-top: 5px;
+}
+
+/* 侧边栏 公告 */
+.newsItem {
+    /*
+  border: 1px solid #019875;
+  padding: 15px;
+  margin-bottom: 15px;
+  */
+    border: none;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 15px;
+    margin-bottom: 0px;
+}
+
+/* 侧边栏 日历 */
+#calendar {
+    border: 1px solid #019875;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.Cal {
+    width: 90%;
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+
+.CalTitle {
+    width: 100%;
+    border-bottom: 1px solid #019875;
+}
+
+.CalNextPrev a {
+    font-weight: normal !important;
+    color: #019875 !important;
+    background-color: transparent !important;
+}
+
+.CalDayHeader {
+    border-bottom: 1px dashed #019875;
+}
+
+#calendar a {
+    color: #019875;
+    font-weight: bold;
+}
+
+    #calendar a:hover {
+        color: #fff;
+        background-color: #019875;
+    }
+
+.CalTodayDay {
+    font-weight: bold;
+    color: #019875;
+}
+
+/* 侧边栏 边框 */
+#leftcontentcontainer > div {
+    /*
+  border: 1px solid #019875;
+  padding: 15px;
+  margin-bottom: 15px;
+  */
+    border: none;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 15px;
+    margin-bottom: 0px;
+}
+
+/* 侧边栏 标题 */
+.catListTitle {
+    font-size: 140%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-top: 1px solid #019875;
+    padding-top: 5px;
+}
+
+/* 公告内容 */
+#profile_block {
+    margin-top: 0px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+/* 我的标签 */
+.catListTag {
+    overflow: auto;
+}
+
+    .catListTag li {
+        float: left;
+        margin: 0 4px 6px 0;
+        overflow: visible;
+        white-space: normal;
+        word-break: break-all;
+    }
+
+    .catListTag a {
+        padding: 1px 3px 1px 3px;
+        border-radius: 3px;
+    }
+
+/* 最新评论 */
+.catListComment {
+}
+
+/* 最新评论 */
+.recent_comment_body {
+    text-indent: 2em;
+    font-size: 85%;
+    color: #000000 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+.recent_comment_author {
+    border-bottom: 1px dashed #019875;
+    font-size: 85%;
+    color: #019875 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+}
+
+/* 文章开始 */
+#topics {
+    margin-bottom: 0px;
+    border-bottom: 0px solid #019875;
+}
+
+/* 文章体 */
+.postBody {
+    font-size: 116%;
+    padding-left: 10px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+}
+
+    .postBody a {
+        background-color: #FFFFFF !important;
+        color: #019875 !important;
+    }
+
+        .postBody a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            border-radius: 3px;
+        }
+
+    .postBody blockquote {
+        background: url("http://www.cnblogs.com/skins/iMetro_HD/images/quote.png") no-repeat -75px -20px #F0F0F0;
+        border-radius: 10px;
+        margin: 20px 0;
+        padding: 20px 50px;
+    }
+
+    .postBody h1 {
+        display: block;
+        font-size: 2em;
+        font-weight: bold;
+        margin: 15px auto 2px auto;
+        background-color: #019875;
+        color: #FFFFFF;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 5px;
+        border-radius: 3px;
+    }
+
+        .postBody h1 a {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+        }
+
+            .postBody h1 a:hover {
+                background-color: #019875 !important;
+                color: #FFFFFF !important;
+                text-decoration: none;
+                border-radius: 3px;
+            }
+
+    .postBody h2 {
+        display: block;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 15px auto 2px auto;
+        background-color: #019875;
+        color: #FFFFFF;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 5px;
+        border-radius: 3px;
+    }
+
+        .postBody h2 a {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+        }
+
+            .postBody h2 a:hover {
+                background-color: #019875 !important;
+                color: #FFFFFF !important;
+                text-decoration: none;
+                border-radius: 3px;
+            }
+
+    .postBody h3 {
+        display: block;
+        font-size: 1.17em;
+        font-weight: bold;
+        margin: 15px auto 2px auto;
+    }
+
+    .postBody h4 {
+        display: block;
+        font-weight: bold;
+        margin: 15px auto 2px auto;
+    }
+
+    .postBody h5 {
+        display: block;
+        font-size: .83em;
+        font-weight: bold;
+        margin: 15px auto 2px auto;
+    }
+
+    .postBody h6 {
+        font-size: 100%;
+        font-size: .67em;
+        font-weight: bold;
+        margin: 15px auto 2px auto;
+    }
+
+/* 文章主体内容 */
+#cnblogs_post_body {
+    margin-bottom: 30px;
+    overflow: auto;
+}
+
+    #cnblogs_post_body p {
+        font-size: 16px;
+    }
+
+    #cnblogs_post_body ol {
+        margin-top: 6px;
+        padding-left: 50px;
+        line-height: 25px;
+    }
+
+        #cnblogs_post_body ol li {
+            font-size: 16px;
+        }
+
+    #cnblogs_post_body ul {
+        list-style-type: disc;
+        margin-top: 6px;
+        margin-left: 50px;
+        padding-left: 0;
+        line-height: 25px;
+    }
+
+        #cnblogs_post_body ul li {
+            font-size: 16px;
+        }
+
+    #cnblogs_post_body table {
+        margin: auto;
+        border: 1px solid #019875;
+        border-collapse: collapse;
+        border-color: #019875;
+    }
+
+/* 文章标签 */
+#EntryTag {
+    margin-top: 0;
+    text-align: right;
+}
+
+    #EntryTag a {
+        background-color: #019875 !important;
+        color: #FFFFFF !important;
+        padding: 1px 3px 1px 3px;
+        border-radius: 3px;
+    }
+
+/* 文章分类 */
+#BlogPostCategory {
+    margin-bottom: 5px;
+}
+
+/* 我的签名 */
+#MySignature {
+    background-color: #019875 !important;
+    color: #FFFFFF !important;
+    border: solid 1px #019875;
+    box-shadow: 0 0 15px #aaa;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: none;
+}
+
+/* 博文信息 */
+#blog_post_info {
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: #019875 1px dashed;
+    font-size: 9pt;
+    color: #019875;
+}
+
+/* 绿色通道 */
+#green_channel {
+    padding: 5px 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    font-size: 9pt;
+    width: 430px;
+    color: #019875;
+}
+
+    /* 好文要顶 */
+    #green_channel #green_channel_digg {
+        background-color: #019875 !important;
+        border-radius: 3px;
+    }
+
+        #green_channel #green_channel_digg:hover {
+            background: #FF7227 !important;
+        }
+
+    /* 关注我 */
+    #green_channel #green_channel_follow {
+        background-color: #019875 !important;
+        border-radius: 3px;
+    }
+
+        #green_channel #green_channel_follow:hover {
+            background: #FF7227 !important;
+        }
+
+    /* 收藏该文 */
+    #green_channel #green_channel_favorite {
+        background-color: #019875 !important;
+        border-radius: 3px;
+    }
+
+        #green_channel #green_channel_favorite:hover {
+            background: #FF7227 !important;
+        }
+
+    /* 与我联系 */
+    #green_channel #green_channel_contact {
+        background-color: #019875 !important;
+        border-radius: 3px;
+    }
+
+        #green_channel #green_channel_contact:hover {
+            background: #FF7227 !important;
+        }
+
+    /* 分享至新浪微博 */
+    #green_channel #green_channel_weibo {
+        background-color: #019875 !important;
+        border-radius: 3px;
+    }
+
+        #green_channel #green_channel_weibo img {
+            height: 20px;
+        }
+
+        #green_channel #green_channel_weibo:hover {
+            background: #FF7227 !important;
+        }
+
+/* 作者信息 */
+.author_profile_info {
+    display: none;
+}
+
+#author_profile_honor {
+    display: none;
+}
+
+#post_next_prev {
+    display: none;
+}
+
+/* 加关注 */
+#author_profile_follow {
+    bottom: 0;
+    right: 0;
+    margin: 15px 100px 25px 0px;
+    position: fixed;
+    text-align: center;
+    z-index: 1001;
+    display: none;
+}
+
+/* 评论列表头 */
+.feedback_area_title {
+    color: #FFFFFF;
+    font-size: 133%;
+    background-color: #019875;
+    padding: 3px 15px 3px 15px;
+    margin-bottom: 10px;
+}
+
+/* 评论项整体 */
+.feedbackItem {
+    position: relative;
+    border-bottom: 1px solid #019875;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 10px;
+}
+
+/* 评论时间和评论人 */
+.feedbackListSubtitle {
+    margin-left: 65px;
+    margin-bottom: 5px;
+    border-bottom: none; /* border-bottom: 1px dashed #019875;*/
+}
+
+.feedbackCon {
+  padding-left: 65px;
+  margin-bottom: 25px;
+  font-size: 116%;
+}
+
+/* 评论管理 */
+.feedbackManage {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
+    .feedbackManage a {
+        background-color: #FFFFFF !important;
+        color: #019875 !important;
+    }
+
+        .feedbackManage a:hover {
+            background-color: #019875 !important;
+            color: #FFFFFF !important;
+            border-radius: 3px;
+        }
+
+    /* 评论楼层 */
+    .feedbackManage + a[href^="#"] {
+        display: block;
+        width: 50px;
+        height: 50px;
+        background-color: #019875;
+        color: #FFFFFF;
+        font-size: 133%;
+        position: absolute;
+        text-align: center;
+        left: 15px;
+    }
+
+/* 评论者 */
+a[id^="a_comment_author_"] {
+    background-color: #FFFFFF;
+    color: #019875;
+    font-weight: bold;
+}
+
+span.comment_date {
+    margin-right: 8px;
+}
+
+a.sendMsg2This {
+    display: none;
+}
+
+/* 评论中的引用评论 */
+.comment_quote {
+    font-size: 90%;
+    font-style: italic;
+    background-color: #F6F6F6;
+    border: 1px solid #019875;
+}
+
+/* 评论内容文字 */
+.blog_comment_body {
+    overflow: hidden;
+}
+
+    .blog_comment_body a {
+        text-decoration: underline;
+    }
+
+/* 楼主 */
+.louzhu {
+    color: #019875;
+    font-weight: bold;
+}
+
+/* 评论列表下方的导航 */
+#comment_nav {
+    margin-right: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #019875 !important;
+    color: #FFFFFF !important;
+}
+
+    #comment_nav a {
+        background-color: #019875 !important;
+        color: #FFFFFF !important;
+        font-size: 116%;
+    }
+
+/* 评论分页 */
+.pager {
+    font-size: 12px;
+    margin: 10px 0;
+    text-align: center;
+    color: #000000 !important;
+    line-height: 200%;
+}
+
+    .pager a {
+        border: 1px solid #019875 !important;
+        color: #000000 !important;
+        margin: 0 2px;
+        padding: 2px 5px;
+        text-decoration: none;
+    }
+
+    .pager span.current {
+        background-color: #019875 !important;
+        color: #FFFFFF !important;
+        border: 1px solid #019875 !important;
+    }
+
+/* 评论区域 */
+.commentbox_title {
+    width: 720px;
+}
+
+div.commentform textarea {
+    width: 720px;
+    height: 200px;
+    font-size: 13px;
+}
+
+/* 评论按钮 */
+#btn_comment_submit {
+    border: none;
+    height: 48px;
+    width: 120px;
+    background-color: #019875;
+    color: #FFFFFF;
+    border-radius: 3px;
+    font-size: 18px;
+    display: inline-block;
+    cursor: pointer;
+    font-family: "Comic Sans MS","Helvetica","Microsoft Yahei","Verdana","Arial","sans-serif";
+    float: right;
+    margin-right: 4px;
+}
+
+    #btn_comment_submit:hover {
+        background: #FF7227;
+    }
+
+#commentbox_opt a {
+    padding-left: 10px;
+    display: none;
+}
+
+/* 推荐和反对 */
+#div_digg {
+    background-color: #FFFFFF;
+    border: 3px solid #019875;
+    bottom: 0;
+    padding: 15px;
+    margin: 15px 40px 20px 15px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+#digg_tips {
+    display: inherit;
+}
+
+.diggword {
+    margin-top: 5px;
+    margin-left: 0;
+    font-size: 12px;
+    color: #019875 !important;
+}
+
+.diggnum {
+    font-size: 14px;
+    color: #019875 !important;
+    font-family: Verdana;
+}
+
+.burynum {
+    font-size: 14px;
+    color: #019875 !important;
+    font-family: Verdana;
+}
+
+/* 页脚 版权说明 */
+#footer {
+    color: #019875;
+    text-align: center;
+    border-top: 2px solid #019875;
+    margin-top: 50px;
+    margin-left: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 133%;
+}
+
+/* 找找看 */
+.div_my_zzk {
+    position: relative;
+}
+
+.input_my_zzk {
+    width: 155px;
+    height: 25px;
+    padding-right: 30px;
+    width: 100px;
+    height: auto;
+    padding-right: 0px;
+}
+
+.btn_my_zzk {
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-color: transparent;
+    width: 25px;
+    height: 25px;
+    color: transparent;
+    border: 0;
+    border-style: none;
+    position: absolute;
+    cursor: pointer;
+    top: 2px;
+    right: 6px;
+    background-repeat: repeat;
+    background-size: auto;
+    background-color: green;
+    width: auto;
+    height: auto;
+    color: #FFFFFF;
+    border: 0px;
+    border-style: none;
+    position: static;
+    cursor: pointer;
+}
+
+#btnZzk {
+    background-image: url("http://www.cnblogs.com/skins/iMetro_HD/images/search.png");
+    background-image: none;
+    background-image: none;
+}
+
+/* 谷歌搜索 */
+.mySearch input[value="谷歌搜索"] {
+    background-image: url("http://www.cnblogs.com/skins/iMetro_HD/images/google.png");
+    background-image: none;
+    background-image: none;
+}
+
+/* 博客园功能导航 */
+#site_nav_under {
+    display: none;
+}
+
+/* 广告 */
+#ad_under_post_holder {
+    display: none;
+}
+
+#google_ad_c2 {
+    display: none;
+}
+
+/* 文章下的相关知识库 */
+#under_post_kb {
+    display: none;
+}
+
+/* 文章下的相关新闻 */
+#under_post_news {
+    display: none;
+}
+
+/* 新闻和知识库 */
+#blog_news_kb {
+    display: none;
+}
+
+/* 评论框下的广告 */
+.ad_text_commentbox {
+    display: none;
+}
+
+/* 历史上的今天 */
+#HistoryToday {
+    display: none;
+}
+
+/* 定制评论列表 */
+.dennis_comment_list {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+    .dennis_comment_list .dennis_comment_table_commentator {
+        float: right;
+    }
+
+        .dennis_comment_list .dennis_comment_table_commentator .dennis_comment_avatar {
+            padding-left: 60px;
+            border-radius: 100%;
+        }
+
+            .dennis_comment_list .dennis_comment_table_commentator .dennis_comment_avatar img {
+                width: 48px;
+                height: 48px;
+                border-radius: 100%;
+                border: 3px solid #019875;
+            }
+
+        .dennis_comment_list .dennis_comment_table_commentator .dennis_comment_avatar {
+            display: inline;
+        }
+
+    .dennis_comment_list .dennis_comment_table_louzhu {
+        float: right;
+    }
+
+        .dennis_comment_list .dennis_comment_table_louzhu .dennis_comment_avatar {
+            padding-left: 60px;
+            border-radius: 100%;
+        }
+
+            .dennis_comment_list .dennis_comment_table_louzhu .dennis_comment_avatar img {
+                width: 48px;
+                height: 48px;
+                border-radius: 100%;
+                border: 3px solid #019875;
+            }
+
+        .dennis_comment_list .dennis_comment_table_louzhu .dennis_comment_avatar {
+            display: inline;
+        }
+
+.dennis_comment {
+    width: 90%;
+}
+
+/* 定制评论列表代码显示 */
+.sh-gutter .line, .sh-gutter code {
+    white-space: pre-wrap!important;
+}

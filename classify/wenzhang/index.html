@@ -29,12 +29,13 @@ Version: 1.1
 				var time1=now.getHours();
 				var time2=now.getMinutes();
 				var time3=now.getSeconds();
+				var now2=now.getFullYear()+"/"+(now.getMonth()+1)+"/"+now.getDate()+" "+time1+":"+time2+":"+time3;
 			    if(time > 0 ){
 			      document.getElementById('timeShow').innerHTML = time;//天数
 			      document.getElementById('timeShow1').innerHTML = time1;//小时
 			      document.getElementById('timeShow2').innerHTML = time2;//分钟
 			      document.getElementById('timeShow3').innerHTML = time3;//秒
-			      document.getElementById('now').innerHTML = now;
+			      document.getElementById('now2').innerHTML = now2;
 				}
 				setTimeout(showtime,500);
 			    }
@@ -229,7 +230,7 @@ Version: 1.1
 		<div id="footer">
 			<p>
 				Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至
-				<span id="now"></span> 博客开创已
+				<span id="now2"></span> 博客开创已
 				<span id="timeShow"></span> 天
 				<span id="timeShow1"></span> 小时
 				<span id="timeShow2"></span> 分
