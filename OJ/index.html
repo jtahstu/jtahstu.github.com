@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>OJ题解</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+		<link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<div id="logo">
+				<h1><a href="../index.html">jtahstu's blog</a></h1>
+			</div>
+			<hr />
+			<!-- end #logo -->
+			<div id="header">
+				<div id="menu">
+					<ul>
+						<li>
+							<a href="../index.html">Home</a>
+						</li>
+						<li>
+							<a href=#>OJ题解</a>
+						</li>
+						<li>
+							<a href="../classify/biji/index.html">笔记</a>
+						</li>
+						<li>
+							<a href="../classify/zongjie/index.html">总结</a>
+						</li>
+						<li>
+							<a href="../classify/wenzhang/index.html">文章</a>
+						</li>
+						<li>
+							<a href="../aboute me/resume/index.html">About me</a>
+						</li>
+					</ul>
+				</div>
+				<!-- end #menu -->
+				<!--<div id="search">
+					<form method="get" action="">
+						<fieldset>
+							<input type="text" name="s" id="search-text" size="15" />
+							<input type="submit" id="search-submit" value="GO" />
+						</fieldset>
+					</form>
+				</div>-->
+				<!-- end #search -->
+			</div>
+			<!-- end #header -->
+			<!-- end #header-wrapper -->
+			<div id="page">
+				<div id="page-bgtop">
+					<div id="content">
+						<div class="post">
+							<h2 class="title"><a href="http://183.167.205.82:8081/JudgeOnline/" target="_blank">安科OJ：Welcome to AHSTU Online Judge System!</a></h2>
+							<!--<p class="meta">Sunday, April 26, 2009 7:27 AM Posted by <a href="#">Someone</a>
+							</p>-->
+							<div class="entry">
+								<p>1、<a href="https://www.zybuluo.com/jtahstu/note/145221" target="_blank">AKOJ Problem1000-1099 C#代码汇总</a>
+								</p>
+								<p>2、<a href="#" target="_blank">AKOJ Problem1100-1199 C#代码汇总</a></p>
+								<p>&nbsp;</p>
+								<p>&nbsp;</p>
+								<p>&nbsp;</p>
+								
+							</div>
+						</div>
+						<div class="post">
+							<h2 class="title"><a href="http://acm.nyist.edu.cn/JudgeOnline/" target="_blank">南阳理工学院OJ：练习场 - ACM在线评测系统</a></h2>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+							
+							<div class="entry">
+								<p></p>
+							</div>
+						</div>
+						<div class="post">
+							<h2 class="title"><a href="http://acm.hdu.edu.cn/" target="_blank">杭州电子科技大学OJ：Welcome to HDU Online Judge System!</a></h2>
+							<p>&nbsp;</p>
+							<p>&nbsp;</p>
+							
+							<div class="entry">
+								<p></p>
+							</div>
+						</div>
+					</div>
+					<!-- end #content -->
+					<div id="sidebar">
+						<ul>
+							<li>
+								<h2>Intuduce</h2>
+								<p>This is OJ题解</p>
+							</li>
+							<!--<li>
+								<h2>Articles List</h2>
+								<ul>
+									<li>
+										<a href="https://www.zybuluo.com/jtahstu/note/145221" target="_blank">AKOJ Problem1001-1099 C#代码汇总</a>
+									</li>
+									
+								</ul>
+							</li>-->
+
+						</ul>
+					</div>
+					<!-- end #sidebar -->
+					<div style="clear: both;">&nbsp;</div>
+				</div>
+			</div>
+			<!-- end #page -->
+			<div id="footer-bgcontent">
+				<div id="footer">
+					<p>
+						Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至
+						<span id="now2"></span> 博客开创已
+						<span id="timeShow"></span> 天
+						<span id="timeShow1"></span> 小时
+						<span id="timeShow2"></span> 分
+						<span id="timeShow3"></span> 秒
+					</p>
+				</div>
+			</div>
+			<!-- end #footer -->
+		</div>
+		<script language="javascript" type="text/javascript">
+			 //统计博客开创日期
+			window.onload = function() {　　
+				showtime();
+			}
+
+			function showtime() {
+				var timedate = new Date("February 17 0:00:00,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+				　　
+				var now = new Date(); //获取当前时间
+				　　
+				var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+				　　
+				var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+				//	var time1=Math.ceil(date/(1000*60*60)%24)-1;
+				//	var time2=Math.ceil(date/(1000*60)%60)-1;
+				//	var time3=Math.ceil(date/(1000)%60)-2;
+				var time1 = now.getHours();
+				var time2 = now.getMinutes();
+				var time3 = now.getSeconds();
+				var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + time1 + ":" + time2 + ":" + time3;
+				if (time > 0) {
+					document.getElementById('timeShow').innerHTML = time; //天数
+					document.getElementById('timeShow1').innerHTML = time1; //小时
+					document.getElementById('timeShow2').innerHTML = time2; //分钟
+					document.getElementById('timeShow3').innerHTML = time3; //秒
+					document.getElementById('now2').innerHTML = now2;
+				}
+				setTimeout(showtime, 500);
+			}
+		</script>
+	</body>
+
+</html>
+<span style="display:none;"><a href="http://www.mobanwang.com" title="��ҳģ������">��ҳģ��</a></span><span style="display:none;"><a href="http://www.mobanwang.com" title="��ҳģ������">��ҳģ��</a></span>

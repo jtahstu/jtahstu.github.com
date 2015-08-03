@@ -30,7 +30,7 @@ Version: 1.1
 							<a href="../../index.html">Home</a>
 						</li>
 						<li>
-							<a href="https://jtahstu.github.io/akoj.github.io/">OJ题解</a>
+							<a href="../../OJ/index.html">OJ题解</a>
 						</li>
 						<li>
 							<a href="../../classify/biji/index.html">笔记</a>
@@ -147,7 +147,7 @@ Version: 1.1
 									<li>
 										<a href="../../blogs/biji/2015_4_11骑行之旅.html" target="_blank">2015/4/11骑行之旅</a>
 									</li>
-									
+
 								</ul>
 							</li>
 						</ul>
@@ -157,7 +157,6 @@ Version: 1.1
 						<p>&nbsp;</p>
 						<p>&nbsp;</p>
 						<p>&nbsp;</p>
-					
 
 						<ul>
 							<li></li>
@@ -171,10 +170,45 @@ Version: 1.1
 		<!-- end #page -->
 	</div>
 	<div id="footer">
-		<p>Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu .</p>
+		<p>Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至
+			<span id="now2"></span> 博客开创已
+			<span id="timeShow"></span> 天
+			<span id="timeShow1"></span> 小时
+			<span id="timeShow2"></span> 分
+			<span id="timeShow3"></span> 秒</p>
 	</div>
 	<!-- end #footer -->
+	<script language="javascript" type="text/javascript">
+		 //统计博客开创日期
+		window.onload = function() {　　
+			showtime();
+		}
 
+		function showtime() {
+			var timedate = new Date("February 17 0:00:00,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+			　　
+			var now = new Date(); //获取当前时间
+			　　
+			var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+			　　
+			var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+			//	var time1=Math.ceil(date/(1000*60*60)%24)-1;
+			//	var time2=Math.ceil(date/(1000*60)%60)-1;
+			//	var time3=Math.ceil(date/(1000)%60)-2;
+			var time1 = now.getHours();
+			var time2 = now.getMinutes();
+			var time3 = now.getSeconds();
+			var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + time1 + ":" + time2 + ":" + time3;
+			if (time > 0) {
+				document.getElementById('timeShow').innerHTML = time; //天数
+				document.getElementById('timeShow1').innerHTML = time1; //小时
+				document.getElementById('timeShow2').innerHTML = time2; //分钟
+				document.getElementById('timeShow3').innerHTML = time3; //秒
+				document.getElementById('now2').innerHTML = now2;
+			}
+			setTimeout(showtime, 500);
+		}
+	</script>
 </body>
 
 </html>
