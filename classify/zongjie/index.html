@@ -103,7 +103,7 @@
 		</div>
 		<div id="footer">
 			<p>
-				Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至
+				Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至
 				<span id="now2"></span> 博客开创已
 				<span id="timeShow"></span> 天
 				<span id="timeShow1"></span> 小时
@@ -139,6 +139,8 @@
 					document.getElementById('timeShow2').innerHTML = time2; //分钟
 					document.getElementById('timeShow3').innerHTML = time3; //秒
 					document.getElementById('now2').innerHTML = now2;
+					document.getElementById('nowyear').innerHTML = now.getFullYear();
+					document.getElementById('nowmonth').innerHTML = (now.getMonth()+1);
 				}
 				setTimeout(showtime, 500);
 			}

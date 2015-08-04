@@ -24,7 +24,7 @@ Version: 1.2
 		<link rel="stylesheet" href="styles/flexslider.css" />
 		<link rel="stylesheet" href="styles/color.css" />
 		<link rel="stylesheet" href="styles/layout.css" />
-		<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/font-awesome.min.css" />
 
 		<!--[if lt IE 9]>
                 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -67,7 +67,7 @@ Version: 1.2
 										<a href="./index.html">Home</a>
 									</li>
 									<li>
-										<a href="./OJ/index.html"target="_blank">OJ题解</a>
+										<a href="./OJ/index.html" target="_blank">OJ题解</a>
 										<ul>
 									</li>
 									</ul>
@@ -254,7 +254,7 @@ Version: 1.2
 			<div class="container">
 				<div id="footercontainer" class="twelve columns">
 					<!--Copyright &copy; , All Rights Reserved.-->
-					<footer id="footer">Copyright &copy; 2015/2-2017/7 , All Rights Reserved . by jtahstu . 时至<span id="now2">
+					<footer id="footer">Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
 
                         </span> 博客开创已<span id="timeShow"></span>天</footer>
 					<div id="toTop">^ Back to Top</div>
@@ -295,7 +295,7 @@ Version: 1.2
 			});
 		</script>
 		<script language="javascript" type="text/javascript">
-			 //统计博客开创日期
+			//统计博客开创日期
 			window.onload = function() {　　
 				showtime();
 			}
@@ -311,6 +311,8 @@ Version: 1.2
 				if (time > 0) {
 					document.getElementById('timeShow').innerHTML = time;
 					document.getElementById('now2').innerHTML = now2;
+					document.getElementById('nowyear').innerHTML = now.getFullYear();
+					document.getElementById('nowmonth').innerHTML = (now.getMonth()+1);
 				}
 				setTimeout(showtime, 500);
 			}
@@ -320,4 +322,5 @@ Version: 1.2
 		<!--<embed src="http://play.baidu.com/?__m=mboxCtrl.playSong&__a=253569#" height="618" width="1000" hidden="true"></embed></p>-->
 		<!--<audio src="images/music/五月天 - 如烟.mp3" controls="controls" autoplay="autoplay" hidden="hidden" ></audio>-->
 	</body>
+
 </html>
