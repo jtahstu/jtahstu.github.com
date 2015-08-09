@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>基于C#实现博客自动生成静态网页</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                   <b> 基于C#实现博客自动生成静态网页</b><br />
+                    <h5>2015/8/9 22:53:42</h5>
+                    <p>本人针对这个静态博客，然后感觉写东西还要去修改代码甚是麻烦，于是怒而写下此程序</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>基于C#实现博客自动生成静态网页</h1>
+                <p>
+    程序基本思路：<br>
+    本程序由一个模板文件和一个输入文件组成，模板文件含特定代码，所以在程序运行时可以精确地找到插入替换位置，然后读取输入文件，拿到特定的段落，替换之。<br>
+    思路就是这个样子，应该不是很复杂。目前就是写出来然后节省一部分代码量，该程序还有许多限制，也就在我电脑上跑跑了。<br>
+    本文就是这个程序跑出来的，然后修改了部分错误，大家感受一下。<br>
+</p>
+                <p>
+<h1>Code:</h1>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+
+namespace 博客笔记自动生成 {
+    class Program {
+        #region 写入标题,时间，简介
+        static void r_and_w_title(string file) {
+            var utf8WithBom = new System.Text.UTF8Encoding(true);
+            StreamReader reader = new StreamReader(@"D:\Github\jtahstu.github.com\blogs\biji\biji_Template.html", utf8WithBom);
+            String a = reader.ReadToEnd();
+            StreamReader reader_input = new StreamReader(@"D:\Github\jtahstu.github.com\blogs\biji\input.txt", utf8WithBom);
+            string input = reader_input.ReadToEnd();
+            reader.Close();
+            reader_input.Close();
+
+            //替换标题
+            int start = input.IndexOf("~t");
+            int end = input.IndexOf("~t", start + 2);
+            string s = input.Substring(start + 2, end - start - 2);
+            string ss = "$title$";
+            a = a.Replace(ss, s);
+
+            //替换时间
+            //int start2 = input.IndexOf("~d");
+            //int end2 = input.IndexOf("~d", start2 + 2);
+            //string s2 = input.Substring(start2 + 2, end2 - start2 - 2);
+            string s2 = DateTime.Now.ToString();
+            string ss2 = "$time$";
+            a = a.Replace(ss2, s2);
+
+            //替换简介
+            int start3 = input.IndexOf("~i");
+            int end3 = input.IndexOf("~i", start3 + 2);
+            string s3 = input.Substring(start3 + 2, end3 - start3 - 2);
+            string ss3 = "$info$";
+            a = a.Replace(ss3, s3);
+
+            //写入文件
+            string filename = @"D:\Github\jtahstu.github.com\blogs\biji\" + file + ".html";
+            StreamWriter readTxt = new StreamWriter(filename, false, utf8WithBom);
+            readTxt.Write(a);
+            readTxt.Flush();
+            readTxt.Close();
+        }
+        #endregion
+
+        #region 写入段落
+        static void r_and_w_p(string file) {
+            string filename = @"D:\Github\jtahstu.github.com\blogs\biji\" + file + ".html";
+            //设置文件编码为utf-8包含BOM
+            var utf8WithBom = new System.Text.UTF8Encoding(true);
+            //先读取模板文件
+            StreamReader reader = new StreamReader(filename, utf8WithBom);
+            String a = reader.ReadToEnd();
+            //然后读取输入文件
+            StreamReader reader_input = new StreamReader(@"D:\Github\jtahstu.github.com\blogs\biji\input.txt", utf8WithBom);
+            string input = reader_input.ReadToEnd();
+            int st = input.IndexOf("~n");
+            int en = input.IndexOf("~n", st + 2);
+            string stt = input.Substring(st + 2, en - st - 2);
+            int p_l = int.Parse(stt);
+            for (int i = 1; i <= p_l; i++) {
+                string ss = "p" + i.ToString();
+                int start = input.IndexOf(ss);
+                int end = input.IndexOf(ss, start + 2);
+                string s = input.Substring(start + 2, end - start - 2);//获取当前段落要替换的字符串
+                string sss = "$" + ss + "$";//模板中要替换的段落
+                a = a.Replace(sss, s);//执行替换操作
+            }
+            reader.Close();
+            reader_input.Close();
+            //执行删除多余的段落
+            for (int i = p_l + 1; i <= 30; i++) {
+                string ss = "< p >$p" + i.ToString() + "$< /p >";
+                a = a.Replace(ss, "");
+            }
+            //替换换行符
+            a = a.Replace("\\", "< br >");
+
+            //写入文件
+            StreamWriter readTxt = new StreamWriter(filename, false, utf8WithBom);
+            readTxt.Write(a);
+            readTxt.Flush();
+            readTxt.Close();
+        }
+        #endregion
+
+        #region 主函数
+        static void Main(string[] args) {
+            Console.Write("请输入输出文件名：");
+            string file = Console.ReadLine();
+            //执行读写操作
+            r_and_w_title(file);
+            r_and_w_p(file);
+            Console.WriteLine("OK!程序执行完毕,请按任意键退出.");
+            Console.ReadKey();
+            //File.Copy(@"change.html", @"HTMLPage1.html", true);
+        }
+        #endregion
+    }
+}
+</pre>
+</p>
+  <p>运行图片：<br />
+  	执行程序<br />
+  	<img src="img/1.png"/><br />
+  	输入文件格式<br />
+  	<img src="img/2.png"/><br />
+  	输出文件效果<br />
+  	<img src="img/3.png"/><br />
+ </p>  
+               
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>
