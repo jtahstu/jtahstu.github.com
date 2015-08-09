@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>hdu-2037-今年暑假不AC(C#结构体)</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>hdu-2037-今年暑假不AC(C#结构体)</h3>
+                    <h5>2015/8/9 22:32:32</h5>
+                    <p>hduoj题解</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>hdu-2037-今年暑假不AC(C#结构体)</h1>
+                <p>
+<h3>Problem Description</h3><br>
+
+“今年暑假不AC？”<br>
+“是的。”<br>
+“那你干什么呢？”<br>
+“看世界杯呀，笨蛋！”<br>
+“@#$%^&*%...”<br>
+
+确实如此，世界杯来了，球迷的节日也来了，估计很多ACMer也会抛开电脑，奔向电视了。
+作为球迷，一定想看尽量多的完整的比赛，当然，作为新时代的好青年，你一定还会看一些其它的节目，比如新闻联播（永远不要忘记关心国家大事）、非常6+7、超级女生，以及王小丫的《开心辞典》等等，假设你已经知道了所有你喜欢看的电视节目的转播时间表，你会合理安排吗？（目标是能看尽量多的完整节目）
+</p>
+                <p>
+<h3>Input</h3><br>
+输入数据包含多个测试实例，每个测试实例的第一行只有一个整数n(n<=100)，表示你喜欢看的节目的总数，然后是n行数据，每行包括两个数据Ti_s,Ti_e (1<=i<=n)，分别表示第i个节目的开始和结束时间，为了简化问题，每个时间都用一个正整数表示。n=0表示输入结束，不做处理。
+</p>
+                <p>
+<h3>Output</h3><br>
+对于每个测试实例，输出能完整看到的电视节目的个数，每个测试实例的输出占一行。
+</p>
+                <p>
+<h3>Sample Input</h3><br>
+12<br>
+1 3<br>
+3 4<br>
+0 7<br>
+3 8<br>
+15 19<br>
+15 20<br>
+10 15<br>
+8 18<br>
+6 12<br>
+5 10<br>
+4 14<br>
+2 9<br>
+0<br>
+</p>
+                <p>
+<h3>Sample Output</h3><br>
+5
+</p>
+                <p><h3>AC Code</h3>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace HDU2037 {
+    class Program {
+        struct P {
+            public int s, e;
+        };
+        public class MyComparer : IComparer< P > {
+            int IComparer< P >.Compare(P x, P y) {
+                return x.e - y.e;
+            }
+        }
+        static void Main(string[] args) {
+            string s;
+            while ((s = Console.ReadLine()) != null) {
+                int n = int.Parse(s);
+                if (n == 0) break;
+                P[] p = new P[n];
+                for (int i = 0; i < n; i++) {
+                    string[] ss = Console.ReadLine().Split();
+                    p[i].s = int.Parse(ss[0]);
+                    p[i].e = int.Parse(ss[1]);
+                }
+                Array.Sort(p,0,n,new MyComparer());//排序按节目的结束早晚排序
+                int count = 1,temp=p[0].e;
+                for(int i=1;i<n;i++)
+                    if(p[i].s>=temp){//节目的开始>=上个节目的结束
+                        count++;
+                        temp = p[i].e;
+                    }
+                Console.WriteLine(count);
+            }
+        }
+    }
+}
+</pre>
+</p>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>
