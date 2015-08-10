@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+akoj-1291-决战21点
+</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>
+akoj-1291-决战21点
+</h3>
+                    <h5>2015/8/10 21:11:13</h5>
+                    <p>
+akoj题解
+</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>
+akoj-1291-决战21点
+</h1>
+                <p>
+Description<br>
+
+21点是一个非常有趣的游戏，游戏规则是两个人各自抽取若干张牌后
+看谁点数更大（但不能超过21点，否则算0）如果两个点数相等，则庄家获胜<br>
+
+2 3 4 5 6 7 8 9点数都是各自的数码<br>
+10 J Q K 都是10点<br>
+A既可以当成11点，也可以当成1点。<br>
+</p>
+                <p>
+Input<br>
+每组数据包括 n m表示庄家和闲家的牌总数<br>
+接下来两行分别表示庄家和闲家的牌<br>
+</p>
+                <p>
+Output<br>
+输出比分以及庄家赢(HOST　WIN)还是闲家赢(GUEST WIN)
+</p>
+                <p>
+Sample Input<br>
+2 3<br>
+A J<br>
+A A Q<br>
+2 6<br>
+Q J<br>
+A A A A 7 K<br>
+</p>
+                <p>
+
+Sample Output<br>
+21 vs 12 HOST WIN<br>
+20 vs 21 GUEST WIN<br>
+</p>
+                <p>
+    实际上这道题是当时校赛最亏的一道题了，现在写一遍感觉真心不难，很基础，当时看完题目以为不太好写，说留最后搞，然后比完之后也没兴趣去看这题了，就一直放那了，今天点点看到了，写了一下，不难，唉，失误失误。<br>
+
+    思路简单描述一下吧：首先输入后把那些固定的牌的点数先加上，然后再来处理A的问题，怎么处理？实际上题意就是这个A到底是作为1还是11，<b>那我们就枚举，先0张A作为1，其他剩的就为11，一直到一半就行了</b>，然后找出<=21点中的最大和，好，这就是你的点数。实际庄家和闲家的处理是一样的，把代码再复制一遍即可，对于超过21点的，置为0即可。
+</p>
+                <p>
+AC Code<br>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace AK1291 {
+    /// <summary>
+    /// 一开始没考虑最小和超过21点为0，WA了一次，然后加上就AC了
+    /// 感觉这题真不难，不就几张当1，剩下当11嘛，你说比赛的时候咋就不写呢,不能忍
+    /// what's the fuck
+    /// </summary>
+    class Program {
+        static void Main(string[] args) {
+            string s;
+            while ((s = Console.ReadLine()) != null) {
+                string[] ss = s.Split();
+                int n = int.Parse(ss[0]), m = int.Parse(ss[1]);
+                string[] a = Console.ReadLine().Split();
+                string[] b = Console.ReadLine().Split();
+                int acount = 0, bcount = 0;//表示a和b中有多少个A
+                int asum = 0, bsum = 0;
+                for (int i = 0; i < n; i++) {
+                    if (a[i].Equals("A")) acount++;
+                    else {
+                        if (a[i].Equals("J") || a[i].Equals("Q") || a[i].Equals("K") || a[i].Equals("10"))
+                            asum += 10;
+                        else asum += int.Parse(a[i]);
+                    }
+                }
+                for (int i = 0; i < m; i++) {
+                    if (b[i].Equals("A")) bcount++;
+                    else {
+                        if (b[i].Equals("J") || b[i].Equals("Q") || b[i].Equals("K") || b[i].Equals("10"))
+                            bsum += 10;
+                        else bsum += int.Parse(b[i]);
+                    }
+                }
+                //ok   前面处理完其他数据了，下面只要加上多少个1还是11了
+                int amax = asum, bmax = bsum;
+                if (asum + acount > 21) amax = 0;//这些牌最小和都超过21了，置0
+                else {
+                    for (int i = 0; i <= acount; i++) {
+                        int aans = i + (acount - i) * 11;//i张牌当做1，acount-i就当做11
+                        if (aans + asum <= 21 && aans + asum > amax) amax = aans + asum;//找到符合条件的最大牌的和
+                    }
+                }
+                if (bsum + bcount > 21) bmax = 0;
+                else {
+                    for (int i = 0; i <= bcount; i++) {
+                        int bans = i + (bcount - i) * 11;
+                        if (bans + bsum <= 21 && bans + bsum > bmax) bmax = bans + bsum;
+                    }
+                }
+
+                if (amax >= bmax) Console.WriteLine("{0} vs {1} HOST WIN", amax, bmax);
+                else Console.WriteLine("{0} vs {1} GUEST WIN", amax, bmax);
+            }
+        }
+    }
+}
+
+</pre>
+</p>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

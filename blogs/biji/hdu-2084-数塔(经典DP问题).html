@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+hdu-2084-数塔(经典DP问题)
+</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>
+hdu-2084-数塔(经典DP问题)
+</h3>
+                    <h5>2015/8/10 19:04:46</h5>
+                    <p>
+hduoj题解
+</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>
+hdu-2084-数塔(经典DP问题)
+</h1>
+                <p>
+Problem Description<br>
+在讲述DP算法的时候，一个经典的例子就是数塔问题，它是这样描述的：<br>
+
+有如下所示的数塔，要求从顶层走到底层，若每一步只能走到相邻的结点，则经过的结点的数字之和最大是多少？<br>
+
+已经告诉你了，这是个DP的题目，你能AC吗?
+ </p>
+                <p>
+Input<br>
+输入数据首先包括一个整数C,表示测试实例的个数，每个测试实例的第一行是一个整数N(1 <= N <= 100)，表示数塔的高度，接下来用N行数字表示数塔，其中第i行有个i个整数，且所有的整数均在区间[0,99]内。
+ </p>
+                <p>
+Output<br>
+对于每个测试实例，输出可能得到的最大和，每个实例的输出占一行。
+ </p>
+                <p>
+Sample Input<br>
+1<br>
+5<br>
+7<br>
+3 8<br>
+8 1 0 <br>
+2 7 4 4<br>
+4 5 2 6 5<br>
+</p>
+                <p>
+Sample Output<br>
+
+30
+</p>
+                <p>
+Source<br>
+2006/1/15 ACM程序设计期末考试
+</p>
+                <p>
+AC Code<br>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace HDU2084 {
+    class Program {
+        static void Main(string[] args) {
+            int t = int.Parse(Console.ReadLine());
+            while (t-- > 0) {
+                int n = int.Parse(Console.ReadLine());
+                int[,] dp = new int[n + 5, n + 5], a = new int[n + 5, n + 5];
+                for (int i = 1; i <= n; i++) {
+                    string[] s = Console.ReadLine().Split();
+                    for (int j = 1; j <= i; j++)
+                        a[i, j] = int.Parse(s[j - 1]);
+                }
+                for (int i = n; i >= 1; i--)//从n开始先搭建底层，然后依次向上去累加
+                    for (int j = 1; j <= i; j++)
+                        dp[i, j] = Math.Max(dp[i + 1, j], dp[i + 1, j + 1]) + a[i, j];//状态转移方程
+                Console.WriteLine(dp[1, 1]);
+            }
+        }
+    }
+}
+</pre>
+</p>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

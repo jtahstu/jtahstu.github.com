@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+AC自动机之C#网页爬虫1.0(第一天总结)
+</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>
+AC自动机之C#网页爬虫1.0(第一天总结)
+</h3>
+                    <h5>2015/8/11 0:50:26</h5>
+                    <p>
+AC自动机第一步之实现网页爬虫
+</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>
+AC自动机之C#网页爬虫1.0(第一天总结)
+</h1>
+                <p>
+目前已经有了一个大题思路了，由于晚上的时候兴起想写这么一个程序，然后百度之得：可以实现，遂代码搞起<br>
+<br>
+基本思路：<br>
+1、抓取百度的搜索结果，解析网页链接，得到需要跳转的页面<br>
+2、然后进一步解析博客等结果页面，抓取代码，保存代码为文件<br>
+3、这样就得到了代码，也就实现了AC自动机的第一步，在之后程序中拿这些代码然后自动提交OJ<br>
+
+<br>
+ok,相关文档后面陆续添加之<br>
+
+</p>
+                <p>
+第一天写的一个简短的代码，可以运行了<br>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
+
+namespace Test {
+    class Program {
+        static void Main(string[] args) {
+            int st = 1100;//起始搜索题目
+            int en = 1110;//终止搜索题目
+            for (int k = st; k <= en; k++) {
+                Console.WriteLine("目前正在处理hdu第{0}题，Please wait.....",k);
+                System.Net.WebClient client = new WebClient();
+                string problem = "hdu%20" + k.ToString();
+                string hproblem = "http://www.baidu.com/s?word=" + problem + "&pn=0";
+                Stream strm = client.OpenRead(hproblem);
+                StreamReader sr = new StreamReader(strm);
+
+                string file = "百度搜索hdu" + k.ToString() + "题代码.html";
+                StreamWriter sw = new StreamWriter(@"G:\ACM\OJ\result\"+file);
+
+                string link = "hdu" + k.ToString() + "题处理后链接.txt";
+                StreamWriter sw2 = new StreamWriter(@"G:\ACM\OJ\link\" + link);
+
+                string s = sr.ReadToEnd();
+                sw.WriteLine(s);
+
+                int index = 0;
+                for (int i = 0; i < 18; i++) {
+                    string temp = "http://www.baidu.com/link?url";
+                    int start = s.IndexOf(temp, index);
+                    int end = s.IndexOf("\"", start + 5);
+                    string ans = s.Substring(start, end - start);
+                    if (i % 2 == 0) {
+                        sw2.WriteLine(ans);
+                        //Stream page = client.OpenRead(ans);
+                        //StreamReader pageer = new StreamReader(page);
+                        //string spage = pageer.ReadToEnd();
+                        //StreamWriter wpage = new StreamWriter(@"G:\ACM\OJ\linkpage" + "result" + i.ToString() + ".html");
+                        //wpage.WriteLine(spage);
+                        //pageer.Close();
+                        //wpage.Close();
+                        //Console.WriteLine("目前hdu第{0}题跳转链接写入文件完毕，Please wait...", k);
+                    }
+                    index = end + 5;
+                }
+
+                sr.Close();
+                sw.Close();
+                sw2.Close();
+                Console.WriteLine("目前hdu第{0}题已经处理完毕，Please wait.....\n",k);
+
+            }
+            //http://www.baidu.com/link?url=ZdN5LcBLNMw4xK45gGwVEq-vyuuKQbXU7CJDF8YQixQbE1VveqWkUhGWUklD91Mcri3Q0gfwPk9fkjIIDnPWXBsfx54Wc9ynaaN0pOteUtS
+            //System.Net.WebClient client2 = new WebClient();
+            //Stream page = client2.OpenRead("http://www.baidu.com/link?url=ZdN5LcBLNMw4xK45gGwVEq-vyuuKQbXU7CJDF8YQixQbE1VveqWkUhGWUklD91Mcri3Q0gfwPk9fkjIIDnPWXBsfx54Wc9ynaaN0pOteUtS");
+            //StreamReader pageer = new StreamReader(page);
+            //string spage = pageer.ReadToEnd();
+            //StreamWriter wpage = new StreamWriter(@"G:\ACM\OJ\linkpage\result.html");
+            //wpage.WriteLine(spage);
+            //page.Close();
+            //pageer.Close();
+            //wpage.Close(); 
+        }
+    }
+}
+</pre>
+</p>
+                <p>
+一道题运行时会保存两个文件：1、百度搜索结果页面，2、解析后的链接代码<br><br>
+解析后代码有9个，如下这种形式:<br>
+http://www.baidu.com/link?url=vYvYvqzA2XFNoJJudlGF27aAGDANeFJoq4PqrL_iWQUQE-s8lzUsnoU9ynhc8UMVs_puIO98WuuExJJ2sfDXD_<br><br />
+
+http://www.baidu.com/link?url=52GJT0mmNYcljJN6QKFozmhmoex4F-mAiGr64VwBUTcMv0ymiC4NnkPDk5EzdtFcoMZGZSsJc3BQz6UI6-rT-zLEK6uwEBpwrZpofetlo_u<br><br />
+http://www.baidu.com/link?url=ALsNS2WuqBpGCvbRttZEsoWZwXSPIMaltkNs8bPa4QYKnG6Nlp4LtdCbjJXVfbQAD8bc7e_-5_aRGXIyC0jg6K<br><br />
+http://www.baidu.com/link?url=bqaClQcmmhTLWNOVogmJxdbDg3kKkMPotjpK5no2fqqRfejMqvue58ly1rL4LsxebNyj5pRr8Ph5VxtsL7EVmbbQEG8E1RA8svl1AW-5vH7<br><br />
+http://www.baidu.com/link?url=7wD71YKh9ipX3xiQ7tYJ-Pi9MIdeRLSKv9kPmMVgh27bfFUctDDzR-yN5e0sJJNc3OIShEZPI44L8Nlq98SF_K<br><br />
+http://www.baidu.com/link?url=d2MoBA5YWdAhgrrskwQOOg1GH-oCj64Y25Y-btXuGyyFBaW5r2eOz_OCbay-9vjBbZiub1XZN2f2HGgtDoo_QFXhp_bF9kWVCT2buJGz5Sa<br><br />
+http://www.baidu.com/link?url=Z7WkdQE0_9xpppAOm7R0WANfxX8uVSYLlpullLOs_EkQzi8tl3-cAngu1KegJwlDk0Qgw8Y2HVFgqwIwiweNln-OulphvnLPwhh5X8paPsy<br><br />
+http://www.baidu.com/link?url=3PW9dgcpPEX7F8uAFfMVFqrDs9KQqMUwe2c46iebLpt3B7_I7hIRUpYvIytKy6XqwtMEIdniFLLxg7ylSoU1xq<br><br />
+http://www.baidu.com/link?url=ROUmE9aYwyqYz3TXQuhIXExX_NJq5ccLf_DTTotT2o8wwo5Kv9kU7Ix1OwBsilh2idcHnrbaR6vczABvHDBCp_<br><br />
+运行时的照片：<br>
+                    <img src="img/4.png" />
+                    <img src="img/5.png" />
+                    <img src="img/6.png" />
+
+</p>
+                <p>ok,第一天就是这个样子，明天继续奋斗，继续更新...</p>             
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

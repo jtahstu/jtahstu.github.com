@@ -1,4 +1,117 @@
-﻿~ttest~t
-~i这就是一个测试~i
-p1阿速达上课了划得来萨克的脚步那是借口时刻将安徽的p1
-~n1~n
+﻿~t
+AC自动机之C#网页爬虫1.0(第一天总结)
+~t
+
+~i
+AC自动机第一步之实现网页爬虫
+~i
+
+p1
+目前已经有了一个大题思路了，由于晚上的时候兴起想写这么一个程序，然后百度之得：可以实现，遂代码搞起\
+\
+基本思路：\
+1、抓取百度的搜索结果，解析网页链接，得到需要跳转的页面\
+2、然后进一步解析博客等结果页面，抓取代码，保存代码为文件\
+3、这样就得到了代码，也就实现了AC自动机的第一步，在之后程序中拿这些代码然后自动提交OJ\
+
+\
+ok,相关文档后面陆续添加之\
+
+p1
+
+p2
+第一天写的一个简短的代码，可以运行了\
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
+
+namespace Test {
+    class Program {
+        static void Main(string[] args) {
+            int st = 1100;//起始搜索题目
+            int en = 1110;//终止搜索题目
+            for (int k = st; k <= en; k++) {
+                Console.WriteLine("目前正在处理hdu第{0}题，Please wait.....",k);
+                System.Net.WebClient client = new WebClient();
+                string problem = "hdu%20" + k.ToString();
+                string hproblem = "http://www.baidu.com/s?word=" + problem + "&pn=0";
+                Stream strm = client.OpenRead(hproblem);
+                StreamReader sr = new StreamReader(strm);
+
+                string file = "百度搜索hdu" + k.ToString() + "题代码.html";
+                StreamWriter sw = new StreamWriter(@"G:\ACM\OJ\result\"+file);
+
+                string link = "hdu" + k.ToString() + "题处理后链接.txt";
+                StreamWriter sw2 = new StreamWriter(@"G:\ACM\OJ\link\" + link);
+
+                string s = sr.ReadToEnd();
+                sw.WriteLine(s);
+
+                int index = 0;
+                for (int i = 0; i < 18; i++) {
+                    string temp = "http://www.baidu.com/link?url";
+                    int start = s.IndexOf(temp, index);
+                    int end = s.IndexOf("\"", start + 5);
+                    string ans = s.Substring(start, end - start);
+                    if (i % 2 == 0) {
+                        sw2.WriteLine(ans);
+                        //Stream page = client.OpenRead(ans);
+                        //StreamReader pageer = new StreamReader(page);
+                        //string spage = pageer.ReadToEnd();
+                        //StreamWriter wpage = new StreamWriter(@"G:\ACM\OJ\linkpage" + "result" + i.ToString() + ".html");
+                        //wpage.WriteLine(spage);
+                        //pageer.Close();
+                        //wpage.Close();
+                        //Console.WriteLine("目前hdu第{0}题跳转链接写入文件完毕，Please wait...", k);
+                    }
+                    index = end + 5;
+                }
+
+                sr.Close();
+                sw.Close();
+                sw2.Close();
+                Console.WriteLine("目前hdu第{0}题已经处理完毕，Please wait.....\n",k);
+
+            }
+            //http://www.baidu.com/link?url=ZdN5LcBLNMw4xK45gGwVEq-vyuuKQbXU7CJDF8YQixQbE1VveqWkUhGWUklD91Mcri3Q0gfwPk9fkjIIDnPWXBsfx54Wc9ynaaN0pOteUtS
+            //System.Net.WebClient client2 = new WebClient();
+            //Stream page = client2.OpenRead("http://www.baidu.com/link?url=ZdN5LcBLNMw4xK45gGwVEq-vyuuKQbXU7CJDF8YQixQbE1VveqWkUhGWUklD91Mcri3Q0gfwPk9fkjIIDnPWXBsfx54Wc9ynaaN0pOteUtS");
+            //StreamReader pageer = new StreamReader(page);
+            //string spage = pageer.ReadToEnd();
+            //StreamWriter wpage = new StreamWriter(@"G:\ACM\OJ\linkpage\result.html");
+            //wpage.WriteLine(spage);
+            //page.Close();
+            //pageer.Close();
+            //wpage.Close(); 
+        }
+    }
+}
+</pre>
+p2
+
+p3
+一道题运行时会保存两个文件：1、百度搜索结果页面，2、解析后的链接代码\
+解析后代码有9个，如下这种形式:\
+http://www.baidu.com/link?url=vYvYvqzA2XFNoJJudlGF27aAGDANeFJoq4PqrL_iWQUQE-s8lzUsnoU9ynhc8UMVs_puIO98WuuExJJ2sfDXD_\
+http://www.baidu.com/link?url=52GJT0mmNYcljJN6QKFozmhmoex4F-mAiGr64VwBUTcMv0ymiC4NnkPDk5EzdtFcoMZGZSsJc3BQz6UI6-rT-zLEK6uwEBpwrZpofetlo_u\
+http://www.baidu.com/link?url=ALsNS2WuqBpGCvbRttZEsoWZwXSPIMaltkNs8bPa4QYKnG6Nlp4LtdCbjJXVfbQAD8bc7e_-5_aRGXIyC0jg6K\
+http://www.baidu.com/link?url=bqaClQcmmhTLWNOVogmJxdbDg3kKkMPotjpK5no2fqqRfejMqvue58ly1rL4LsxebNyj5pRr8Ph5VxtsL7EVmbbQEG8E1RA8svl1AW-5vH7\
+http://www.baidu.com/link?url=7wD71YKh9ipX3xiQ7tYJ-Pi9MIdeRLSKv9kPmMVgh27bfFUctDDzR-yN5e0sJJNc3OIShEZPI44L8Nlq98SF_K\
+http://www.baidu.com/link?url=d2MoBA5YWdAhgrrskwQOOg1GH-oCj64Y25Y-btXuGyyFBaW5r2eOz_OCbay-9vjBbZiub1XZN2f2HGgtDoo_QFXhp_bF9kWVCT2buJGz5Sa\
+http://www.baidu.com/link?url=Z7WkdQE0_9xpppAOm7R0WANfxX8uVSYLlpullLOs_EkQzi8tl3-cAngu1KegJwlDk0Qgw8Y2HVFgqwIwiweNln-OulphvnLPwhh5X8paPsy\
+http://www.baidu.com/link?url=3PW9dgcpPEX7F8uAFfMVFqrDs9KQqMUwe2c46iebLpt3B7_I7hIRUpYvIytKy6XqwtMEIdniFLLxg7ylSoU1xq\
+http://www.baidu.com/link?url=ROUmE9aYwyqYz3TXQuhIXExX_NJq5ccLf_DTTotT2o8wwo5Kv9kU7Ix1OwBsilh2idcHnrbaR6vczABvHDBCp_\
+\
+运行时的照片：\
+
+p3
+
+~n
+3
+~n
