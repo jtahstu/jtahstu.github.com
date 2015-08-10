@@ -95,6 +95,10 @@ namespace 博客笔记自动生成 {
             //执行读写操作
             r_and_w_title(file);
             r_and_w_p(file);
+
+            AddHref add = new AddHref(file);
+            add.Add();
+
             Console.WriteLine("OK!程序执行完毕,请按任意键退出.");
             Console.ReadKey();
             //File.Copy(@"change.html", @"HTMLPage1.html", true);
