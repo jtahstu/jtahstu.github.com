@@ -63,6 +63,10 @@ AC自动机之C#网页爬虫1.0(第一天总结)
 ok,相关文档后面陆续添加之<br>
 
 </p>
+<p>
+    PS：第一天写的代码把百度的搜索结果也保存了，第二天的时候把这个保存操作注释掉了，那东西感觉保存下来没什么用，还占地方，最后拿到结果链接就行了。然后添加读入题目范围的操作，其他也都基本没变，代码已更新。
+    <h5>last modified by jtahstu on 2015/8/11 23:13</h5>
+</p>
                 <p>
 第一天写的一个简短的代码，可以运行了<br>
 <pre>
@@ -75,11 +79,15 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Test {
+namespace 爬虫 {
     class Program {
         static void Main(string[] args) {
-            int st = 1100;//起始搜索题目
-            int en = 1110;//终止搜索题目
+            int st =0;//起始搜索题目
+            int en = 0;//终止搜索题目
+            Console.Write("请输入起始搜索题号：");
+            st = int.Parse(Console.ReadLine());
+            Console.Write("请输入终止搜索题号：");
+            en = int.Parse(Console.ReadLine());
             for (int k = st; k <= en; k++) {
                 Console.WriteLine("目前正在处理hdu第{0}题，Please wait.....",k);
                 System.Net.WebClient client = new WebClient();
@@ -88,14 +96,15 @@ namespace Test {
                 Stream strm = client.OpenRead(hproblem);
                 StreamReader sr = new StreamReader(strm);
 
-                string file = "百度搜索hdu" + k.ToString() + "题代码.html";
-                StreamWriter sw = new StreamWriter(@"G:\ACM\OJ\result\"+file);
+                //不保存百度后的链接，保存那个东西没用
+                //string file = "百度搜索hdu" + k.ToString() + "题代码.html";
+                //StreamWriter sw = new StreamWriter(@"G:\ACM\OJ\result\"+file);
 
                 string link = "hdu" + k.ToString() + "题处理后链接.txt";
                 StreamWriter sw2 = new StreamWriter(@"G:\ACM\OJ\link\" + link);
 
                 string s = sr.ReadToEnd();
-                sw.WriteLine(s);
+                //sw.WriteLine(s);
 
                 int index = 0;
                 for (int i = 0; i < 18; i++) {
@@ -105,20 +114,12 @@ namespace Test {
                     string ans = s.Substring(start, end - start);
                     if (i % 2 == 0) {
                         sw2.WriteLine(ans);
-                        //Stream page = client.OpenRead(ans);
-                        //StreamReader pageer = new StreamReader(page);
-                        //string spage = pageer.ReadToEnd();
-                        //StreamWriter wpage = new StreamWriter(@"G:\ACM\OJ\linkpage" + "result" + i.ToString() + ".html");
-                        //wpage.WriteLine(spage);
-                        //pageer.Close();
-                        //wpage.Close();
-                        //Console.WriteLine("目前hdu第{0}题跳转链接写入文件完毕，Please wait...", k);
                     }
                     index = end + 5;
                 }
 
                 sr.Close();
-                sw.Close();
+                //sw.Close();
                 sw2.Close();
                 Console.WriteLine("目前hdu第{0}题已经处理完毕，Please wait.....\n",k);
 
@@ -136,6 +137,7 @@ namespace Test {
         }
     }
 }
+
 </pre>
 </p>
                 <p>
