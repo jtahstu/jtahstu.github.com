@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3638</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3638</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3638</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 4:06:16
+//目前爬取的是hduoj第3638题
+#include<stdio.h>
+#include<string.h>
+#include<algorithm>
+#include<queue>
+#define MAXN 60
+int trans[] = {0, 2, 1, 4, 3};
+int dx[] = {0, -1, 1, 0, 0}, dy[] = {0, 0, 0, -1, 1};
+int ex[][9] =
+{
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, -1, -1, -1, -2, -2, -2, -2, -2},
+    {0, 1, 1, 1, 2, 2, 2, 2, 2},
+    {0, -1, 0, 1, -2, -1, 0, 1, 2},
+    {0, -1, 0, 1, -2, -1, 0, 1, 2}
+};
+int ey[][9] =
+{
+    {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, -1, 0, 1, -2, -1, 0, 1, 2},
+    {0, -1, 0, 1, -2, -1, 0, 1, 2},
+    {0, -1, -1, -1, -2, -2, -2, -2, -2},
+    {0, 1, 1, 1, 2, 2, 2, 2, 2}
+};
+struct Monster
+{
+    int x, y, d;
+}mon[MAXN];
+char b[MAXN];
+int N, M, K, sx, sy, tx, ty, g[MAXN][MAXN], del[MAXN][MAXN], vis[MAXN][MAXN];
+struct Point
+{
+    int x, y, t;
+    Point(){}
+    Point(int _x, int _y, int _t) : x(_x), y(_y), t(_t){}
+};
+inline int inside(int x, int y)
+{
+    return x >= 1 && x <= N && y >= 1 && y <= M;
+}
+void moveall()
+{
+    int i, x, y;
+    for(i = 0; i < K; i ++)
+    {
+        x = mon[i].x + dx[mon[i].d], y = mon[i].y + dy[mon[i].d];
+        if(inside(x, y) && g[x][y]) mon[i].x = x, mon[i].y = y;
+        else mon[i].d = trans[mon[i].d];
+    }
+}
+void delblock()
+{
+    int i, j, x, y;
+    for(i = 1; i <= N; i ++)
+        for(j = 1; j <= M; j ++) del[i][j] = 1 - g[i][j];
+    for(i = 0; i < K; i ++)
+        for(j = 0; j < 9; j ++)
+        {
+            x = mon[i].x + ex[mon[i].d][j], y = mon[i].y + ey[mon[i].d][j];
+            if(inside(x, y)) del[x][y] = 1;
+        }
+}
+void init()
+{
+    int i, j;
+    scanf("%d%d", &N, &M);
+    for(i = 1; i <= N; i ++)
+    {
+        scanf("%s", b + 1);
+        for(j = 1; j <= M; j ++)
+        {
+            g[i][j] = b[j] != '*';
+            if(b[j]== 'A') sx = i, sy = j;
+            else if(b[j] == 'B') tx = i, ty = j;
+        }
+    }
+    scanf("%d", &K);
+    for(i = 0; i < K; i ++) scanf("%d%d%d", &mon[i].x, &mon[i].y, &mon[i].d);
+}
+void solve()
+{
+    int i, j, x, y, cur, ans = -1;
+    cur = -1;
+    delblock();
+    if(del[sx][sy])
+    {
+        printf("胜败兵家事不期 卷土重来是大侠\n");
+        return ;
+    }
+    std::queue <Point> q;
+    q.push(Point(sx, sy, 0));
+    while(!q.empty())
+    {
+        Point p = q.front();
+        q.pop();
+        if(p.t > 1000) break;
+        if(p.x == tx && p.y == ty)
+        {
+            ans = p.t;
+            break;
+        }
+        if(p.t > cur)
+        {
+            cur = p.t;
+            for(i = 1; i <= N; i ++)
+                for(j = 1; j <= M; j ++) vis[i][j] = 0;
+            moveall(), delblock();
+        }
+        for(i = 0; i < 5; i ++)
+        {
+            x = p.x + dx[i], y = p.y + dy[i];
+            if(inside(x, y) && !del[x][y] && !vis[x][y])
+                vis[x][y] = 1, q.push(Point(x, y, p.t + 1));
+        }
+    }
+    if(ans == -1) printf("胜败兵家事不期 卷土重来是大侠\n");
+    else printf("%d\n", ans);
+}
+int main()
+{
+    int t, tt;
+    scanf("%d", &t);
+    for(tt = 1; tt <= t; tt ++)
+    {
+        init();
+        printf("Case %d: ", tt);
+        solve();
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

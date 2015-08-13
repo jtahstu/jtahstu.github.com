@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1732</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1732</h3>
+                    <h5>2015/8/13 15:58:58</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1732</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 2:26:05
+//目前爬取的是hduoj第1732题
+#include<iostream>
+#include<queue>
+#include<cstdio>
+#include<cstring>
+using namespace std;
+struct node
+{
+    int x,y,x1,y1,x2,y2,x3,y3;
+    int step;
+};
+bool vist[8][8][8][8][8][8][8][8];
+int n,m,t[4][2]= {1,0,-1,0,0,1,0,-1};
+int f[10][10],cnt;
+char s[10][10];
+queue<node>q;
+
+void bfs()
+{
+    while(!q.empty())
+    {
+        node p=q.front();
+        q.pop();
+        if(f[p.x1][p.y1]&&f[p.x2][p.y2]&&f[p.x3][p.y3])
+        {
+            printf("%d\n",p.step);
+            return;
+        }
+        for(int i=0; i<4; i++)
+        {
+            int mx=p.x+t[i][0];
+            int my=p.y+t[i][1];
+            int xx=p.x+2*t[i][0];
+            int yy=p.y+2*t[i][1];
+            if(mx>=0&&mx<n&&my>=0&&my<m&&s[mx][my]!='#')
+            {
+                if(!((mx==p.x1&&my==p.y1)||(mx==p.x2&&my==p.y2)||(mx==p.x3&&my==p.y3)))
+                {
+                    node p1=p;
+                    p1.x=mx;
+                    p1.y=my;
+                    p1.step=p.step+1;
+                    if(!vist[p1.x][p1.y][p1.x1][p1.y1][p1.x2][p1.y2][p1.x3][p1.y3])
+                    {
+                        vist[p1.x][p1.y][p1.x1][p1.y1][p1.x2][p1.y2][p1.x3][p1.y3]=true;
+                        q.push(p1);
+                    }
+
+                }
+                else
+                {
+                    if(xx>=0&&xx<n&&yy>=0&&yy<m&&s[xx][yy]!='#')
+                    {
+                        if(!((xx==p.x1&&yy==p.y1)||(xx==p.x2&&yy==p.y2)||(xx==p.x3&&yy==p.y3)))
+                        {
+                            node p1=p;
+                            p1.x=mx;
+                            p1.y=my;
+                            if(p1.x1==mx&&p1.y1==my)
+                            {
+                                p1.x1=xx;
+                                p1.y1=yy;
+                            }
+                            if(p1.x2==mx&&p1.y2==my)
+                            {
+                                p1.x2=xx;
+                                p1.y2=yy;
+                            }
+                            if(p1.x3==mx&&p1.y3==my)
+                            {
+                                p1.x3=xx;
+                                p1.y3=yy;
+                            }
+                            p1.step=p.step+1;
+                            if(!vist[p1.x][p1.y][p1.x1][p1.y1][p1.x2][p1.y2][p1.x3][p1.y3])
+                            {
+                                vist[p1.x][p1.y][p1.x1][p1.y1][p1.x2][p1.y2][p1.x3][p1.y3]=true;
+                                q.push(p1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    printf("-1\n");
+}
+int main()
+{
+    while(scanf("%d%d",&n,&m)>0)
+    {
+        memset(vist,false,sizeof(vist));
+        memset(f,0,sizeof(f));
+        while(!q.empty())
+            q.pop();
+        cnt=0;
+        int w=0;
+        node p;
+        for(int i=0; i<n; i++)
+        {
+            scanf("%s",s[i]);
+            for(int j=0; j<m; j++)
+            {
+                if(s[i][j]=='*'&&w==0)
+                {
+                    w++;
+                    p.x1=i;
+                    p.y1=j;
+                    s[i][j]='.';
+                }
+                else  if(s[i][j]=='*'&&w==1)
+                {
+                    w++;
+                    p.x2=i;
+                    p.y2=j;
+                    s[i][j]='.';
+                }
+                else if(s[i][j]=='*'&&w==2)
+                {
+                    w++;
+                    p.x3=i;
+                    p.y3=j;
+                    s[i][j]='.';
+                }
+                if(s[i][j]=='X')
+                {
+                    p.x=i;
+                    p.y=j;
+                    s[i][j]='.';
+                }
+                if(s[i][j]=='@')
+                {
+                    f[i][j]=1;
+                    s[i][j]='.';
+                }
+            }
+        }
+        p.step=0;
+        vist[p.x][p.y][p.x1][p.y1][p.x2][p.y2][p.x3][p.y3]=true;
+        q.push(p);
+        bfs();
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

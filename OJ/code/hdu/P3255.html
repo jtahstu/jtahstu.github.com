@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3255</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3255</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3255</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:55:23
+//目前爬取的是hduoj第3255题
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+using namespace std;
+#define MAX 150105
+#define lch(i) ((i)<<1)
+#define rch(i) ((i)<<1|1)
+
+struct rec{
+    __int64 x1,y1,x2,y2,v;
+};
+struct segment{
+    __int64 l,r,h,val;
+};
+struct tree{
+    int l,r,cnt,sum;
+    int mid()
+    { return (l+r)>>1;  }
+};
+typedef struct rec rec;
+typedef struct segment segment;
+typedef struct tree tree;
+rec rr[MAX];
+segment ss[MAX];
+tree tt[MAX];
+__int64 pos[MAX]; 
+__int64 v[MAX]; 
+int N,M; 
+
+int cmp_rec(rec a ,rec b)
+{ return a.v < b.v; }
+int cmp_segment(segment a , segment b)
+{ return a.h < b.h; }
+
+void input()
+{
+    scanf("%d%d",&N,&M);
+    for(int i=1; i<=M; i++) scanf("%I64d",&v[i]);
+    for(int i=0; i<N; i++)
+    {
+        int k;
+        scanf("%I64d%I64d%I64d%I64d%d",&rr[i].x1, &rr[i].y1, &rr[i].x2, &rr[i].y2, &k);
+        rr[i].v=v[k];
+    }
+}
+
+void build(int l ,int r ,int rt)
+{
+    tt[rt].l=l; tt[rt].r=r; 
+    tt[rt].cnt=0; tt[rt].sum=0;
+    if(l==r) return ; 
+    int mid=tt[rt].mid();
+    build(l, mid, lch(rt));
+    build(mid+1, r, rch(rt));
+}
+
+int binary(int key ,int low, int high)
+{
+    int mid;
+    while(low<=high)
+    {
+        mid=(low+high)>>1;
+        if(pos[mid]==key) return mid;
+        else if(key < pos[mid]) high=mid-1;
+        else low=mid+1;
+    }
+    return -1;
+}
+
+void cal(int rt)
+{
+    if(tt[rt].cnt) 
+        tt[rt].sum=pos[tt[rt].r+1]-pos[tt[rt].l];
+    else if(tt[rt].l==tt[rt].r)
+        tt[rt].sum=0;
+    else 
+        tt[rt].sum=tt[lch(rt)].sum + tt[rch(rt)].sum;
+}
+
+void updata(int l , int r , int val ,int rt)
+{
+    if(tt[rt].l==l && tt[rt].r==r) 
+    {
+        tt[rt].cnt += val ; 
+        cal(rt); 
+        return ;
+    }
+    int mid=tt[rt].mid();
+    if(r<=mid)
+        updata(l,r,val,lch(rt));
+    else if(l>mid)
+        updata(l,r,val,rch(rt));
+    else
+    {
+        updata(l,mid,val,lch(rt));
+        updata(mid+1,r,val,rch(rt));
+    }
+    cal(rt);
+}
+
+__int64 solve(int nn)
+{
+    int m=0;
+    for(int i=nn; i<N; i++)
+    {
+        ss[m].l=rr[i].x1;   ss[m].r=rr[i].x2;   ss[m].h=rr[i].y1;   ss[m].val=1;
+        ss[m+1].l=rr[i].x1; ss[m+1].r=rr[i].x2; ss[m+1].h=rr[i].y2; ss[m+1].val=-1;
+        pos[m]=rr[i].x1;    pos[m+1]=rr[i].x2;
+        m+=2;
+    }
+    sort(pos,pos+m); 
+    sort(ss,ss+m,cmp_segment); 
+    int mm=1;
+    for(int i=1; i<m; i++) 
+        if(pos[i]!=pos[i-1])
+            pos[mm++]=pos[i];    
+    build(0,mm-1,1);
+    __int64 ans=0,res=0;
+    for(int i=0; i<m-1; i++) 
+    {
+        int l=binary(ss[i].l,0,mm-1);    
+        int r=binary(ss[i].r,0,mm-1)-1;  
+        if(l<=r) updata(l,r,ss[i].val,1);
+        res += tt[1].sum * (ss[i+1].h-ss[i].h);
+    }
+    return res;
+}
+
+int main()
+{
+    int T;
+    scanf("%d",&T);
+    for(int t=1; t<=T; t++)
+    {
+        input();
+        sort(rr,rr+N,cmp_rec);
+
+        int s[MAX],kk;
+        s[1]=0; kk=1;
+        for(int i=1; i<N; i++) 
+            if(rr[i].v!=rr[i-1].v)
+                s[++kk]=i;        
+        __int64 ans=0,res;
+        for(int k=1; k<=kk; k++) 
+        {
+            res=solve(s[k]);
+            if(k==1) ans += res * rr[s[k]].v;
+            else     ans += res * ( rr[s[k]].v - rr[s[k-1]].v );
+        }
+        printf("Case %d: %I64d\n",t,ans);
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

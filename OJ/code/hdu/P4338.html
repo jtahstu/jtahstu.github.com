@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4338</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4338</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P4338</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 14:50:17
+//目前爬取的是hduoj第4338题
+#include <algorithm>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+#include <stack>
+using namespace std;
+const int N=200005;
+#define Log 22
+struct Edge
+{
+    int v;
+    Edge *nxt;
+}memo[N*10],*cur,*h_bef[N],*h_aft[N];
+void addEdge(int u,int v,Edge* head[])
+{
+    cur->v=v; cur->nxt=head[u];
+    head[u]=cur++;
+}
+int bnum,bn[N];
+vector<int> block[N];
+bool iscut[N];
+
+bool vis[N];
+stack<int> stk;
+int dfn[N],low[N],son_root,idx;
+
+int lab[N],id[N],son[N],fa[N];
+
+int dp[N][Log],dep[N];
+
+void tarjan(int pt_u,int pt_pre)
+{
+    stack<int> stk_tar;
+    stk_tar.push(pt_u);    fa[pt_u]=pt_pre;
+
+    while(stk_tar.size())
+    {
+        int u=stk_tar.top();
+        int pre=fa[u];
+
+        if(dfn[u]==0) dfn[u]=low[u]=++idx,stk.push(u);
+
+        Edge* it;
+        for(it=h_bef[u];it;it=it->nxt)
+        {
+            int v=it->v;
+            if(v==pre) continue;
+
+            if(fa[v]==-1)
+            {
+                fa[v]=u;  stk_tar.push(v);
+                h_bef[u]=it;
+                break;
+            }
+            else
+            {
+                if(fa[v]==u)
+                {
+                    low[u]=min(low[u],low[v]);
+
+                    if(dfn[u]<=low[v])
+                    {
+                        if(pre==-1) son_root++;
+                        else iscut[u]=1;
+
+                        while(1)
+                        {
+                            int top=stk.top(); stk.pop();
+                            block[bnum].push_back(top);
+                            if(top==v) break;
+                        }
+                        block[bnum].push_back(u);
+                        bnum++;
+                    }
+                }
+
+                else low[u]=min(low[u],dfn[v]);
+            }
+        }
+        if(it==NULL) stk_tar.pop();
+    }
+
+}
+void dfs(int u,int pre,int cnt,int iid)
+{
+    dep[u]=dep[ dp[u][0] ]+1;
+    for(int i=1;i<Log;i++) dp[u][i]= dp[ dp[u][i-1] ][ i-1 ];
+
+    id[u]=iid;    son[u]=cnt+bn[u];
+    for(Edge* it=h_aft[u];it;it=it->nxt)
+    {
+        int v=it->v;
+        if(v!=pre)
+        {
+            dp[v][0]=u;
+            dfs(v,u,son[u],iid);
+        }
+    }
+}
+int lca(int u,int v)
+{
+    if(dep[u]<dep[v]) swap(u,v);
+    for(int st=(1<<(Log-1)),i=Log-1;i>=0;st>>=1,i--)
+    {
+        if(st<=dep[u]-dep[v])
+        {
+            u=dp[u][i];
+        }
+    }
+
+    if(u==v) return u;
+
+    for(int i=Log-1;i>=0;i--)
+    {
+        if(dp[u][i]!=dp[v][i])
+        {
+            u=dp[u][i];
+            v=dp[v][i];
+        }
+    }
+    return dp[u][0];
+}
+void init()
+{
+    cur=memo;
+    memset(h_bef,0,sizeof(h_bef));
+    memset(h_aft,0,sizeof(h_aft));
+    memset(dp,0,sizeof(dp));
+
+    bnum=0; idx=0;    son_root=0;
+    while(stk.size()) stk.pop();
+    for(int i=0;i<N;i++)
+    {
+        block[i].clear();
+        dfn[i]=0;    low[i]=0;    lab[i]=-1;
+        id[i]=i;    iscut[i]=0;    bn[i]=0;
+        son[i]=0;    dep[i]=0;      vis[i]=0;
+        fa[i]=-1;
+    }
+}
+int main()
+{
+    int n,m,Q,t_cnt=0;
+    while(scanf("%d%d",&n,&m)!=EOF)
+    {
+        init();
+
+        for(int i=0;i<m;i++)
+        {
+            int u,v; scanf("%d%d",&u,&v);
+            addEdge(u,v,h_bef);
+            addEdge(v,u,h_bef);
+        }
+
+        for(int i=0;i<n;i++) if(dfn[i]==0)
+        {
+            son_root=0;
+            tarjan(i,-2);
+            if(son_root>1) iscut[i]=1;
+        }
+
+        int k=0;
+        for(int i=0;i<n;i++) if(iscut[i])
+        {
+            lab[i]=k; bn[k]=1; k++;
+        }
+
+        for(int i=0;i<bnum;i++)
+        {
+            for(int j=0;j<(int)block[i].size();j++)
+            {
+                int u=block[i][j];
+                if(iscut[u])
+                {
+                    addEdge(lab[u],k,h_aft);
+                    addEdge(k,lab[u],h_aft);
+                }
+                else lab[u]=k;
+            }
+            bn[k]=(int)block[i].size();
+            k++;
+        }
+
+        for(int i=0;i<k;i++) if(dep[i]==0) dfs(i,-1,0,i);
+
+        scanf("%d",&Q);
+
+        printf("Case #%d:\n",++t_cnt);
+        while(Q--)
+        {
+            int s,t; scanf("%d%d",&s,&t);
+            if(s==t) printf("%d\n",n-1);
+            else if(lab[s]==-1||lab[t]==-1||id[lab[s]]!=id[lab[t]]) printf("%d\n",n);
+            else
+            {
+                s=lab[s]; t=lab[t];
+                int parent=lca(s,t);
+                int cnt=son[s]+son[t]-2*son[parent]+bn[parent];
+                int len=dep[s]+dep[t]-2*dep[parent];
+                int ans=cnt-len;
+                printf("%d\n",n-ans);
+            }
+        }
+        puts("");
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

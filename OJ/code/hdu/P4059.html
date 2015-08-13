@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4059</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4059</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P4059</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 5:22:00
+//目前爬取的是hduoj第4059题
+#include<stdio.h>
+#include<string.h>
+#include<algorithm>
+#include<iostream>
+#include<math.h>
+#include<vector>
+using namespace std;
+#define LL __int64
+#define MOD 1000000007
+#define maxn 2000007
+LL yu[maxn];
+struct matrix
+{
+    LL mat[7][7];
+    matrix()
+    {
+        memset(mat,0,sizeof(mat));
+    }
+    friend matrix operator *(matrix A,matrix B)
+    {
+        int i,j,k;
+        matrix C;
+        for(i=1; i<=6; i++)
+        {
+            for(j=1; j<=6; j++)
+            {
+                for(k=1; k<=6; k++)
+                {
+                    C.mat[i][j]=(C.mat[i][j]+(A.mat[i][k]*B.mat[k][j])%MOD)%MOD;
+                }
+                C.mat[i][j]=C.mat[i][j]%MOD;
+            }
+        }
+        return C;
+    }
+} ONE,AA[30];
+matrix powmul(matrix A,LL k)
+{
+    matrix B;
+    for(int i=1; i<=6; i++)B.mat[i][i]=1;
+    int l=1;
+    while(k)
+    {
+        if(k&1)B=B*AA[l];
+        l++;
+        k>>=1;
+    }
+    return B;
+}
+vector<int>vec;
+void init()
+{
+    int i,j;
+    ONE.mat[1][1]=1;ONE.mat[1][2]=1;ONE.mat[1][3]=4;
+    ONE.mat[1][4]=6;ONE.mat[1][5]=4;ONE.mat[1][6]=1;
+    ONE.mat[2][1]=0;ONE.mat[2][2]=1;ONE.mat[2][3]=4;
+    ONE.mat[2][4]=6;ONE.mat[2][5]=4;ONE.mat[2][6]=1;
+    ONE.mat[3][1]=0;ONE.mat[3][2]=0;ONE.mat[3][3]=1;
+    ONE.mat[3][4]=3;ONE.mat[3][5]=3;ONE.mat[3][6]=1;
+    ONE.mat[4][4]=1;ONE.mat[4][5]=2;ONE.mat[4][6]=1;
+    ONE.mat[5][4]=0;ONE.mat[5][5]=1;ONE.mat[5][6]=1;
+    ONE.mat[6][6]=1;
+    yu[0]=0;
+    yu[1]=1;
+    LL x;
+    for(i=2;i<maxn;i++)
+    {
+        x=i%MOD;
+        x=x*i;
+        x=x%MOD;
+        x=x*i;
+        x=x%MOD;
+        x=x*i;
+        x=x%MOD;
+        yu[i]=yu[i-1]+x;
+        yu[i]=yu[i]%MOD;
+    }
+    AA[1]=ONE;
+    for(i=2;i<30;i++)AA[i]=AA[i-1]*AA[i-1];
+}
+
+matrix A;
+LL kan(LL x)
+{
+    if(x<maxn)return yu[x];
+    matrix OP;
+    for(int i=1;i<=6;i++)OP.mat[i][1]=1;
+    A=powmul(ONE,x-1);
+    OP=A*OP;
+    return OP.mat[1][1];
+}
+LL pan(LL n,LL x)
+{
+    if(x>=n)return 0;
+    LL p=1;
+    LL ns=4;
+    while(ns--)
+    {
+        p=p*x;
+        p=p%MOD;
+    }
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

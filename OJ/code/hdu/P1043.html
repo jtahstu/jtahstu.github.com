@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1043</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1043</h3>
+                    <h5>2015/8/13 15:58:57</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1043</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 1:31:19
+//目前爬取的是hduoj第1043题
+#include <iostream>   
+#include<string>   
+#include<queue>   
+using namespace std;  
+#define N 9   
+#define NMAX 362885   
+
+struct Point{  
+    char eightMap[N];  
+    int position;  
+    string path;  
+};  
+const int fac[]={1,1,2,6,24,120,720,5040,40320}; 
+const int dir[4][2]={{1,0},{0,1},{-1,0},{0,-1}};  
+const char option[4]={'u','l','d','r'};  
+bool visited[NMAX];  
+string inversionPath[NMAX];  
+
+inline int cantor(Point p){  
+    int ans=0;  
+    for(int i=0;i<N;i++)  
+    {  
+        int cnt=0;  
+        for(int k=i+1;k<N;k++)  
+        {  
+            if(p.eightMap[k]<p.eightMap[i])  
+                cnt++;  
+        }  
+        ans+=fac[8-i]*cnt;  
+    }  
+    return ans;  
+}  
+
+bool bfs(){  
+    int row,col,cantorValue;  
+    memset(visited,false,sizeof(visited));  
+    Point startPoint;  
+    for (int i=1;i<N;i++)  
+        startPoint.eightMap[i-1]=i+'0';  
+    startPoint.eightMap[N-1]='x';  
+    startPoint.position=N-1;  
+    startPoint.path="";  
+    visited[0]=true;  
+    queue<Point> que;  
+    que.push(startPoint);  
+    while(!que.empty()){  
+        Point p=que.front();  
+        que.pop();  
+        for(int i=0;i<4;i++){  
+            row=p.position/3+dir[i][0];  
+            col=p.position%3+dir[i][1];  
+            if(row<0||col<0||row>=3||col>=3) continue;  
+            Point newPoint(p);  
+            newPoint.eightMap[newPoint.position]=newPoint.eightMap[col+row*3];  
+            newPoint.position=col+row*3;  
+            newPoint.eightMap[newPoint.position]='x';  
+            cantorValue=cantor(newPoint);  
+            if(visited[cantorValue]) continue;  
+            visited[cantorValue]=true;  
+            newPoint.path+=option[i];  
+            inversionPath[cantorValue]=newPoint.path;  
+            que.push(newPoint);  
+        }  
+    }  
+    return false;  
+}  
+
+int main(){    
+    Point startPoint;  
+    int startCantor;  
+    bfs();  
+    while(cin>>startPoint.eightMap[0])  
+    {  
+        if(startPoint.eightMap[0]=='x')  
+            startPoint.position=0;  
+        for(int i=1;i<9;i++)    
+        {  
+            cin>>startPoint.eightMap[i];  
+            if(startPoint.eightMap[i]=='x')  
+                startPoint.position=i;  
+        }  
+        startCantor=cantor(startPoint);  
+        if(visited[startCantor])  
+        {  
+            for (int i=inversionPath[startCantor].size()-1;i>=0;i--)  
+                cout<<inversionPath[startCantor][i];  
+            cout<<endl;  
+        }  
+        else  
+        {  
+            cout<<"unsolvable"<<endl;  
+        }  
+    }  
+    return 0;  
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

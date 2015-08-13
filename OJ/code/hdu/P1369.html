@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1369</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1369</h3>
+                    <h5>2015/8/13 15:58:58</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1369</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 1:58:48
+//目前爬取的是hduoj第1369题
+#include<iostream>
+#include<map>
+#include<queue>
+#include<cstdio>
+#include<cstring>
+#include<string>
+using namespace std;
+
+struct Editor{
+    int ID;    
+    int Num;
+};
+
+vector<int>data[10000];    
+map<string,int> name;    
+map<string,int>::iterator pos;
+int author[10000];        
+string Erdos = "Erdos,P.";
+
+void bfs()    
+{
+    queue<Editor>Q;
+    Editor tmp,now;
+    int i,id,nNum;
+    memset(author,-1,sizeof(author));
+    tmp.ID = name[Erdos];
+    tmp.Num = 0;
+    Q.push(tmp);
+    while(!Q.empty())
+    {
+        now = Q.front();    Q.pop();
+        id = now.ID;
+        nNum = data[id].size();
+        for(i=0;i<nNum;i++)
+        {
+            if(author[data[id][i]] == -1)
+            {
+                author[data[id][i]] = now.Num + 1;    
+                tmp.ID = data[id][i];
+                tmp.Num = now.Num + 1;
+                Q.push(tmp);    
+            }
+        }
+    }
+}
+
+int main()
+{
+    char str[300];
+    string fullname;
+    int p,n,len,numAuthor,numPaper,i,j,title;
+    int paper[300],iCase = 0;
+    while(scanf("%d%d",&p,&n)!=EOF && p+n)
+    {
+        for(i=0;i<10000;i++)
+            data[i].clear();
+        name.clear();
+        numAuthor = 0;
+        while(p--)
+        {
+            numPaper = 0;
+            int flag = 1;
+            while(1)
+            {
+                scanf("%s",str);
+                fullname = str;
+                scanf("%s",str);    len = strlen(str);
+                if(str[len-1] == ':' || str[len-1] == '.')        flag = 0;
+                str[len-1] = '\0';
+                fullname += str;
+                pos = name.find(fullname);
+                if(pos == name.end())    
+                    name[fullname] = numAuthor ++;
+                paper[numPaper++] = name[fullname];    
+                if(!flag)
+                {
+                    gets(str);    break;
+                }
+            }
+            for(i=0;i<numPaper;i++)    
+            {
+                for(j=0;j<numPaper;j++)
+                {
+                    if(i!=j)
+                        data[paper[i]].push_back(paper[j]);
+                }
+            }
+        }
+        pos = name.find(Erdos);
+        if(pos == name.end())    name[Erdos] = numAuthor++;
+        bfs();
+        printf("Database #%d\n",++iCase);
+        while(n--)
+        {
+            scanf("%s",str);    printf("%s",str);
+            fullname = str;
+            scanf("%s",str);    printf(" %s: ",str);
+            fullname +=str;
+            pos = name.find(fullname);
+            if(pos == name.end() || author[name[fullname]]==-1)
+                printf("infinity\n");
+            else printf("%d\n",author[name[fullname]]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

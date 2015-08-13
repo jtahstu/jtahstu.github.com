@@ -114,7 +114,11 @@ hr {
 	background: none;
 }
 
-
+#search p{
+	padding: 5px 10px 10px 5px;
+	font-size: 15px;
+	color: red;
+}
 /* Page */
 
 #page {
@@ -138,11 +142,11 @@ hr {
 	line-height: normal;
 	text-transform: lowercase;
 	font-weight: normal;
-	color: #FFFFFF;
+	color: #475256;
 }
 #logo p {
 	text-transform: lowercase;
-	font-size: 10px;
+	font-size: 18px;
 }
 #logo h1 {
 	padding-top: 54px;

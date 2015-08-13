@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1540</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1540</h3>
+                    <h5>2015/8/13 15:58:58</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1540</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 2:18:51
+//目前爬取的是hduoj第1540题
+#include<iostream>
+#include<string.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<math.h>
+#include <algorithm>
+using namespace std;
+
+#define MAX 100010
+#define INF 0x6fffff
+
+typedef struct Node{
+    int start;
+    int end;
+    int l_space;
+    int r_space;
+    int m_space;
+}Node;
+
+Node arr[MAX*2];
+int top = -1;
+int stack[MAX];
+int fa[MAX];
+
+void build(int k, int s, int e){
+
+    arr[k].start = s;
+    arr[k].end = e;
+    arr[k].l_space = arr[k].r_space = arr[k].m_space = e - s + 1;
+    if(s == e){
+        fa[s] = k;
+        return;
+    }
+    int mid = (s + e) >> 1;
+    build(k << 1, s, mid);
+    build((k << 1) + 1, mid + 1, e);
+}
+
+void update(int k){
+
+    if(k == 1)
+        return;
+    int fa_i = k >> 1;
+    int b_l = fa_i << 1;
+    int b_r = b_l | 1;
+    arr[fa_i].m_space = max(max(arr[b_l].m_space, arr[b_r].m_space), arr[b_l].r_space + arr[b_r].l_space);
+    if(arr[b_l].l_space == arr[b_l].end - arr[b_l].start + 1)
+        arr[fa_i].l_space = arr[b_l].l_space + arr[b_r].l_space;
+    else
+        arr[fa_i].l_space = arr[b_l].l_space;
+    if(arr[b_r].r_space == arr[b_r].end - arr[b_r].start + 1){
+        arr[fa_i].r_space = arr[b_l].r_space + arr[b_r].r_space;
+    }
+    else
+        arr[fa_i].r_space = arr[b_r].r_space;
+    update(fa_i);
+}
+
+int sum;
+void query(int i, int x){
+
+    if(arr[i].start == arr[i].end || arr[i].end - arr[i].start + 1 == arr[i].m_space || arr[i].m_space == 0){
+        sum += arr[i].m_space;
+        return;
+    }
+    int mid = (arr[i].start + arr[i].end) >> 1;
+    if(x <= mid){
+
+        if(x >= arr[i << 1].end - arr[i << 1].r_space + 1)
+                   query((i << 1) + 1, mid + 1);
+        query(i << 1, x);
+    } else {
+
+        if(x <= arr[(i << 1) + 1].start + arr[(i << 1) + 1].l_space - 1)
+            query(i << 1, mid);
+        query((i << 1) + 1, x);
+    }
+}
+
+void dbg_show(){
+
+    int max = 15;
+    for(int i = 1; i < max; ++i)
+        cout<<arr[i].start<<" "<<arr[i].end<<" "<<arr[i].l_space<<" "<<arr[i].r_space<<" "<<arr[i].m_space<<endl;
+
+}
+
+int main(){
+
+    char ch;
+    int m, n, dt;
+    int flag = 0;
+    while(cin>>m>>n){
+
+        build(1, 1, m);
+        //dbg_show();
+        while(n--){
+            cin>>ch;
+            switch(ch){
+
+                case 'D':
+                    cin>>dt;
+                    arr[fa[dt]].l_space = arr[fa[dt]].r_space = arr[fa[dt]].m_space = 0;
+                    update(fa[dt]);
+                    stack[++top] = dt;
+                    //dbg_show();
+                    break;
+                case 'R':
+                    dt = stack[top--];
+                    arr[fa[dt]].l_space = arr[fa[dt]].r_space = arr[fa[dt]].m_space = 1;
+                    update(fa[dt]);
+                    break;
+                case 'Q':
+                    cin>>dt;
+                    sum = 0;
+                    query(1, dt);
+                    cout<<sum<<endl;
+                    break;
+            }
+        }
+
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3365</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3365</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3365</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:58:08
+//目前爬取的是hduoj第3365题
+#include<stdio.h>
+#include<math.h>
+#define N 10010
+#define PI acos(-1)
+#define EPS 1e-8
+struct Point
+{
+    double x,y;
+    void input(){scanf("%lf%lf",&x,&y);}
+    void output(){printf("%.2lf %.2lf\n",x,y);}
+}A[N],B[2],PA,PB;
+
+double cosa,sina,k;
+double length(Point P)
+{
+    return sqrt(P.x*P.x+P.y*P.y);
+}
+void rotate(Point &P)
+{
+    double t=P.x;
+    P.x=P.x*cosa-P.y*sina;
+    P.y=P.y*cosa+t*sina;
+}
+void expand(Point &P)
+{
+    P.x*=k;
+    P.y*=k;
+}
+
+int main()
+{
+    int n,i,t,cnt=0;
+    double a;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d",&n);
+        for(i=0;i<n;++i)
+            A[i].input();
+        for(i=0;i<2;++i)
+            B[i].input();
+        PA.x=A[1].x-A[0].x;
+        PA.y=A[1].y-A[0].y;
+        PB.x=B[1].x-B[0].x;
+        PB.y=B[1].y-B[0].y;
+        a=acos((PA.x*PB.x+PA.y*PB.y)/(length(PA)*length(PB)));
+        if(PA.x*PB.y-PA.y*PB.x<EPS)
+            a = 2.0 * PI - a;
+        cosa=cos(a);
+        sina=sin(a);
+        k=length(PB)/length(PA);
+
+        for(i=2;i<n;++i)
+        {
+            A[i].x-=A[0].x;
+            A[i].y-=A[0].y;
+            rotate(A[i]);
+            expand(A[i]);
+            A[i].x+=B[0].x;
+            A[i].y+=B[0].y;
+        }
+        printf("Case %d:\n",++cnt);
+        B[0].output();
+        B[1].output();
+        for(i=2;i<n;++i)
+            A[i].output();
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

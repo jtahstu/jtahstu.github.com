@@ -1,0 +1,6 @@
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动添加\bin\Debug\hdu题解自动添加.exe.config
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动添加\bin\Debug\hdu题解自动添加.exe
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动添加\bin\Debug\hdu题解自动添加.pdb
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动添加\obj\Debug\hdu题解自动添加.exe
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动添加\obj\Debug\hdu题解自动添加.pdb
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动添加\obj\Debug\hdu题解自动添加.csprojResolveAssemblyReference.cache

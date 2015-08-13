@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P2532</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P2532</h3>
+                    <h5>2015/8/13 15:59:00</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P2532</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:07:03
+//目前爬取的是hduoj第2532题
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+using namespace std;
+
+struct node
+{
+    char name[300];
+    int cnt;
+    int id;
+    int len;
+} s[1005];
+
+char ss[300];
+
+struct kode
+{
+    char name[30];
+    int len;
+} word[15];
+
+struct qode
+{
+    char name[30];
+    int len;
+} word2[15];
+
+int cmp(node x,node y)
+{
+    if(x.cnt==y.cnt)
+        return x.id<y.id;
+    return x.cnt>y.cnt;
+}
+
+int main()
+{
+    int n,i,j,k,x,y,z,m,len;
+    int ll,l_word,flag;
+    int ll2,l_word2;
+    while(~scanf("%d",&n),n)
+    {
+        for(i = 0; i<n; i++)
+        {
+            getchar();
+            gets(s[i].name);
+            scanf("%d",&s[i].cnt);
+            s[i].id = i;
+            s[i].len = strlen(s[i].name);
+            s[i].name[s[i].len++] = ' ';
+            s[i].name[s[i].len] = '\0';
+        }
+        sort(s,s+n,cmp);
+        scanf("%d",&m);
+        getchar();
+        for(i = 0; i<m; i++)
+        {
+            gets(ss);
+            ll = 0;
+            l_word = 0;
+            len = strlen(ss);
+            ss[len++] = ' ';
+            ss[len] = '\0';
+            for(j = 0; j<len; j++)
+            {
+                if(ss[j]>='A' && ss[j]<='Z')
+                    ss[j]+=32;
+            }
+            memset(word,'\0',sizeof(word));
+            for(j = 0; j<len; j++)
+            {
+                if(ss[j]>='a' && ss[j]<='z')
+                {
+                    word[l_word].name[ll++] = ss[j];
+                }
+                else if(j>0 && ss[j] == ' ' && ss[j-1]>='a' && ss[j-1]<='z')
+                {
+                    word[l_word].name[ll] = '\0';
+                    word[l_word].len = ll;
+                    l_word++;
+                    ll = 0;
+                }
+            }
+            for(j = 0; j<n; j++)
+            {
+                l_word2 = ll2 = 0;
+                memset(word2,'\0',sizeof(word2));
+                for(k = 0; k<s[j].len; k++)
+                {
+                    if(s[j].name[k]>='a' && s[j].name[k]<='z')
+                    {
+                        word2[l_word2].name[ll2++] = s[j].name[k];
+                    }
+                    else if(s[j].name[k]>='A' && s[j].name[k]<='Z')
+                    {
+                        word2[l_word2].name[ll2++] = s[j].name[k]+32;
+                    }
+                    else if(s[j].name[k] == ' ' && s[j].name[k-1]>='a' && s[j].name[k-1]<='z')
+                    {
+                        word2[l_word2].name[ll2] = '\0';
+                        word2[l_word2].len = ll2;
+                        l_word2++;
+                        ll2 = 0;
+                    }
+                    else if(s[j].name[k] == ' ' && s[j].name[k-1]>='A' && s[j].name[k-1]<='Z')
+                    {
+                        word2[l_word2].name[ll2] = '\0';
+                        word2[l_word2].len = ll2;
+                        l_word2++;
+                        ll2 = 0;
+                    }
+                }
+                y = 0;
+                x = 0;
+                flag = 0;
+                while(x<l_word && y<l_word2)
+                {
+                    if(!strcmp(word[x].name,word2[y].name))
+                    {
+                        x++;
+                        y++;
+                        flag++;
+                    }
+                    else
+                    {
+                        x = 0;
+                        y++;
+                        flag = 0;
+                    }
+                }
+                if(flag == l_word)
+                {
+                    for(z = 0;z<s[j].len-1;z++)
+                    printf("%c",s[j].name[z]);
+                    printf("\n");
+                }
+            }
+            printf("***\n");
+        }
+        printf("---\n");
+    }
+
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

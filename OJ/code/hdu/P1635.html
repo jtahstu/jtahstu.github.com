@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1635</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1635</h3>
+                    <h5>2015/8/13 15:58:58</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1635</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 2:22:25
+//目前爬取的是hduoj第1635题
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <string>
+using namespace std;
+static int aMDays[] =  {0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334};
+static int aMDaysL[] = {0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335};
+bool LeapYear(int Year, bool bNew) {
+    if (bNew) {
+        return ((Year % 4 == 0 && Year % 100 != 0) || Year % 400 == 0);
+    }
+    return (Year % 4 == 0);
+}
+int Date2Days(int Year, int Month, int Date, bool bNew) {
+    --Year; 
+    int Days = Year * 365 + Year / 4 + (bNew ? (Year / 400 - Year / 100) : 0);
+    Days += ((Month > 2) ? LeapYear(Year + 1, bNew) : 0);
+    return (Days + aMDays[Month - 1] + Date - 1 - (!bNew * 2));
+}
+int main(void) {
+    const static string aDays[] = {"Sunday", "Monday", "Tuesday",
+        "Wednesday", "Thursday", "Friday", "Saturday"};
+    const static string aMonths[] = {"January", "February", "March",
+        "April", "May", "June", "July", "August", "September",
+        "October", "November", "December"};
+    const int nDays400Y = 400 * 365 + 100 - 3;
+    const int nDays100Y = 100 * 365 + 25 - 1;
+    const int nDays4Y = 4 * 365 + 1, nDays1Y = 365;
+    for (string str; cin >> str && str != "#";) {
+        int Day, Date, Month, Year;
+        Day = find(&aDays[0], &aDays[7], str) - &aDays[0];
+        cin >> Date >> str >> Year;
+        Month = find(&aMonths[0], &aMonths[12], str) - &aMonths[0] + 1;
+        int nDays = Date2Days(Year, Month, Date, false);
+        bool bOld2New = true; 
+        if (Day == (nDays + 1) % 7) {
+            Year = nDays / nDays400Y * 400; 
+            nDays %= nDays400Y;
+            if (nDays == nDays100Y * 4) { 
+                Year += 300;
+                nDays -= nDays100Y * 3;
+            }
+            else {
+                Year += nDays / nDays100Y * 100;
+                nDays %= nDays100Y; 
+            }
+        } 
+        else {
+            nDays = Date2Days(Year, Month, Date, true) + 2;
+            Year = bOld2New = 0;
+        }
+        Year += nDays / nDays4Y * 4;
+        nDays %= nDays4Y;
+        if (nDays == nDays1Y * 4) { 
+            Year += 3;
+            nDays -= nDays1Y * 3;
+        }
+        else {
+            Year += nDays / nDays1Y;
+            nDays %= nDays1Y; 
+        }
+        int *pMDays = (LeapYear(++Year, bOld2New) ? aMDaysL : aMDays);
+        for (Month = 0; Month < 12 && pMDays[Month] <= nDays; ++Month);
+        Date = nDays - pMDays[Month - 1] + 1;
+        Day = (Date2Days(Year, Month, Date, bOld2New) + 1) % 7;
+        cout << aDays[Day] << ' ' << Date << (bOld2New ? " " : "* ");
+        cout << aMonths[Month - 1] << ' ' << Year << endl;
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

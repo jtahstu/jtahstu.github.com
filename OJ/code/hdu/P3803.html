@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3803</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3803</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3803</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 4:16:34
+//目前爬取的是hduoj第3803题
+#include<stdio.h>
+#include<iostream>
+ using namespace std;
+#define sign(a) ((a)>0?1:(((a)<0?-1:0)))
+struct point{__int64 x,y;};
+__int64 pp1,pp2,qq1,qq2;
+
+__int64 xmult(point p1,point p2,point p0){
+    return (p1.x-p0.x)*(p2.y-p0.y)-(p2.x-p0.x)*(p1.y-p0.y);
+}
+__int64 xmult(__int64 x1,__int64 y1,__int64 x2,__int64 y2,__int64 x0,__int64 y0){
+    return (x1-x0)*(y2-y0)-(x2-x0)*(y1-y0);
+}
+
+__int64 dmult(point p1,point p2,point p0){
+    return (p1.x-p0.x)*(p2.x-p0.x)+(p1.y-p0.y)*(p2.y-p0.y);
+}
+__int64 dmult(__int64 x1,__int64 y1,__int64 x2,__int64 y2,__int64 x0,__int64 y0){
+    return (x1-x0)*(x2-x0)+(y1-y0)*(y2-y0);
+}
+
+__int64 dots_inline(point p1,point p2,point p3){
+    return !xmult(p1,p2,p3);
+}
+__int64 dots_inline(__int64 x1,__int64 y1,__int64 x2,__int64 y2,__int64 x3,__int64 y3){
+    return !xmult(x1,y1,x2,y2,x3,y3);
+}
+
+__int64 dot_online_in(point p,point l1,point l2){
+    return !xmult(p,l1,l2)&&(l1.x-p.x)*(l2.x-p.x)<=0&&(l1.y-p.y)*(l2.y-p.y)<=0;
+}
+__int64 dot_online_in(__int64 x,__int64 y,__int64 x1,__int64 y1,__int64 x2,__int64 y2){
+    return !xmult(x,y,x1,y1,x2,y2)&&(x1-x)*(x2-x)<=0&&(y1-y)*(y2-y)<=0;
+}
+
+__int64 dot_online_ex(point p,point l1,point l2){
+    return dot_online_in(p,l1,l2)&&(p.x!=l1.x||p.y!=l1.y)&&(p.x!=l2.x||p.y!=l2.y);
+}
+__int64 dot_online_ex(__int64 x,__int64 y,__int64 x1,__int64 y1,__int64 x2,__int64 y2){
+    return dot_online_in(x,y,x1,y1,x2,y2)&&(x!=x1||y!=y1)&&(x!=x2||y!=y2);
+}
+
+__int64 same_side(point p1,point p2,point l1,point l2){
+    return sign(xmult(l1,p1,l2))*xmult(l1,p2,l2)>0;
+}
+
+__int64 opposite_side(point p1,point p2,point l1,point l2){
+    return sign(xmult(l1,p1,l2))*xmult(l1,p2,l2)<0;
+}
+
+__int64 parallel(point u1,point u2,point v1,point v2){
+    return (u1.x-u2.x)*(v1.y-v2.y)==(v1.x-v2.x)*(u1.y-u2.y);
+}
+
+__int64 __int64ersect_in(point u1,point u2,point v1,point v2){
+    if (!dots_inline(u1,u2,v1)||!dots_inline(u1,u2,v2))
+        return !same_side(u1,u2,v1,v2)&&!same_side(v1,v2,u1,u2);
+    return dot_online_in(u1,v1,v2)||dot_online_in(u2,v1,v2)||dot_online_in(v1,u1,u2)||dot_online_in(v2,u1,u2);
+}
+
+__int64 __int64ersect_ex(point u1,point u2,point v1,point v2){
+    return opposite_side(u1,u2,v1,v2)&&opposite_side(v1,v2,u1,u2);
+}
+
+void __int64ersection(point u1,point u2,point v1,point v2){
+    point ret=u1;
+    pp2=qq2=(__int64)(u1.x-u2.x)*(__int64)(v1.y-v2.y)-(__int64)(u1.y-u2.y)*(__int64)(v1.x-v2.x);
+    pp1=u1.x;
+    qq1=u1.y;
+
+    pp1*=pp2;
+    qq1*=qq2;
+
+    pp1+=((__int64)(u1.x-v1.x)*(__int64)(v1.y-v2.y)-(__int64)(u1.y-v1.y)*(__int64)(v1.x-v2.x))*(__int64)(u2.x-u1.x);
+    qq1+=((__int64)(u1.x-v1.x)*(__int64)(v1.y-v2.y)-(__int64)(u1.y-v1.y)*(__int64)(v1.x-v2.x))*(__int64)(u2.y-u1.y);
+}
+
+point m1,m2,n1,n2;
+__int64 ansx[2],ansy[2];
+__int64 fab(__int64 k)
+{
+    return k>0?k:-k;
+}
+
+__int64 gcd(__int64 m,__int64 n) 
+{
+    while (1)
+    {
+    m=m%n;
+    if (m==0) return n;
+    n=n%m;
+    if (n==0) return m;
+    }
+}
+
+void dod(__int64 kk1,__int64 kk2,__int64 kk)
+{
+    __int64 t1,t2,t3,t4;
+    __int64 sign1=1;
+    if(kk2==0) while(1);
+    if(kk1==0) 
+    {
+        ansx[kk]=kk1;
+        ansy[kk]=1;
+        return ;
+    }
+    if(kk2==1 || kk1==1 )
+    {
+        ansx[kk]=kk1;
+        ansy[kk]=kk2;
+        return ;
+    }
+    if((kk1<0 && kk2>0) || (kk1>0 && kk2<0))
+    {
+        sign1=-1;
+    }
+    t1=fab(kk1);
+    t2=fab(kk2);
+    if(t1>t2)
+    {
+        t3=gcd(t1,t2);
+        t1/=t3;
+        t2/=t3;
+        ansx[kk]=sign1*t1;ansy[kk]=t2;
+    }
+    else if(t1<t2)
+    {
+        t3=gcd(t2,t1);
+        t1/=t3;
+        t2/=t3;
+        ansx[kk]=sign1*t1;ansy[kk]=t2;
+    }
+    else {ansx[kk]=sign1*1;ansy[kk]=1;}
+}
+
+__int64 check(point aa,point bb)
+{
+    if(aa.x==bb.x && aa.y==bb.y) return 1;
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

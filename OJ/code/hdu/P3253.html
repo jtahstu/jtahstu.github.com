@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3253</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3253</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3253</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:55:18
+//目前爬取的是hduoj第3253题
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <algorithm>
+using namespace std;
+
+int n,x[210],y[210],d[210],rx[210],ry[210];
+
+struct heap
+{
+  int t1,t2;
+  bool cmp(const int &u,const int &v)
+  { return t1*x[u]+t2*y[u]>t1*x[v]+t2*y[v]; }
+  int n,h[210],e[210];
+  void del(int i)
+  {
+    e[h[i]]=0;
+    if (i==n)
+    { n--; return; }
+    h[i]=h[n--]; e[h[i]]=i;
+    down(i); up(i);
+  }
+  void build(void)
+  {
+    for(int i=(n>>1);i>=1;i--)
+      down(i);
+  }
+  void up(int i)
+  {
+    int t,j;
+    while(i>1)
+    {
+      j=(i>>1);
+      if (cmp(h[i],h[j]))
+      { 
+        t=h[i]; h[i]=h[j]; h[j]=t;
+        e[h[i]]=i; e[h[j]]=j;
+      }
+      else break;
+      i=j;
+    }
+  }
+  void down(int i)
+  {
+    int t,j;
+    while((j=(i<<1))<=n)
+    {
+      if (j<n&&cmp(h[j+1],h[j])) j++;
+      if (cmp(h[j],h[i]))
+      { 
+        t=h[i]; h[i]=h[j]; h[j]=t;
+        e[h[i]]=i; e[h[j]]=j;
+      }
+      else break;
+      i=j;
+    }
+  }
+}h1,h2,h3,h4;
+
+int main(void)
+{
+  int u,c,i,l1,r1,l2,r2;
+  scanf("%d",&c);
+  for(u=1;u<=c;u++)
+  {
+    scanf("%d",&n);
+    h1.n=h2.n=h3.n=h4.n=n;
+    for(i=1;i<=n;i++)
+    {
+      scanf("%d%d%d",x+i,y+i,d+i);
+      h1.h[i]=h1.e[i]=i;
+      h2.h[i]=h2.e[i]=i;
+      h3.h[i]=h3.e[i]=i;
+      h4.h[i]=h4.e[i]=i;
+    }
+    h1.t1=1; h1.t2=1;
+    h2.t1=-1; h2.t2=1;
+    h3.t1=-1; h3.t2=-1;
+    h4.t1=1; h4.t2=-1;
+    h1.build();
+    h2.build();
+    h3.build();
+    h4.build();
+    for(i=n;i>=1;i--)
+    {
+      l1=x[h1.h[1]]+y[h1.h[1]]-d[i];
+      r1=x[h3.h[1]]+y[h3.h[1]]+d[i];
+      l2=-x[h2.h[1]]+y[h2.h[1]]-d[i];
+      r2=-x[h4.h[1]]+y[h4.h[1]]+d[i];
+      if (i<n)
+      {
+        r1=min(r1,rx[i+1]+ry[i+1]+d[i+1]-d[i]);
+        l1=max(l1,rx[i+1]+ry[i+1]-d[i+1]+d[i]);
+        r2=min(r2,-rx[i+1]+ry[i+1]+d[i+1]-d[i]);
+        l2=max(l2,-rx[i+1]+ry[i+1]-d[i+1]+d[i]);
+      }
+      if ((l1+l2)%2!=0)
+        if (l1<r1)
+          l1++;
+        else l2++;
+      rx[i]=(l1-l2)/2;
+      ry[i]=(l1+l2)/2;
+      h1.del(h1.e[i]);
+      h2.del(h2.e[i]);
+      h3.del(h3.e[i]);
+      h4.del(h4.e[i]);
+    }
+    printf("Case %d:\n",u);
+    for(i=1;i<=n;i++)
+      printf("%d %d\n",rx[i],ry[i]);
+  }
+  return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

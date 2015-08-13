@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3252</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3252</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3252</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:55:16
+//目前爬取的是hduoj第3252题
+#include <iostream>
+#include <queue>
+#include <stack>
+#include <string>
+#include <map>
+#include <vector>
+#include <cstring>
+#include <set>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+const int MAX=1005,INF=1<<30;
+const string END="#CODE-END";
+
+int len;
+map<string,int> mymap;
+map<string,int>::iterator ite;
+
+vector<string> A,B;
+
+int cnt;
+int f[MAX][MAX];
+int ma[MAX],mb[MAX];
+vector<int> a,b;
+int Test;
+
+void read(vector<string> &t,vector<int> &arr){
+
+    string s;
+    while(getline(cin,s)){
+        if(s==END)
+            break;
+        ite=mymap.find(s);
+        if(ite==mymap.end())
+            mymap[s]=len++;
+        t.push_back(s);
+        arr.push_back(mymap[s]);
+    }
+    return ;
+}
+
+void createM(){
+
+    int n1=(int)a.size()-1,n2=(int)b.size()-1;
+    memset(f,0,sizeof(f));
+
+    for(int i=n1;i>=1;i--){
+        for(int j=n2;j>=1;j--){
+            if(a[i]==b[j])
+                f[i][j]=f[i+1][j+1]+1;
+            else
+                f[i][j]=max(f[i+1][j],f[i][j+1]);
+        }
+    }
+     int L=f[1][1];
+     cnt=f[1][1];
+
+    int x = -1,c=0;
+    for(int i = 1; i<=n1; i++)
+    {
+        for(int j = 1; j<= n2; j++)
+        {
+            if(a[i] == b[j] && f[i][j] == L && j > x)
+            {
+                x = j;
+                L--;
+                ma[c]=i-1;
+                mb[c]=j-1;
+                x = j;
+                c++;
+                break;
+            }
+        }
+    }
+    return ;
+}
+
+struct DD{
+    bool isM;
+    int b,e;
+};
+DD DA[MAX*3],DB[MAX*3];
+
+void cut(){
+    int front=0,rear=0;
+
+    int len=0;
+    for(int i=0;i<2*cnt;i++,len++){
+        rear=ma[len];
+        if(front<rear){
+            DA[i].isM=0;
+            DA[i].b=front;
+            DA[i].e=rear-1;
+        }
+        else {
+            DA[i].isM=0;
+            DA[i].b=-1;
+            DA[i].e=-1;
+        }
+        ++i;
+        DA[i].isM=1;
+        DA[i].b=ma[len];
+        DA[i].e=ma[len];
+        front=ma[len]+1;
+
+    }
+    rear=(int)A.size();
+
+    if(front<rear){
+        DA[cnt*2].isM=0;
+        DA[cnt*2].b=front;
+        DA[cnt*2].e=rear-1;
+    }
+    else {
+        DA[cnt*2].isM=0;
+        DA[cnt*2].b=-1;
+        DA[cnt*2].e=-1;
+    }
+
+    front=rear=0;
+    len=0;
+    for(int i=0;i<2*cnt;i++,len++){
+        rear=mb[len];
+        if(front<rear){
+            DB[i].isM=0;
+            DB[i].b=front;
+            DB[i].e=rear-1;
+        }
+        else {
+            DB[i].isM=0;
+            DB[i].b=-1;
+            DB[i].e=-1;
+        }
+        ++i;
+        DB[i].isM=1;
+        DB[i].b=mb[len];
+        DB[i].e=mb[len];
+        front=mb[len]+1;
+
+    }
+    rear=(int)B.size();
+
+    if(front<rear){
+        DB[cnt*2].isM=0;
+        DB[cnt*2].b=front;
+        DB[cnt*2].e=rear-1;
+    }
+    else {
+        DB[cnt*2].isM=0;
+        DB[cnt*2].b=-1;
+        DB[cnt*2].e=-1;
+    }
+    return ;
+}
+
+void output(){
+
+    for(int i=0;i<2*cnt+1;i++){
+
+        if(DA[i].isM)
+            cout<<A[DA[i].b]<<endl;
+        else if(DA[i].b==-1&&DA[i].e==-1){
+            if(DB[i].b==-1&&DB[i].e==-1)
+                continue;
+            else{
+                for(int j=DB[i].b;j<=DB[i].e;j++){
+                    cout<<B[j]<<endl;
+                }
+            }
+        }
+        else if(DB[i].b==-1&&DB[i].e==-1){
+            if(DA[i].b==-1&&DA[i].e==-1)
+                continue;
+            else{
+                for(int j=DA[i].b;j<=DA[i].e;j++){
+                    cout<<A[j]<<endl;
+                }
+            }
+        }
+        else {
+            cout<<"//**** CONFLICT STARTS ****//"<<endl
+                <<"//code in A:"<<endl;
+            for(int j=DA[i].b;j<=DA[i].e;j++){
+                cout<<A[j]<<endl;
+            }
+            cout<<"//code in B:"<<endl;
+            for(int j=DB[i].b;j<=DB[i].e;j++){
+                cout<<B[j]<<endl;
+            }
+            cout<<"//***** CONFLICT ENDS *****//"<<endl;
+        }
+
+    }
+    return ;
+}
+
+int main()
+{
+    int test=1;
+    cin>>Test;
+    cin.ignore();
+    while(Test--){
+
+        cout<<"Case "<<test++<<":"<<endl;
+
+        len=0;
+        mymap.clear();
+        A.clear();B.clear();
+        a.clear();b.clear();
+        a.push_back(-1);b.push_back(-1);
+
+        read(A,a);
+        read(B,b);
+
+        createM();
+
+        cut();
+
+        output();
+        cout<<endl;
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

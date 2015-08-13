@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4030</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4030</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P4030</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 5:07:05
+//目前爬取的是hduoj第4030题
+#include<cstdio>
+#include<cstdlib>
+#include<cstring>
+#include<cmath>
+#include<map>
+#include<algorithm>
+using namespace std;
+typedef long long ll;
+const int maxn = 105;
+const int forever = -1;
+const int never = -2;
+struct point
+{
+    ll x, y;
+} p[maxn], v[maxn];
+map <ll, ll> Map;
+ll cti[maxn][maxn];
+void initial(int n)
+{
+    int i, j, t;
+    for(i=0; i<n; i++)
+        for(j=i+1; j<n; j++)
+        {
+            if(p[i].x==p[j].x && p[i].y==p[j].y && v[i].x==v[j].x && v[i].y==v[j].y)
+                cti[i][j]=cti[j][i]=forever;
+            else
+            {
+                cti[i][j]=cti[j][i]=never;
+                if(v[i].x != v[j].x)
+                {
+                    if((p[i].x-p[j].x)%(v[j].x-v[i].x) != 0)continue;
+                    t=(p[i].x-p[j].x)/(v[j].x-v[i].x);
+                    if(t<0 || (p[i].y+v[i].y*t != p[j].y+v[j].y*t))continue;
+                }
+                else if(v[i].y != v[j].y)
+                {
+                    if((p[i].y-p[j].y)%(v[j].y-v[i].y) != 0)continue;
+                    t=(p[i].y-p[j].y)/(v[j].y-v[i].y);
+                    if(t<0 || (p[i].x+v[i].x*t != p[j].x+v[j].x*t))continue;
+                }
+                else continue;
+                cti[i][j]=cti[j][i]=t;
+            }
+        }
+}
+int main()
+{
+    int i, j, k, n, tmp, cnt, res, ans;
+    ll a, b, c, t;
+    while(~scanf("%d", &n) && n)
+    {
+        for(i = 0; i < n; i++)scanf("%I64d%I64d%I64d%I64d", &p[i].x, &p[i].y, &v[i].x, &v[i].y);
+        if(n == 1 || n == 2)
+        {
+            printf("%d\n", n);
+            continue;
+        }
+        initial(n);
+        ans = 0;
+        for(i = 0; i < n; i++)
+            for(j = i+1; j < n; j++)
+            {
+                Map.clear();
+                cnt = 0;
+                res = 0;
+                for(k = 0; k < n; k++)
+                {
+                    if(k==i || k==j)continue;
+                    a = (v[i].x-v[j].x)*(v[i].y-v[k].y) - (v[i].x-v[k].x)*(v[i].y-v[j].y);
+                    b = (p[i].x-p[j].x)*(v[i].y-v[k].y) + (v[i].x-v[j].x)*(p[i].y-p[k].y)
+                        - (p[i].y-p[j].y)*(v[i].x-v[k].x) - (v[i].y-v[j].y)*(p[i].x-p[k].x);
+                    c = (p[i].x-p[j].x)*(p[i].y-p[k].y) - (p[i].y-p[j].y)*(p[i].x-p[k].x);
+                    if(a==0 && b==0 && c==0)cnt++;
+                    else if(a==0)
+                    {
+                        if(c==0 || b==0)continue;
+                        else if(c%b==0)
+                        {
+                            t=-c/b;
+                            if(t>0 && t!=cti[i][j])
+                            {
+                                tmp = ++Map[t];
+                                res = max(tmp, res);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ll d = b*b-4*a*c;
+                        ll t1, t2;
+                        if(d<0) continue;
+                        else
+                        {
+                            ll sqd = sqrt(d+0.0);
+                            if(sqd*sqd == d)
+                            {
+                                t1= -b+sqd;
+                                if(t1%(2*a)==0)
+                                {
+                                    t1/=(2*a);
+                                    if(t1>0 && t1!=cti[i][j])
+                                    {
+                                        tmp = ++Map[t1];
+                                        res = max(tmp, res);
+                                    }
+                                }
+                                if(sqd!=0)
+                                {
+                                    t2= -b-sqd;
+                                    if(t2%(2*a)==0)
+                                    {
+                                        t2/=(2*a);
+                                        if(t2>0 && t2!=cti[i][j])
+                                        {
+                                            tmp = ++Map[t2];
+                                            res = max(tmp, res);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                ans = max(res+2+cnt, ans);
+                if(cti[i][j]!=never && cti[i][j]!=0)
+                {
+                    res=0;
+                    for(k=0; k<n; k++)
+                    {
+                        if(k==i || k==j)continue;
+                        if(cti[i][j] == cti[i][k])res++;
+                    }
+                    ans=max(res+2, ans);
+                }
+            }
+        printf("%d\n", ans);
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

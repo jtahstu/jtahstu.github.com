@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1993</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1993</h3>
+                    <h5>2015/8/13 15:58:59</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1993</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 2:38:37
+//目前爬取的是hduoj第1993题
+#include <iostream>
+#include <vector>
+using namespace std;
+
+ class face
+ {
+ public:
+     char C;
+     int dir;
+     void rotate(int k)
+     {
+         dir = (dir + k) % 4;
+     }
+ };
+
+ class state
+ {
+ public:
+     face link[4];
+     face mid;
+ public:
+     void rotate()
+     {
+         mid.rotate(1);
+         face temp = link[3];
+
+         for (int i = 3; i > 0; i--)
+             link[i] = link[i-1];
+         link[0] = temp;
+
+         for (int i = 0; i < 4; i++)
+             link[i].rotate(1);
+     }
+     bool Compare(state a)
+     {
+         if (mid.C != a.mid.C || mid.dir != a.mid.dir) return false;
+
+         for (int i = 0; i < 4; i++)
+         {
+             if (a.link[i].C == '*' || (a.link[i].C == link[i].C && a.link[i].dir == link[i].dir)) continue;
+             return false;
+         }
+         return true;
+     }
+ };
+
+ face cube[6];
+
+ state P[6];
+
+ bool Find(state ans)
+ {
+     for (int i = 0; i < 6; i++)
+     {
+         for (int j = 0; j < 4; j++)
+         {
+             ans.rotate();
+             if (P[i].Compare(ans)) return true;
+         }
+     }
+
+     return false;
+ }
+
+ int main()
+ {
+     int T;
+     scanf("%d", &T);
+     getchar();
+     for (int ctr = 1; ctr <= T; ctr++)
+     {
+         vector<int> ret;
+             ret.clear();
+             int tot = 0;
+         for (int i = 0; i < 6; i++)
+         {
+             char ch;
+             int d;
+             scanf("%c%d", &ch, &d);
+             d--;
+             cube[i].C = ch;
+             cube[i].dir = d;
+         }
+         getchar();
+
+         P[0].mid = cube[0];
+         P[0].link[0] = cube[4],P[0].link[0].rotate(2);
+         P[0].link[1] = cube[3],P[0].link[1].rotate(3);
+         P[0].link[2] = cube[2];
+         P[0].link[3] = cube[1],P[0].link[3].rotate(1);
+
+         P[1].mid = cube[1];
+         P[1].link[0] = cube[0],P[1].link[0].rotate(3);
+         P[1].link[1] = cube[2];
+         P[1].link[2] = cube[5],P[1].link[2].rotate(1);
+         P[1].link[3] = cube[4];
+
+         P[2].mid = cube[2];
+         P[2].link[0] = cube[0];
+         P[2].link[1] = cube[3];
+         P[2].link[2] = cube[5];
+         P[2].link[3] = cube[1];
+
+         P[3].mid = cube[3];
+         P[3].link[0] = cube[0],P[3].link[0].rotate(1);
+         P[3].link[1] = cube[4];
+         P[3].link[2] = cube[5],P[3].link[2].rotate(3);
+         P[3].link[3] = cube[2];
+
+         P[4].mid = cube[4];
+         P[4].link[0] = cube[0],P[4].link[0].rotate(2);
+         P[4].link[1] = cube[1];
+         P[4].link[2] = cube[5],P[4].link[2].rotate(2);
+         P[4].link[3] = cube[3];
+
+         P[5].mid = cube[5];
+         P[5].link[0] = cube[2];
+         P[5].link[1] = cube[3],P[5].link[1].rotate(1);
+         P[5].link[2] = cube[4],P[5].link[2].rotate(2);
+         P[5].link[3] = cube[1],P[5].link[3].rotate(3);
+
+         for (int i = 0; i < 5; i++)
+         {
+
+             state ans;
+             for (int j = 0; j < 3; j++)
+             {
+                 char ch;
+                 int d;
+                 scanf("%c%d", &ch, &d);
+                 d--;
+                 if (j == 0) 
+                 {
+                     ans.mid.C = ch;
+                     ans.mid.dir = d;
+                 }
+                 else
+                 {
+                     ans.link[j].C = ch;
+                     ans.link[j].dir = d;
+                 }
+             }
+             getchar();
+             ans.mid.rotate (2);
+             ans.link[1].rotate(3);
+             ans.link[2].rotate(1);
+             ans.link[0].C = '*';
+             ans.link[3].C = '*';
+             if (Find(ans)) tot+=1, ret.push_back(1);
+             else
+                 ret.push_back(0);
+
+         }
+         printf("%d ", ctr);
+         printf("%d", tot);
+             for (int i = 0; i < 5; i++)
+                 if (ret[i])
+                     printf(" Y");
+                 else
+                     printf(" N");
+             printf("\n");
+     }
+
+     return 0;
+ }
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

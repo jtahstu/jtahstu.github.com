@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3446</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3446</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3446</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 4:00:27
+//目前爬取的是hduoj第3446题
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+const int N=250;
+int n;
+int head;
+int tail;
+int Start;
+int Finish;
+int link[N];     
+int Father[N];   
+int Base[N];     
+int Q[N];
+bool mark[N];
+bool mat[N][N];
+bool InBlossom[N];
+bool in_Queue[N];
+
+void BlossomContract(int x,int y){
+    memset(mark,0,sizeof(mark));
+    memset(InBlossom,0,sizeof(InBlossom));
+    #define pre Father[link[i]]
+    int lca,i;
+    for (i=x;i;i=pre) {i=Base[i]; mark[i]=true; }
+    for (i=y;i;i=pre) {i=Base[i]; if (mark[i]) {lca=i; break;} }  
+    for (i=x;Base[i]!=lca;i=pre){
+        if (Base[pre]!=lca) Father[pre]=link[i]; 
+        InBlossom[Base[i]]=true;
+        InBlossom[Base[link[i]]]=true;
+    }
+    for (i=y;Base[i]!=lca;i=pre){
+        if (Base[pre]!=lca) Father[pre]=link[i]; 
+        InBlossom[Base[i]]=true;
+        InBlossom[Base[link[i]]]=true;
+    }
+    #undef pre
+    if (Base[x]!=lca) Father[x]=y;    
+    if (Base[y]!=lca) Father[y]=x;
+    for (i=1;i<=n;i++)
+      if (InBlossom[Base[i]]){
+          Base[i]=lca;
+          if (!in_Queue[i]){
+              Q[++tail]=i;
+              in_Queue[i]=true;     
+          }
+      }
+}
+
+void Change(){
+    int x,y,z;
+    z=Finish;
+    while (z){
+        y=Father[z];
+        x=link[y];
+        link[y]=z;
+        link[z]=y;
+        z=x;
+    }
+}
+
+void FindAugmentPath(){
+    memset(Father,0,sizeof(Father));
+    memset(in_Queue,0,sizeof(in_Queue));
+    for (int i=1;i<=n;i++) Base[i]=i;
+    head=0; tail=1;
+    Q[1]=Start;
+    in_Queue[Start]=1;
+    while (head!=tail){
+        int x=Q[++head];
+        for (int y=1;y<=n;y++)
+          if (mat[x][y] && Base[x]!=Base[y] && link[x]!=y)   
+            if ( Start==y || link[y] && Father[link[y]] )    
+                BlossomContract(x,y);
+            else if (!Father[y]){
+                Father[y]=x;
+                if (link[y]){
+                    Q[++tail]=link[y];
+                    in_Queue[link[y]]=true;
+                }
+                else{
+                    Finish=y;
+                    Change();
+                    return;
+                }
+            }
+    }
+}
+
+void Edmonds(){
+    memset(link,0,sizeof(link));
+    for (Start=1;Start<=n;Start++)
+      if (link[Start]==0)
+        FindAugmentPath();
+}
+int MaxMatch()
+{
+    Edmonds();
+    int cnt=0;
+    for (int i=1;i<=n;i++)
+      if (link[i]) cnt++;
+    return cnt;
+}
+
+void output(){
+    memset(mark,0,sizeof(mark));
+    int cnt=0;
+    for (int i=1;i<=n;i++)
+      if (link[i]) cnt++;
+    printf("%d\n",cnt);
+    for (int i=1;i<=n;i++)
+      if (!mark[i] && link[i]){
+          mark[i]=true;
+          mark[link[i]]=true;
+          printf("%d %d\n",i,link[i]);
+      }
+}
+char str[50][50];
+const int dx[]={-1,-1,-1,1,1,1,0,0,2,-2,2,-2,2,-2,2,-2,1,-1,-1,1};
+const int dy[]={-1,1,0,0,1,-1,-1,1,2,2,-2,-2,1,-1,-1,1,2,-2,2,-2};
+int main()
+{
+    int ci,pl=1;scanf("%d",&ci);
+    while(ci--)
+    {
+        int r,c;scanf("%d%d",&r,&c);
+        n=r*c;
+        for(int i=0;i<r;i++) scanf("%s",str[i]);
+        int maxMatch,maxMatchK;
+        memset(mat,0,sizeof(mat));
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                int p1=i*c+j+1;
+                if(str[i][j]=='#'||str[i][j]=='K') continue;
+                for(int k=0;k<20;k++)
+                {
+                    int x=i+dx[k],y=j+dy[k];
+                    if(x>=0&&x<r&&y>=0&&y<c){
+                        if(str[x][y]=='#'||str[x][y]=='K') continue;
+                        int p2=x*c+y+1;
+                        mat[p1][p2]=1;
+                    }
+                }
+            }
+        }
+        maxMatch=MaxMatch();
+        memset(mat,0,sizeof(mat));
+        for(int i=0;i<r;i++)
+        {
+            for(int j=0;j<c;j++)
+            {
+                int p1=i*c+j+1;
+                if(str[i][j]=='#') continue;
+                for(int k=0;k<24;k++)
+                {
+                    int x=i+dx[k],y=j+dy[k];
+                    if(x>=0&&x<r&&y>=0&&y<c){
+                        if(str[x][y]=='#') continue;
+                        int p2=x*c+y+1;
+                        mat[p1][p2]=1;
+                    }
+                }
+            }
+        }
+        maxMatchK=MaxMatch();
+
+        if(maxMatch==maxMatchK)
+             printf("Case #%d: daizhenyang lose\n",pl++);
+        else printf("Case #%d: daizhenyang win\n",pl++);
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

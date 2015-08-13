@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4117</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4117</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P4117</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 5:31:23
+//目前爬取的是hduoj第4117题
+#include <cstdio>
+#include <queue>
+#include <cstring>
+using namespace std;
+
+#define D(x)
+
+const int MAX_CHILD_NUM = 26;
+const int MAX_NODE_NUM = 3 * (int)1e5 + 10;
+const int MAX_LEN = 3 * (int)1e5 + 10;
+const int MAX_N = 2 * (int)1e4 + 10;
+
+#define MAX_EDGE_NUM MAX_NODE_NUM * 2
+
+struct Edge
+{
+    int v, next;
+    Edge()
+    {}
+    Edge(int v, int next):v(v), next(next)
+    {}
+} edge[MAX_EDGE_NUM];
+
+int head[MAX_NODE_NUM];
+int edge_cnt;
+
+void init_edge()
+{
+    memset(head, -1, sizeof(head));
+    edge_cnt = 0;
+}
+
+void add_edge(int u, int v)
+{
+    edge[edge_cnt] = Edge(v, head[u]);
+    head[u] = edge_cnt++;
+}
+
+struct Trie
+{
+    int next[MAX_NODE_NUM][MAX_CHILD_NUM];
+    int fail[MAX_NODE_NUM];
+    int count[MAX_NODE_NUM];
+    int node_cnt;
+    int root;
+    bool vis[MAX_NODE_NUM]; //set it to false
+
+    void init()
+    {
+        node_cnt = 0;
+        root = newnode();
+    }
+
+    int newnode()
+    {
+        for (int i = 0; i < MAX_CHILD_NUM; i++)
+            next[node_cnt][i] = -1;
+        count[node_cnt++] = 0;
+        return node_cnt - 1;
+    }
+
+    int get_id(char a)
+    {
+        return a - 'a';
+    }
+
+    void insert(char buf[], int index)
+    {
+        int now = root;
+        for (int i = 0; buf[i]; i++)
+        {
+            int id = get_id(buf[i]);
+            if (next[now][id] == -1)
+                next[now][id] = newnode();
+            now = next[now][id];
+        }
+        count[now] = index;
+    }
+
+    void build()
+    {
+        queue<int>Q;
+        fail[root] = root;
+        for (int i = 0; i < MAX_CHILD_NUM; i++)
+            if (next[root][i] == -1)
+                next[root][i] = root;
+            else
+            {
+                fail[next[root][i]] = root;
+                Q.push(next[root][i]);
+            }
+        while (!Q.empty())
+        {
+            int now = Q.front();
+            Q.pop();
+            for (int i = 0; i < MAX_CHILD_NUM; i++)
+                if (next[now][i] == -1)
+                    next[now][i] = next[fail[now]][i];
+                else
+                {
+                    fail[next[now][i]]=next[fail[now]][i];
+                    Q.push(next[now][i]);
+                }
+        }
+    }
+    void build_fail_tree()
+    {
+        init_edge();
+        for (int i = 1; i < node_cnt; i++)
+        {
+            add_edge(i, fail[i]);
+            add_edge(fail[i], i);
+        }
+    }
+
+}ac;
+
+const int MAX_INTERVAL = MAX_LEN;
+
+struct SegmentTree
+{
+
+    struct Node
+    {
+        int l, r;
+        Node *pleft, *pright;
+        int value;
+    }tree[MAX_INTERVAL *4];
+
+    int node_cnt;
+
+    void init()
+    {
+        node_cnt = 0;
+    }
+
+    Node* new_node()
+    {
+        node_cnt++;
+        return tree + node_cnt;
+    }
+
+    void build_tree(Node *proot, int s, int e)
+    {
+        proot->l = s;
+        proot->r = e;
+        proot->value = 0;
+        if (s == e)
+        {
+            proot->pleft = proot->pright = NULL;
+            return;
+        }
+        int mid = (s + e) / 2;
+        build_tree(proot->pleft = new_node(), s, mid);
+        build_tree(proot->pright = new_node(), mid + 1, e);
+    }
+
+    void pull_up(Node *proot)
+    {
+    }
+
+    void push_down(Node *proot)
+    {
+    }
+
+    void update(Node *proot, int start, int end, int value)
+    {
+        if (start > proot->r || end < proot->l)
+            return;
+        start = max(start, proot->l);
+        end = min(end, proot->r);
+        if (start == proot->l && end == proot->r)
+        {
+            proot->value = max(proot->value, value);
+            return;
+        }
+        push_down(proot);
+        update(proot->pleft, start, end, value);
+        update(proot->pright, start, end, value);
+        pull_up(proot);
+    }
+
+    int query(Node *proot, int start, int end)
+    {
+        int ret = proot->value;
+        if (start > proot->r || end < proot->l)
+            return 0;
+        start = max(start, proot->l);
+        end = min(end, proot->r);
+        if (start == proot->l && end == proot->r)
+        {
+            return ret;
+        }
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

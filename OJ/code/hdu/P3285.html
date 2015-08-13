@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3285</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3285</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3285</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:56:23
+//目前爬取的是hduoj第3285题
+#include <stdlib.h>
+#include<iostream>
+#define eps 1e-8
+#define zero(x) (((x)>0?(x):-(x))<eps)
+using namespace std;
+struct point{int x,y;};
+point a[100],b[100];
+int xmult(point p1,point p2,point p0){
+ return (p1.x-p0.x)*(p2.y-p0.y)-(p2.x-p0.x)*(p1.y-p0.y);
+}
+point p1,p2;
+int graham_cp(const void* a,const void* b){
+ int ret=xmult(*((point*)a),*((point*)b),p1);
+ return zero(ret)?(xmult(*((point*)a),*((point*)b),p2)>0?1:-1):(ret>0?1:-1);
+}
+void _graham(int n,point* p,int& s,point* ch){
+ int i,k=0;
+ for (p1=p2=p[0],i=1;i<n;p2.x+=p[i].x,p2.y+=p[i].y,i++)
+  if (p1.y-p[i].y>eps||(zero(p1.y-p[i].y)&&p1.x>p[i].x))
+   p1=p[k=i];
+ p2.x/=n,p2.y/=n;
+ p[k]=p[0],p[0]=p1;
+ qsort(p+1,n-1,sizeof(point),graham_cp);
+ for (ch[0]=p[0],ch[1]=p[1],ch[2]=p[2],s=i=3;i<n;ch[s++]=p[i++])
+  for (;s>2&&xmult(ch[s-2],p[i],ch[s-1])<-eps;s--);
+}
+int graham(int n,point* p,point* convex,int maxsize=1,int dir=1){
+ point* temp=new point[n];
+ int s,i;
+ _graham(n,p,s,temp);
+ for (convex[0]=temp[0],n=1,i=(dir?1:(s-1));dir?(i<s):i;i+=(dir?1:-1))
+  if (maxsize||!zero(xmult(temp[i-1],temp[i],temp[(i+1)%s])))
+   convex[n++]=temp[i];
+ delete []temp;
+ return n;
+
+}
+int main()
+{
+    int t,ii,n,i,maxx,maxy,min1,max1,m,miny,g;
+    bool d;
+    scanf("%d",&t);
+    for(ii=1;ii<=t;ii++)
+    {
+        scanf("%d%d",&m,&n);
+        for(i=0;i<n;i++)
+          scanf("%d%d",&a[i].x,&a[i].y);
+
+       d=true;
+        for(i=2;i<n;i++)
+          if (xmult(a[0],a[i],a[1])!=0) {d=false;break;}
+        if (d)
+        {
+            maxx=1000000000;
+            maxy=-1000000000;
+            for(i=0;i<n;i++)
+              if ((a[i].y>maxy)||(a[i].y==maxy&&a[i].x<maxx))
+              {
+                    max1=i;
+                    maxx=a[i].x;
+                    maxy=a[i].y;
+                }
+            miny=1000000000;
+            for(i=0;i<n;i++)
+              if (a[i].y<miny)
+              {
+                    miny=a[i].y;
+                    min1=i;
+                }
+            printf("%d 2\n%d %d\n%d %d\n",ii,maxx,maxy,a[min1].x,a[min1].y);
+            continue;
+        }
+        g=graham(n,a,b,0);
+        maxx=1000000000;
+        maxy=-1000000000;
+        for(i=0;i<g;i++)
+          if ((b[i].y>maxy)||(b[i].y==maxy&&b[i].x<maxx))
+          {
+                    max1=i;
+                    maxx=b[i].x;
+                    maxy=b[i].y;
+            }
+        printf("%d %d\n",ii,g);
+        for(i=0;i<g;i++)
+          printf("%d %d\n",b[(i+max1)%g].x,b[(i+max1)%g].y);
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

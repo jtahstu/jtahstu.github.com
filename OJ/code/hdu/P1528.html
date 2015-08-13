@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P1528</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P1528</h3>
+                    <h5>2015/8/13 15:58:58</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P1528</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 2:18:26
+//目前爬取的是hduoj第1528题
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <vector>
+using namespace std;
+
+vector<int> card[100];
+int n;
+bool vis[100];
+int link[100];
+
+int num_pre(char a)
+{
+    static string pre = "23456789TJQKA";
+    for(int i = 0;i < pre.size();i ++)
+    {
+        if(a == pre.at(i))
+            return i;
+    }
+
+    return pre.size();
+}
+
+int num_suf(char a)
+{
+    static string suf = "CDSH";
+    for(int i = 0;i < suf.size();i ++)
+    {
+        if(a == suf.at(i))
+            return i;
+    }
+
+    return suf.size();
+}
+
+bool is_big(const string& a,const string& b)
+{
+    int aa = num_pre(a.at(0));
+    int bb = num_pre(b.at(0));
+    if(aa == bb)
+        return num_suf(a.at(1)) > num_suf(b.at(1));
+
+    return aa > bb;
+}
+
+bool can(int x)
+{
+    int len = card[x].size();
+    for(int i = 0;i < len;i ++)
+    {
+        int t = card[x].at(i);
+        if(!vis[t])
+        {
+            vis[t] = true;
+            if(link[t] == -1 || can(link[t]))
+            {
+                link[t] = x;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+int maxmatch()
+{
+    int num = 0;
+    for(int i = 0;i < n;i ++)
+    {
+        memset(vis,false,sizeof(vis));
+        if(can(i))
+            num ++;
+    }
+
+    return num;
+}
+
+int main()
+{
+    int cas;
+    cin >> cas;
+    while(cas --)
+    {
+        cin >> n;
+        memset(link,-1,sizeof(link));
+        for(int i = 0;i < n;i ++)
+        {
+            card[i].clear();
+        }
+        string ss[100];
+        for(int i = 0;i < n;i ++)
+        {
+            cin >> ss[i];
+        }
+        string ee;
+        for(int i = 0;i < n;i ++)
+        {
+            cin >> ee;
+            for(int j = 0;j < n;j ++)
+            {
+                if(is_big(ee,ss[j]))
+                    card[j].push_back(i);
+            }
+        }
+
+        printf("%d\n",maxmatch());
+    }
+
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

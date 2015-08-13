@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3909</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3909</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3909</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 4:34:00
+//目前爬取的是hduoj第3909题
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <cstdlib>
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <map>
+#include <set>
+#define out(v) cout << #v << ": " << (v) << endl
+using namespace std;
+typedef long long LL;
+
+const int maxN = 20 * 20 * 20, maxM = 4 * 20 * 20;
+int N, NN, n;
+const int max_size = maxN * maxM;
+const int inf = 0x3f3f3f3f;
+int L[max_size], R[max_size], U[max_size], D[max_size], CH[max_size], RH[max_size];
+int S[maxM], O[maxM];
+int head, size;
+
+int node(int up, int down, int left, int right) {
+    U[size] = up, D[size] = down;
+    L[size] = left, R[size] = right;
+    D[up] = U[down] = R[left] = L[right] = size;
+    return size++;
+}
+bool mat[maxN][maxM];
+void init(int N, int M) {
+    size = 0;
+    head = node(0, 0, 0, 0);
+    for (int j = 1; j <= M; ++j) {
+        CH[j] = node(size, size, L[head], head), S[j] = 0;
+    }
+    for (int i = 1; i <= N; ++i) {
+        int row = -1, k;
+        for (int j = 1; j <= M; ++j) {
+            if (!mat[i][j]) continue;
+            if (row == -1) {
+                row = node(U[CH[j]], CH[j], size, size);
+                RH[row] = i, CH[row] = CH[j], ++S[j];
+            } else {
+                k = node(U[CH[j]], CH[j], L[row], row);
+                RH[k] = i, CH[k] = CH[j], ++S[j];
+            }
+        }
+    }
+}
+
+void remove(const int &c) {
+    L[R[c]] = L[c], R[L[c]] = R[c];
+    for (int i = D[c]; i != c; i = D[i]) {
+        for (int j = R[i]; j != i; j = R[j]) {
+            U[D[j]] = U[j], D[U[j]] = D[j];
+            --S[CH[j]];
+        }
+    }
+}
+void resume(const int &c) {
+    for (int i = U[c]; i != c; i = U[i]) {
+        for (int j = L[i]; j != i; j = L[j]) {
+            ++S[CH[j]];
+            U[D[j]] = D[U[j]] = j;
+        }
+    }
+    L[R[c]] = R[L[c]] = c;
+}
+int len;
+int anscnt, tar;
+bool dfs(const int &k) {
+    if (R[head] == head) {
+        anscnt++;
+        if (anscnt == tar)
+        {
+            len = k - 1;
+            return true;
+        }
+        else return false;
+    }
+    int s = inf, c;
+    for (int t = R[head]; t != head; t = R[t]) {
+        if (S[t] < s) s = S[t], c = t;
+    }
+    remove(c);
+    for (int i = D[c]; i != c; i = D[i]) {
+        O[k] = RH[i];
+        for (int j = R[i]; j != i; j = R[j]) {
+            remove(CH[j]);
+        }
+        if (dfs(k + 1)) {
+            return true;
+        }
+        for (int j = L[i]; j != i; j = L[j]) {
+            resume(CH[j]);
+        }
+    }
+    resume(c);
+    return false;
+}
+
+char sudoku[20][20], myans[20][20];
+void make()
+{
+    memset(mat, false, sizeof(mat));
+    for (int i = 1; i <= N; ++i)
+        for (int j = 1; j <= N; ++j)
+            for (int k = 1; k <= N; ++k)
+                if (sudoku[i][j] == '-' || sudoku[i][j] == 'A' + k - 1)
+                    mat[(i - 1) * NN + (j - 1) * N + k][(i - 1) * N + j] = true;
+    for (int i = 1; i <= N; ++i)
+        for (int k = 1; k <= N; ++k)
+            for (int j = 1; j <= N; ++j)
+                if (sudoku[i][j] == '-' || sudoku[i][j] == 'A' + k - 1)
+                    mat[(i - 1) * NN + (j - 1) * N + k][NN + (i - 1) * N + k] = true;
+    for (int j = 1; j <= N; ++j)
+        for (int k = 1; k <= N; ++k)
+            for (int i = 1; i <= N; ++i)
+                if (sudoku[i][j] == '-' || sudoku[i][j] == 'A' + k - 1)
+                    mat[(i - 1) * NN + (j - 1) * N + k][NN * 2 + (j - 1) * N + k] = true;
+    int region;
+    for (int i = 1; i <= N; ++i)
+        for (int j = 1; j <= N; ++j)
+            for (int k = 1; k <= N; ++k) {
+                region = ((i - 1) / n) * n + (j - 1) / n + 1;
+                if (sudoku[i][j] == '-' || sudoku[i][j] == 'A' + k - 1)
+                    mat[(i - 1) * NN + (j - 1) * N + k][NN * 3 + (region - 1) * N + k] = true;
+            }
+}
+char jeo(char x)
+{
+    if (x == '.' || x == '-') return '-';
+    if (x >= '0' && x <= '9') return 'A' + x - '1';
+    return 'J' + x - 'A';
+}
+void output()
+{
+    for(int i = 1; i <= N; i++)
+    {
+        for(int j = 1; j <= N; j++)
+        {
+            if (myans[i][j] <= 'I')
+                myans[i][j] = '1' + myans[i][j] - 'A';
+            else
+            {
+                myans[i][j] = 'A' + myans[i][j] - 'J';
+            }
+            putchar(myans[i][j]);
+        }
+        putchar('\n');
+    }
+}
+int main()
+{
+    while(scanf("%d", &n) != EOF)
+    {
+        N = n * n; NN = N * N;
+        for(int i = 1; i <= N; i++)
+        {
+            scanf("%s", sudoku[i] + 1);
+            for(int j = 1; j <= N; j++)
+                sudoku[i][j] = jeo(sudoku[i][j]);
+        }
+        anscnt = 0; tar = 1;
+        make();
+        init(N * N * N, 4 * N * N);
+        dfs(1);
+        if (anscnt == 0) printf("No Solution\n");
+        else
+        {
+            for (int i = 1; i <= len; ++i) {
+                int x = (O[i] - 1) / NN + 1;
+                O[i] -= (x - 1) * NN;
+                int y = (O[i] - 1) / N + 1;
+                O[i] -= (y - 1) * N;
+                int z = O[i];
+                myans[x][y] = 'A' + z - 1;
+            }
+            anscnt = 0; tar = 2;
+            make();
+            init(N * N * N, 4 * N * N);
+            dfs(1);
+            if (anscnt == 2) printf("Multiple Solutions\n");
+            else
+            {
+                bool flag = true;
+                for(int i = 1; i <= N && flag; i++)
+                    for(int j = 1; j <= N && flag; j++)
+                        if (sudoku[i][j] != '-')
+                        {
+                            char tmp = sudoku[i][j];
+                            sudoku[i][j] = '-';
+                            anscnt = 0; tar = 2;
+                            make();
+                            init(N * N * N, 4 * N * N);
+                            dfs(1);
+                            if (anscnt == 1)
+                            {
+                                flag = false;
+                                break;
+                            }
+                            sudoku[i][j] = tmp;
+                        }
+                if (!flag) printf("Not Minimal\n");
+                else output();
+            }
+        }
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

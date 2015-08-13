@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4183</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4183</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P4183</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 5:35:12
+//目前爬取的是hduoj第4183题
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <algorithm>
+using namespace std;
+int head[10000], s, t, nv, maxint=99999999, cnt;
+int cur[400], num[400], d[400], q[100000], pre[400];
+struct Node
+{
+    double q;
+    int x, y, r;
+}dian[1000];
+int cmp(Node x, Node y)
+{
+    return x.q<y.q;
+}
+struct node
+{
+    int u, v, cap, next;
+}edge[100000];
+void add(int u, int v, int cap)
+{
+    edge[cnt].v=v;
+    edge[cnt].cap=cap;
+    edge[cnt].next=head[u];
+    head[u]=cnt++;
+
+    edge[cnt].v=u;
+    edge[cnt].cap=0;
+    edge[cnt].next=head[v];
+    head[v]=cnt++;
+}
+void bfs()
+{
+    memset(num,0,sizeof(num));
+    memset(d,-1,sizeof(d));
+    int f1=0, f2=0, i;
+    q[f1++]=t;
+    d[t]=0;
+    num[0]=1;
+    while(f1>=f2)
+    {
+        int u=q[f2++];
+        for(i=head[u];i!=-1;i=edge[i].next)
+        {
+            int v=edge[i].v;
+            if(d[v]==-1)
+            {
+                d[v]=d[u]+1;
+                num[d[v]]++;
+                q[f1++]=v;
+            }
+        }
+    }
+}
+void isap()
+{
+    memcpy(cur,head,sizeof(cur));
+    bfs();
+    int flow=0, u=pre[s]=s, i;
+    while(d[s]<nv)
+    {
+        if(u==t)
+        {
+            int f=maxint, pos;
+            for(i=s;i!=t;i=edge[cur[i]].v)
+            {
+                if(f>edge[cur[i]].cap)
+                {
+                    f=edge[cur[i]].cap;
+                    pos=i;
+                }
+            }
+            for(i=s;i!=t;i=edge[cur[i]].v)
+            {
+                edge[cur[i]].cap-=f;
+                edge[cur[i]^1].cap+=f;
+            }
+            flow+=f;
+            u=pos;
+        }
+        for(i=cur[u];i!=-1;i=edge[i].next)
+        {
+            if(d[edge[i].v]+1==d[u]&&edge[i].cap)
+            {
+                break;
+            }
+        }
+        if(i!=-1)
+        {
+            cur[u]=i;
+            pre[edge[i].v]=u;
+            u=edge[i].v;
+        }
+        else
+        {
+            if(--num[d[u]]==0) break;
+            int mind=nv;
+            for(i=head[u];i!=-1;i=edge[i].next)
+            {
+                if(mind>d[edge[i].v]&&edge[i].cap)
+                {
+                    cur[u]=i;
+                    mind=d[edge[i].v];
+                }
+            }
+            d[u]=mind+1;
+            num[d[u]]++;
+            u=pre[u];
+        }
+    }
+    if(flow>=2)
+        printf("Game is VALID\n");
+    else
+        printf("Game is NOT VALID\n");
+}
+int main()
+{
+    int i, j, n, x, y, r, T;
+    scanf("%d",&T);
+    while(T--)
+    {
+        memset(head,-1,sizeof(head));
+        cnt=0;
+        scanf("%d",&n);
+        for(i=0;i<n;i++)
+        {
+            scanf("%lf%d%d%d",&dian[i].q,&dian[i].x,&dian[i].y,&dian[i].r);
+        }
+        sort(dian,dian+n,cmp);
+        if(dian[0].r+dian[n-1].r*1.0>sqrt((dian[0].x-dian[n-1].x)*(dian[0].x-dian[n-1].x)*1.0+(dian[0].y-dian[n-1].y)*(dian[0].y-dian[n-1].y)*1.0))
+        {
+            printf("Game is VALID\n");
+            continue ;
+        }
+        for(i=0;i<n;i++)
+        {
+            for(j=i+1;j<n;j++)
+            {
+                if(dian[i].r*1.0+dian[j].r>sqrt((dian[i].x-dian[j].x)*(dian[i].x-dian[j].x)+(dian[i].y-dian[j].y)*(dian[i].y-dian[j].y)))
+                {
+                    add(i,j,1);
+                }
+            }
+        }
+        s=0;
+        t=n-1;
+        nv=t+1;
+        isap();
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4027</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4027</h3>
+                    <h5>2015/8/13 15:59:03</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P4027</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 5:06:36
+//目前爬取的是hduoj第4027题
+#include <queue>
+#include <stack>
+#include <cmath>
+#include <cstdio>
+#include <stdlib.h>
+#include <iostream>
+#include <limits.h>
+#include <string>
+#include <cstring>
+#include <algorithm>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+#include <algorithm>
+#define LL __int64
+using namespace std;
+const int N=100010;
+struct Node
+{
+    int L,R;
+    LL len;
+    LL sum;
+} t[N*4];
+LL data[N];
+int n,q;
+void up(int fa){
+    t[fa].sum=t[fa<<1].sum+t[fa<<1|1].sum;
+}
+void down(int l,int r,int fa)
+{
+    if(t[fa].L==t[fa].R)
+    {
+        t[fa].sum=(LL)(sqrt(t[fa].sum));
+        return;
+    }
+    int ls=fa<<1;
+    int rs=fa<<1|1;
+    int mid=(t[fa].L+t[fa].R)/2;
+    down(l,mid,ls);
+    down(mid+1,r,rs);
+    up(fa);
+}
+
+void built(int l,int r,int fa)
+{
+    t[fa].L=l;
+    t[fa].R=r;
+    t[fa].len=r-l+1;
+    t[fa].sum=0LL;
+    if(l==r)
+    {
+        t[fa].sum=data[l];
+        return;
+    }
+    int mid=(l+r)/2;
+    built(l,mid,fa<<1);
+    built(mid+1,r,fa<<1|1);
+    up(fa);
+}
+
+void update(int l,int r,int fa)
+{
+    int ls=fa<<1;
+    int rs=fa<<1|1;
+    int mid=(t[fa].L+t[fa].R)/2;
+
+    if(t[fa].L==l&&t[fa].R==r)
+    {
+        if(t[fa].sum==t[fa].len)
+            return ;
+        down(l,r,fa);
+            return ;
+    }
+
+    if(r<=mid)
+        update(l,r,ls);
+    else if(l>mid)
+        update(l,r,rs);
+    else
+    {
+        update(l,mid,ls);
+        update(mid+1,r,rs);
+    }
+    up(fa);
+}
+
+LL query(int l,int r,int fa)
+{
+    int ls=fa<<1;
+    int rs=fa<<1|1;
+    int mid=(t[fa].L+t[fa].R)/2;
+
+    if(t[fa].L>=l&&t[fa].R<=r)
+        return t[fa].sum;
+    if(r<=mid)
+        return query(l,r,ls);
+    else if(l>mid)
+        return query(l,r,rs);
+    else
+        return query(l,mid,ls)+query(mid+1,r,rs);
+}
+
+int main()
+{
+    int t=1;
+    while(scanf("%d",&n)!=EOF)
+    {
+        for(int i=1; i<=n; i++)
+        scanf("%I64d",&data[i]);
+        built(1,n,1);
+        int a,b,c;
+        printf("Case #%d:\n",t++);
+        cin>>q;
+        while(q--)
+        {
+            scanf("%d%d%d",&a,&b,&c);
+            if(b>c)swap(b,c);
+            if(a)
+                cout<<query(b,c,1)<<endl;
+            else
+                update(b,c,1);
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

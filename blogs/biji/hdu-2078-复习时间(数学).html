@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+hdu-2078-复习时间(数学)
+</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>
+hdu-2078-复习时间(数学)
+</h3>
+                    <h5>2015/8/13 0:40:17</h5>
+                    <p>
+hduoj题解
+</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>
+hdu-2078-复习时间(数学)
+</h1>
+                <p>
+Problem Description<br>
+为了能过个好年，xhd开始复习了，于是每天晚上背着书往教室跑。xhd复习有个习惯，在复习完一门课后，他总是挑一门更简单的课进行复习，而他复习这门课的效率为两门课的难度差的平方,而复习第一门课的效率为100和这门课的难度差的平方。xhd这学期选了n门课，但是一晚上他最多只能复习m门课，请问他一晚上复习的最高效率值是多少？
+</p>
+                <p>
+Input<br>
+输入数据的第一行是一个数据T，表示有T组数据。<br>
+每组数据的第一行是两个整数n(1 <= n <= 40)，m(1 <= m <= n)。<br>
+接着有n行，每行有一个正整数a(1 <= a <= 100)，表示这门课的难度值。
+</p>
+                <p>
+Output<br>
+对于每组输入数据，输出一个整数，表示最高效率值。
+</p>
+                <p>
+Sample Input<br>
+2<br>
+2 2<br>
+52<br>
+25<br>
+12 5<br>
+89<br>
+64<br>
+6<br>
+43<br>
+56<br>
+72<br>
+92<br>
+23<br>
+20<br>
+22<br>
+37<br>
+31<br>
+</p>
+                <p>
+Sample Output<br>
+5625<br>
+8836 
+</p>
+                <p>
+简单的数学，题目的代码很简单<br>
+例如：我们拿两个数和三个数做下比较<br>
+100 x<br>
+(100-x)^2=10000-200x+x^2 (1) <br>
+100 y x<br>
+(100-y)^2+(y-x)^2=(10000-200y+y^2)-(y^2-2xy+x^2) (2)<br>
+两式相减<br>
+(10000-200x+x^2)-((10000-200y+y^2)-(y^2-2xy+x^2))<br>
+=-200x+200y-2y^2+2xy<br>
+=200(y-x)+2y(x-y)<br>
+=(200-2y)*(y-x)<br>
+因为1 < y <= 100,所以结果大于等于0<br>
+显然只要y不是100，实际y应该是个1~100的数，那么多一个数反而会使结果变小<br>
+而题目要求最大效率，那我们只要拿最小的一个数就行了<br>
+所以代码很简单，即(100-min)^2就是结果了<br>
+</p>
+                <p>
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace HDU2078 {
+    class Program {
+        static void Main(string[] args) {
+            int t = int.Parse(Console.ReadLine());
+            while (t-- > 0) {
+                string[] s = Console.ReadLine().Split();
+                int n = int.Parse(s[0]),a=int.Parse(Console.ReadLine());
+                for (int i = 1; i < n; i++) {
+                    int temp =int.Parse(Console.ReadLine());
+                    if (temp < a) a = temp;
+                }
+                Console.WriteLine((100 - a) * (100 - a));
+            }
+        }
+    }
+}
+</pre>
+</p>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

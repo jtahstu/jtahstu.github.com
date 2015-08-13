@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P3272</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P3272</h3>
+                    <h5>2015/8/13 15:59:02</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P3272</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:56:00
+//目前爬取的是hduoj第3272题
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <cmath>
+using namespace std;
+#define repf(i,a,b) for(int i=(a);i<=(b);i++)
+
+typedef long long ll;
+
+const int N = 0;
+
+struct Point {
+    double x;
+    double y;
+} h, o, p[3];
+
+double dis(const Point& a, const Point& b) {
+    return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
+}
+double calc(int a, int b) {
+    double ret = dis(h, p[a]) + dis(p[a], p[b]) + dis(p[b], h);
+    double ha, ab, bh;
+    bool cx = 0, cy = 0;
+    if (h.x * p[a].x <= 0 || p[a].x * p[b].x <= 0 || p[b].x * h.x <= 0)
+        cx = 1;
+    if (h.y * p[a].y <= 0 || p[a].y * p[b].y <= 0 || p[b].y * h.y <= 0)
+        cy = 1;
+
+    if (cx == 0 && cy == 0) {
+        Point t1, t2;
+        t1.x = h.x;
+        t1.y = -h.y;
+        t2.x = -p[a].x;
+        t2.y = p[a].y;
+        ha = ret - dis(h, p[a]) + dis(t1, t2);
+        t1.x = p[b].x;
+        t1.y = -p[b].y;
+        t2.x = -p[a].x;
+        t2.y = p[a].y;
+        ab = ret - dis(p[a], p[b]) + dis(t1, t2);
+        t1.x = p[b].x;
+        t1.y = -p[b].y;
+        t2.x = -h.x;
+        t2.y = h.y;
+        bh = ret - dis(h, p[b]) + dis(t1, t2);
+        double ans = min(ha, min(ab, bh));
+        t1.x = p[a].x;
+        t1.y = -p[a].y;
+        t2.x = -p[a].x;
+        t2.y = p[a].y;
+        ans = min(ans, ret - dis(p[a], h) + dis(t1, h) - dis(p[a], p[b]) + dis(t2, p[b]));
+        t1.x = h.x;
+        t1.y = -h.y;
+        t2.x = -h.x;
+        t2.y = h.y;
+        ans = min(ans, ret - dis(p[a], h) + dis(p[a], t1) - dis(h, p[b]) + dis(t2, p[b]));
+        t1.x = p[a].x;
+        t1.y = -p[a].y;
+        t2.x = -p[a].x;
+        t2.y = p[a].y;
+        ans = min(ans, ret - dis(p[a], p[b]) + dis(t1, p[b]) - dis(p[a], h) + dis(t2, h));
+        t1.x = p[b].x;
+        t1.y = -p[b].y;
+        t2.x = -p[b].x;
+        t2.y = p[b].y;
+        ans = min(ans, ret - dis(p[a], p[b]) + dis(t1, p[a]) - dis(p[b], h) + dis(t2, h));
+        t1.x = h.x;
+        t1.y = -h.y;
+        t2.x = -h.x;
+        t2.y = h.y;
+        ans = min(ans, ret - dis(p[b], h) + dis(p[b], t1) - dis(h, p[a]) + dis(t2, p[a]));
+        t1.x = p[b].x;
+        t1.y = -p[b].y;
+        t2.x = -p[b].x;
+        t2.y = p[b].y;
+        ans = min(ans, ret - dis(h, p[b]) + dis(t1, h) - dis(p[b], p[a]) + dis(t2, p[a]));
+
+        ret = ans;
+    } else if (cx == 1 && cy == 0) {
+        Point tmp;
+        tmp.x = p[a].x;
+        tmp.y = -p[a].y;
+        ha = ret - dis(h, p[a]) + dis(h, tmp);
+        ab = ret - dis(p[a], p[b]) + dis(tmp, p[b]);
+        tmp.x = p[b].x;
+        tmp.y = -p[b].y;
+        bh = ret - dis(h, p[b]) + dis(h, tmp);
+
+        ret = min(ha, min(ab, bh));
+    } else if (cx == 0 && cy == 1) {
+        Point tmp;
+        tmp.x = -p[a].x;
+        tmp.y = p[a].y;
+        ha = ret - dis(h, p[a]) + dis(h, tmp);
+        ab = ret - dis(p[a], p[b]) + dis(tmp, p[b]);
+        tmp.x = -p[b].x;
+        tmp.y = p[b].y;
+        bh = ret - dis(h, p[b]) + dis(h, tmp);
+
+        ret = min(ha, min(ab, bh));
+    }
+
+    return ret;
+}
+
+int main() {
+    o.x = 0;
+    o.y = 0;
+
+    int t;
+    cin >> t;
+    while (cin >> p[0].x >> p[0].y >> p[1].x >> p[1].y >> h.x >> h.y) {
+        printf("%.2f\n", calc(0, 1));
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

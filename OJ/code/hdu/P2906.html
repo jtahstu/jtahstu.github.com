@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P2906</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P2906</h3>
+                    <h5>2015/8/13 15:59:01</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P2906</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:30:55
+//目前爬取的是hduoj第2906题
+#include <cstdio>
+#include <cstring>
+#include <cmath>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+typedef double db;
+const db PI = acos(-1.0);
+const db eps = 1e-15;
+const db oo = 1e100;
+struct pt{
+ db x,y;
+ pt(){}pt(db x,db y):x(x),y(y){}
+ pt operator -(pt a){return pt(x-a.x,y-a.y);}
+ db operator *(pt a){return x*a.x+y*a.y;}
+ db operator &(pt a){return x*a.y-y*a.x;}
+ db len(){return sqrt(x*x+y*y);}
+ db ang(){return atan2(y,x);}
+ void getP(){scanf("%lf%lf",&x,&y);}
+};
+struct circle{
+ pt o;
+ db r,a,l;
+ void getC(){o.getP();l = o.len();a = o.ang();scanf("%lf",&r);}
+};
+struct box{
+ db s,d,c;
+};
+const int MaxC = 1024;
+circle cl[MaxC];
+box fm[MaxC][MaxC];
+db dis[MaxC],w[MaxC];
+bool U[MaxC];
+int sign(db x){return (x > eps)-(x < -eps);}
+db calTime(int x,int y,db ct){
+ box &cb = fm[x][y];
+ if (cb.c > oo / 2)
+ return oo;
+ if (sign(cb.c) == 0)
+ return ct;
+ db ft = cb.s+floor((ct-cb.s) / cb.c-1.0)*cb.c;
+ while (sign(ft-ct) < 0 && sign(ct-ft-cb.d) > 0)
+ ft += cb.c;
+ return max(ft,ct);
+}
+int main(){
+ int tCase;
+ scanf("%d",&tCase);
+ for (int ct = 1;ct <= tCase;ct++){
+ int N;
+ scanf("%d",&N);
+ for (int i = 0;i < N;i++){
+ cl[i].getC();
+ scanf("%lf",&w[i]);
+ }
+ for (int i = 0;i < N;i++)
+ for (int j = 0;j < N;j++)if (i != j){
+ box &cb = fm[i][j];
+ db a = cl[i].l,b = cl[j].l,c = cl[j].r;
+ if (sign(c-fabs(a-b)) < 0){
+ cb.c = oo;
+ continue;
+ }
+ if (sign(c-a-b) >= 0){
+ cb.c = 0.0;
+ continue;
+ }
+ db cd = (a*a+b*b-c*c) / (2.0*a*b);
+ if (sign(cd-1.0) >= 0) cd = 1.0;
+ if (sign(cd+1.0) <= 0) cd = -1.0;
+ db da = acos(cd);
+ db cw = w[i]-w[j];
+ db ca = cl[j].a-cl[i].a;
+ while (sign(ca+PI) < 0) ca += PI*2;
+ if (sign(cw) == 0){
+ if (sign(fabs(ca)-da) <= 0)
+ cb.c = 0.0;
+ else
+ cb.c = oo;
+ continue;
+ }
+ cb.c = PI*2.0 / fabs(cw);
+ cb.d = da*2.0 / fabs(cw);
+ cb.s = ca / cw-cb.d*0.5;
+ }
+ memset(U,0,sizeof(U[0])*N);
+ dis[0] = 0.0;
+ for (int j = 1;j < N;j++)
+ dis[j] = calTime(0,j,0.0);
+ U[0] = true;
+ for (int i = 1;i < N;i++){
+ int mj = -1;
+ db md = oo;
+ for (int j = 0;j < N;j++)
+ if (!U[j] && dis[j] < md)
+ md = dis[mj = j];
+ if (mj == N-1) break;
+ U[mj] = true;
+ for (int j = 0;j < N;j++)
+ if (!U[j]){
+ db nd = calTime(mj,j,md);
+ dis[j] = min(nd,dis[j]);
+ }
+ }
+ if (dis[N-1] > oo / 2) while(1);
+ printf("%.f\n",ceil(dis[N-1]));
+ }
+ return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

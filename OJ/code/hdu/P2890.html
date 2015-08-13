@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P2890</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P2890</h3>
+                    <h5>2015/8/13 15:59:01</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P2890</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:29:13
+//目前爬取的是hduoj第2890题
+#include <iostream>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+const int maxn=50050;
+char str[maxn];
+int  num[maxn];
+int sa[maxn]; 
+int ran[maxn];
+int height[maxn]; 
+int wa[maxn], wb[maxn], wv[maxn], wd[maxn];
+int X[maxn],  que[maxn];
+int pos;
+
+int cmp(int *r, int a, int b, int l)
+{
+    return r[a]==r[b]&&r[a+l]==r[b+l];
+}
+
+void da(int *r, int n, int m){         
+    int i, j, p, *x = wa, *y = wb, *t;
+    for(i = 0; i < m; i ++) wd[i] = 0;
+    for(i = 0; i < n; i ++) wd[x[i]=r[i]] ++;
+    for(i = 1; i < m; i ++) wd[i] += wd[i-1];
+    for(i = n-1; i >= 0; i --) sa[-- wd[x[i]]] = i;
+    for(j = 1, p = 1; p < n; j *= 2, m = p){
+        for(p = 0, i = n-j; i < n; i ++) y[p ++] = i;
+        for(i = 0; i < n; i ++) if(sa[i] >= j) y[p ++] = sa[i] - j;
+        for(i = 0; i < n; i ++) wv[i] = x[y[i]];
+        for(i = 0; i < m; i ++) wd[i] = 0;
+        for(i = 0; i < n; i ++) wd[wv[i]] ++;
+        for(i = 1; i < m; i ++) wd[i] += wd[i-1];
+        for(i = n-1; i >= 0; i --) sa[-- wd[wv[i]]] = y[i];
+        for(t = x, x = y, y = t, p = 1, x[sa[0]] = 0, i = 1; i < n; i ++){
+            x[sa[i]] = cmp(y, sa[i-1], sa[i], j) ? p - 1: p ++;
+        }
+    }
+}
+
+void calHeight(int *r, int n){           
+    int i, j, k = 0;
+    for(i = 1; i <= n; i ++) ran[sa[i]] = i;
+    for(i = 0; i < n; height[ran[i ++]] = k){
+        for(k ? k -- : 0, j = sa[ran[i]-1]; r[i+k] == r[j+k]; k ++);
+    }
+}
+
+int find(int tmp, int n)
+{
+    int l=0, r=n, mid;
+    while(l<=r)
+    {
+        mid=(l+r)>>1;
+        if(X[mid]==tmp) return mid;
+        else if(X[mid]<tmp) l=mid+1;
+        else r=mid-1;
+    }
+}
+
+bool judge(int mid, int rear, int k)
+{
+    sort(que,que+rear);
+    int pre=que[0], cnt=1;
+    for(int i=1; i<rear; i++)
+        if(que[i]-pre>=mid) pre=que[i], cnt++;
+    return cnt>=k;
+}
+
+bool check(int mid, int n, int k)
+{
+    int rear=0;
+    for(int i=1; i<=n; i++)
+    {
+        if(height[i]<mid)
+        {
+            if(judge(mid,rear,k))
+            {
+                pos=sa[i-1];
+                return true;
+            }
+            rear=0, que[rear++]=sa[i];
+        }
+        else que[rear++]=sa[i];
+    }
+    if(judge(mid,rear,k))
+    {
+        pos=sa[n-1];
+        return true;
+    }
+    return false;
+}
+
+int main()
+{
+    int n, k, T;
+    cin >> T;
+    while(T--)
+    {
+        scanf("%d%d",&n,&k);
+        for(int i=0; i<n; i++) scanf("%d",num+i), X[i]=num[i];
+        sort(X,X+n);
+        int ep=0;
+        for(int i=1; i<n; i++)
+            if(X[i]!=X[ep]) X[++ep]=X[i];
+        for(int i=0; i<n; i++)
+            num[i]=find(num[i],ep)+2;
+        num[n]=0;
+        da(num,n+1,n+5);
+        calHeight(num,n);
+        int l=1, r=n, mid, ans=0;
+        while(l<=r)
+        {
+            mid=(l+r)>>1;
+            if(check(mid,n,k))
+            {
+                l=mid+1;
+                ans=mid;
+            }
+            else r=mid-1;
+        }
+        printf("%d\n",ans);
+        for(int i=pos; i<pos+ans; i++) printf("%d\n",X[num[i]-2]);
+        if(T) puts("");
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

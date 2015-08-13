@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P2430</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P2430</h3>
+                    <h5>2015/8/13 15:59:00</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P2430</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:02:11
+//目前爬取的是hduoj第2430题
+#include <stdio.h>
+#include <string.h>
+#include <algorithm>
+using namespace std;
+
+#define N 1000002
+#define INF 10000000
+#define L(i) (i) << 1
+#define R(i) (i) << 1 | 1
+struct _st
+{
+    int l,r,Min;
+    int mid()
+    {
+        return (l + r) >> 1;
+    }
+}st[N<<2];
+void build(int id,int l,int r)
+{
+    st[id].l = l;
+    st[id].r = r;
+    st[id].Min = INF;
+    if(l == r)
+        return;
+    int mid = st[id].mid();
+    build(L(id),l,mid);
+    build(R(id),mid+1,r);
+}
+int query(int id,int l,int r)
+{
+    if(st[id].l >= l && st[id].r <= r)
+        return st[id].Min;
+    int mid = st[id].mid();
+    if(mid >= r)
+        return query(L(id),l,r);
+    else if(mid < l)
+        return query(R(id),l,r);
+    else
+        return min(query(L(id),l,mid),query(R(id),mid+1,r));
+}
+void update(int id,int p,int val)
+{
+    if(st[id].l == st[id].r)
+    {
+        if(val < st[id].Min)
+            st[id].Min = val;
+        return ;
+    }
+    int mid = st[id].mid();
+    if(mid >= p)
+        update(L(id),p,val);
+    else
+        update(R(id),p,val);
+    st[id].Min = min(st[L(id)].Min, st[R(id)].Min);
+}
+__int64 s[N];
+int main()
+{
+    int cas = 0;
+    int t,n,p,k,i,w;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d%d%d",&n,&p,&k);
+        build(1,0,p);
+        for(i = 1; i <= n; ++i)
+        {
+            scanf("%d",&w);
+            s[i] = s[i-1] + w;
+        }
+        __int64 res = -1;
+        int id;
+        for(i = 1; i <= n; ++i)
+        {
+            if(s[i] % p <= k)
+                id = 0;
+            else
+                id = query(1,s[i] % p - k ,s[i] % p);
+            if(id != INF)
+                res = max(res,(s[i] - s[id])/p);
+            update(1,s[i] % p,i);
+        }
+        printf("Case %d: %I64d\n",++cas,res);
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>

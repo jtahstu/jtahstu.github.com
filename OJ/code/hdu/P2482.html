@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P2482</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../OJ/index.html">OJ题解</a></li>
+                    <li><a href="../../../classify/biji/index.html">笔记</a></li>
+                    <li><a href="../../../classify/zongjie/index.html">总结</a></li>
+                    <li><a href="../../../classify/wenzhang/index.html">文章</a></li>
+                    <li><a href="../../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P2482</h3>
+                    <h5>2015/8/13 15:59:00</h5>
+                    <p>
+                    hduoj题解<br />
+                 <h4>网页右击->查看网页源代码->在中间部分找到代码复制、粘贴<h4>
+                    </p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>HDUOJ_P2482</h1>
+                <p>//这是来自jtahstu的网络爬虫 at 2015/8/13 3:05:06
+//目前爬取的是hduoj第2482题
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+struct node
+{
+    int x,y;
+    int step;
+    int total;
+    int mem[333];
+    int flag;                               
+}E[5011];
+int x_s,y_s;
+int x_e,y_e;
+int queue[6066];                            
+int K,Key;                                  
+
+struct dictree                              
+{
+    struct dictree *child[26];
+    int flag;
+};
+struct dictree *root;
+int key;
+
+void insert(char *S)
+{
+    struct dictree *cur,*New;
+    int i,j;
+
+    cur=root;
+    for(i=0;S[i];i++)
+    {
+        if(cur->child[S[i]-'a'])    cur=cur->child[S[i]-'a'];
+        else
+        {
+            New=(struct dictree *)malloc(sizeof(struct dictree));
+            for(j=0;j<26;j++)    New->child[j]=0;
+            New->flag=-1;
+            cur->child[S[i]-'a']=New;
+            cur=New;
+        }
+    }
+    cur->flag=key;
+}
+int find(char *S)
+{
+    struct dictree *cur;
+    int i;
+
+    cur=root;
+    for(i=0;S[i];i++)
+    {
+        if(cur->child[S[i]-'a'])    cur=cur->child[S[i]-'a'];
+        else                        return -1;
+    }
+    return cur->flag;
+}
+
+int BFS()
+{
+    int i;
+
+    K=0;
+    while(K<Key)
+    {
+        if(E[queue[K]].flag==1)    return E[queue[K]].step;
+        for(i=0;i<E[queue[K]].total;i++)
+        {
+            if(E[queue[K]].step+1<E[E[queue[K]].mem[i]].step)
+            {
+                E[E[queue[K]].mem[i]].step=E[queue[K]].step+1;
+                queue[Key++]=E[queue[K]].mem[i];
+            }
+        }
+        K++;
+    }
+    return -1;
+}
+int main()
+{
+    int T;
+    int n,m,k;
+    int f[33];
+    char name_temp[33][25];
+    int i,j;
+    int ans;
+    int a,b;
+    char str[25];
+    int base[9]={5120,2560,1280,640,320,160,80,40,20};
+
+    scanf("%d",&T);
+    while(T--)
+    {
+        scanf("%s%d%d",str,&a,&b);
+        x_s=y_s=0;
+        for(i=0;i<8;i++)
+        {
+            if(str[i]=='1')        y_s+=base[i];
+            else if(str[i]=='2')x_s+=base[i];
+            else if(str[i]=='3'){x_s+=base[i];y_s+=base[i];}
+        }
+        x_s+=a*8;
+        y_s+=b*8;
+        scanf("%s%d%d",str,&a,&b);
+        x_e=y_e=0;
+        for(i=0;i<8;i++)
+        {
+            if(str[i]=='1')        y_e+=base[i];
+            else if(str[i]=='2')x_e+=base[i];
+            else if(str[i]=='3'){x_e+=base[i];y_e+=base[i];}
+        }
+        x_e+=a*8;
+        y_e+=b*8;
+        root=(struct dictree *)malloc(sizeof(struct dictree));
+        for(j=0;j<26;j++)    root->child[j]=0;
+        root->flag=-1;
+
+        Key=0;
+
+        scanf("%d",&n);
+        for(key=0;key<n;key++)
+        {
+            scanf("%s%d%d",str,&E[key].x,&E[key].y);
+            insert(str);
+            E[key].step=11111111;
+            E[key].total=0;
+            if((E[key].x-x_s)*(E[key].x-x_s)+(E[key].y-y_s)*(E[key].y-y_s)<=1000000)
+            {
+                E[key].step=0;
+                E[key].flag=-1;
+                queue[Key++]=key;
+            }
+            else if((E[key].x-x_e)*(E[key].x-x_e)+(E[key].y-y_e)*(E[key].y-y_e)<=1000000)    E[key].flag=1;
+            else                                                                            E[key].flag=0;
+        }
+        scanf("%d",&m);
+        while(m--)
+        {
+            scanf("%d",&k);
+            for(i=0;i<k;i++)
+            {
+                scanf("%s",name_temp[i]);
+                f[i]=find(name_temp[i]);
+            }
+            for(i=1;i<k;i++)
+            {
+                for(j=0;j<i;j++)
+                {
+                    E[f[i]].mem[E[f[i]].total++]=f[j];
+                    E[f[j]].mem[E[f[j]].total++]=f[i];
+                }
+            }
+        }
+        if((x_s-x_e)*(x_s-x_e)+(y_s-y_e)*(y_s-y_e)<=4000000)
+        {
+            printf("walk there\n");
+            continue;
+        }
+
+        ans=BFS();
+        if(ans==-1)    printf("take a taxi\n");
+        else        printf("%d\n",ans);
+    }
+    return 0;
+}
+</p>
+                
+             
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>
