@@ -1,99 +1,62 @@
 ﻿~t
-hdu-2078-复习时间(数学)
+爬虫意外产物之博客轰炸机
 ~t
 
 ~i
-hduoj题解
+写爬虫时的小意外，用以实现博客任意次数浏览量，PS：只要你有时间跑这个程序
 ~i
 
 p1
-Problem Description\
-为了能过个好年，xhd开始复习了，于是每天晚上背着书往教室跑。xhd复习有个习惯，在复习完一门课后，他总是挑一门更简单的课进行复习，而他复习这门课的效率为两门课的难度差的平方,而复习第一门课的效率为100和这门课的难度差的平方。xhd这学期选了n门课，但是一晚上他最多只能复习m门课，请问他一晚上复习的最高效率值是多少？
+这个程序是前两天写爬虫时的一个小意外，虽然程序很简单，但有时候就是那个想法很关键。\
 p1
 
 p2
-Input\
-输入数据的第一行是一个数据T，表示有T组数据。\
-每组数据的第一行是两个整数n(1 <= n <= 40)，m(1 <= m <= n)。\
-接着有n行，每行有一个正整数a(1 <= a <= 100)，表示这门课的难度值。
+我们知道博客的浏览量的计算是按次计算的，而且这个浏览量是只要访问一次这个页面就增加1。\
+那么想法就算使用循环，多次访问这个页面即可达到目的。
 p2
 
 p3
-Output\
-对于每组输入数据，输出一个整数，表示最高效率值。
-p3
-
-p4
-Sample Input\
-2\
-2 2\
-52\
-25\
-12 5\
-89\
-64\
-6\
-43\
-56\
-72\
-92\
-23\
-20\
-22\
-37\
-31\
-p4
-
-p5
-Sample Output\
-5625\
-8836 
-p5
-
-p6
-简单的数学，题目的代码很简单\
-例如：我们拿两个数和三个数做下比较\
-100 x\
-(100-x)^2=10000-200x+x^2 (1) \
-100 y x\
-(100-y)^2+(y-x)^2=(10000-200y+y^2)-(y^2-2xy+x^2) (2)\
-两式相减\
-(10000-200x+x^2)-((10000-200y+y^2)-(y^2-2xy+x^2))\
-=-200x+200y-2y^2+2xy\
-=200(y-x)+2y(x-y)\
-=(200-2y)*(y-x)\
-因为1 < y <= 100,所以结果大于等于0\
-显然只要y不是100，实际y应该是个1~100的数，那么多一个数反而会使结果变小\
-而题目要求最大效率，那我们只要拿最小的一个数就行了\
-所以代码很简单，即(100-min)^2就是结果了\
-p6
-
-p7
+代码如下
 <pre>
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Net;
+using System.Threading;
 
-namespace HDU2078 {
+namespace 博客访问量 {
     class Program {
+        /// <summary>
+        /// 用try catch,然后写continue的话，这个程序不跑完绝对不会停止，如果出现异常，就继续尝试，这样正和我意
+        /// good job O(∩_∩)O哈哈~
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args) {
-            int t = int.Parse(Console.ReadLine());
-            while (t-- > 0) {
-                string[] s = Console.ReadLine().Split();
-                int n = int.Parse(s[0]),a=int.Parse(Console.ReadLine());
-                for (int i = 1; i < n; i++) {
-                    int temp =int.Parse(Console.ReadLine());
-                    if (temp < a) a = temp;
+            System.Net.WebClient client = new WebClient();
+            for (int i = 0; i < 10000; i++) {
+                try {
+                    Stream strm = client.OpenRead("http://blog.csdn.net/jtahstu/article/details/47411757");
+                    strm.Close();
+                    Console.WriteLine("目前正在执行第{0}次轰炸", i);
+                } catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                    continue;
                 }
-                Console.WriteLine((100 - a) * (100 - a));
             }
         }
     }
 }
 </pre>
-p7
+p3
+
+p4
+实际代码就一行，然后就是处理异常的问题了。\
+这个方法如果想延伸至QQ空间的话就没用了，QQ空间的访问量是按访问的qq账号计算的，显然这个方法就行不通了，也就拿来玩玩博客了，过两天去学校本人来跑个三天三夜，O(∩_∩)O哈哈~
+p4
 
 ~n
-7
+4
 ~n

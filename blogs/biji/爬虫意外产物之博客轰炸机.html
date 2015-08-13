@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+爬虫意外产物之博客轰炸机
+</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../OJ/index.html" target="_blank">OJ题解</a></li>
+                    <li><a href="../../classify/biji/index.html" target="_blank">笔记</a></li>
+                    <li><a href="../../classify/zongjie/index.html" target="_blank">总结</a></li>
+                    <li><a href="../../classify/wenzhang/index.html" target="_blank">文章</a></li>
+                    <li><a href="../../aboute me/resume/index.html">About me</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>
+爬虫意外产物之博客轰炸机
+</h3>
+                    <h5>2015/8/13 19:34:17</h5>
+                    <p>
+写爬虫时的小意外，用以实现博客任意次数浏览量，PS：只要你有时间跑这个程序
+</p>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <h1>
+爬虫意外产物之博客轰炸机
+</h1>
+                <p>
+这个程序是前两天写爬虫时的一个小意外，虽然程序很简单，但有时候就是那个想法很关键。<br>
+</p>
+                <p>
+我们知道博客的浏览量的计算是按次计算的，而且这个浏览量是只要访问一次这个页面就增加1。<br>
+那么想法就是使用循环，多次访问这个页面即可达到目的。
+</p>
+                <p>
+代码如下
+<pre>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Net;
+using System.Threading;
+
+namespace 博客访问量 {
+    class Program {
+        /// < summary>
+        /// 用try catch,然后写continue的话，这个程序不跑完绝对不会停止，如果出现异常，就继续尝试，这样正和我意
+        /// good job O(∩_∩)O哈哈~
+        /// < /summary>
+        /// <param name="args"></param>
+        static void Main(string[] args) {
+            System.Net.WebClient client = new WebClient();
+            for (int i = 0; i < 10000; i++) {
+                try {
+                    Stream strm = client.OpenRead("http://blog.csdn.net/jtahstu/article/details/47411757");
+                    strm.Close();
+                    Console.WriteLine("目前正在执行第{0}次轰炸", i);
+                } catch (Exception e) {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+            }
+        }
+    }
+}
+</pre>
+</p>
+                <p>
+实际代码就一行，然后就是处理异常的问题了。<br>
+这个方法如果想延伸至QQ空间的话就没用了，QQ空间的访问量是按访问的qq账号计算的，显然这个方法就行不通了，也就拿来玩玩博客了，过两天去学校本人来跑个三天三夜，O(∩_∩)O哈哈~
+</p>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2015/2-<span id="nowyear"></span>/<span id="nowmonth"></span> , All Rights Reserved . by jtahstu . 时至<span id="now2">
+                </span> 博客开创已<span id="timeShow"></span>天
+            </p>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+</html>
