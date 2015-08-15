@@ -3,3 +3,4 @@ D:\Github\jtahstu.github.com\OJ\src\hdu题解自动生成\bin\Debug\hdu题解自
 D:\Github\jtahstu.github.com\OJ\src\hdu题解自动生成\bin\Debug\hdu题解自动生成.pdb
 D:\Github\jtahstu.github.com\OJ\src\hdu题解自动生成\obj\Debug\hdu题解自动生成.exe
 D:\Github\jtahstu.github.com\OJ\src\hdu题解自动生成\obj\Debug\hdu题解自动生成.pdb
+D:\Github\jtahstu.github.com\OJ\src\hdu题解自动生成\obj\Debug\hdu题解自动生成.csprojResolveAssemblyReference.cache

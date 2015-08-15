@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4518</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4518</h3>
+                    <h5>2015/8/14 7:13:28</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4518</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/14 5:37:15
+//目前爬取的是hduoj第4518题
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <iostream>
+#include <queue>
+using namespace std;
+
+typedef long long LL;
+const int N = 600;
+LL n;
+int bit[20];
+LL f[60];
+LL dp[15][N]; 
+LL POW[15]; 
+LL seq[60];
+LL suf[20];
+queue<int>q;
+
+struct Ac_Auto{
+    int ch[N][10];
+    int fail[N];
+    bool flag[N];
+    int idx, root;
+    int newnd() {
+        memset(ch[idx], 0, sizeof (ch[idx]));
+        flag[idx] = false, fail[idx] = 0;
+        return idx++;
+    }
+    void init() {
+        idx = 0, root = newnd();
+    }
+    void insert(LL x) {
+        int id = 0;
+        while (x) bit[id++] = x%10, x/=10;
+        int p = root;
+        for (int i = id-1; i >= 0; --i) {
+            if (!ch[p][bit[i]]) ch[p][bit[i]] = newnd();
+            p = ch[p][bit[i]];
+        }
+        flag[p] = true;
+    }
+    void build() {
+        for (int i = 0; i < 10; ++i) {
+            if (ch[root][i]) {
+                q.push(ch[root][i]);
+            }
+        }
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            for (int i = 0; i < 10; ++i) {
+                int &v = ch[u][i];
+                int x = fail[u];
+                if (v) {
+                    q.push(v);
+                    while (x && !ch[x][i]) x = fail[x];
+                    fail[v] = ch[x][i];
+                    flag[v] = flag[v] || flag[fail[v]];
+                } else {
+                    v = ch[x][i]; 
+                }
+            }
+        }
+    }
+    void find(LL x) {
+        int id = 0;
+        while (x) bit[id++] = x%10, x/=10;
+        int p = root;
+        for (int i = id-1; i >= 0; --i) {
+            p = ch[p][bit[i]];
+            if (flag[p]) {
+                cout << "OMG" << endl;
+                return;
+            }
+        }
+    }
+};
+Ac_Auto ac;
+
+LL count(int p, int sta, bool bound) {
+    if (p == 0) return 0;
+    if (!bound && ~dp[p][sta]) return dp[p][sta];
+    int y = bound ? bit[p] : 9;
+    LL sum = 0;
+    int tsta;
+    for (int i = 0; i <= y; ++i) {
+        tsta = ac.ch[sta][i];
+        if (ac.flag[tsta]) {
+            if (bound&&i==y) sum += suf[p-1]+1;
+            else sum += POW[p-1];
+            continue;
+        }
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

@@ -8,7 +8,7 @@ using System.IO;
 namespace hdu题解自动生成 {
     class Program {
         static void Main(string[] args) {
-            for (int i = 4366; i < 4408; i++) {
+            for (int i = 1000; i < 4599; i++) {
                 try {
                     string path = @"G:\ACM\OJ\code\hduoj_accept\hduoj_" + i.ToString() + ".cpp";
                     StreamReader sr = new StreamReader(path);

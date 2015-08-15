@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4538</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4538</h3>
+                    <h5>2015/8/14 7:13:28</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4538</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/14 5:38:16
+//目前爬取的是hduoj第4538题
+#include<stdio.h>
+#include<memory.h>
+#include <algorithm>
+#include<queue>
+using namespace std;
+int nextstart[300][300][2],nextend[300][300][2],laststart[300][300][2],lastend[300][300][2];
+int nextbstart[300][300][2],nextbend[300][300][2],lastbstart[300][300][2],lastbend[300][300][2];
+int f[300][300][2];
+int main(){
+    int t,ti,n,m,i,j,sx,sy,ex,ey,word,noblank,blank,lwsx,lwsy,lwex,lwey,lswsx,lswsy,lswex,lswey,c,x,y,inf,p,ans,px,py;
+    char w[300][300],s[300][300];
+    short type[300][300];
+    bool isletter,isblank;
+    queue<int> q;
+    scanf("%d",&t);
+    for(ti=1;ti<=t;ti++){
+        scanf("%d%d%d%d%d%d",&n,&m,&sx,&sy,&ex,&ey);
+        for(i=0;i<n;i++){
+            scanf("%c",&w[i][m]);
+            type[i][m]=0;
+            for(j=0;j<m;j++){
+                scanf("%c",&w[i][j]);
+                type[i][j]=0;
+            }
+        }
+        for(i=0;i<n;i++)scanf("%s",&s[i]);
+        blank=1;word=0;noblank=0;
+        for(i=0;i<n;i++){
+            for(j=0;j<=m;j++){
+                if((w[i][j]>='a'&&w[i][j]<='z')||(w[i][j]>='A'&&w[i][j]<='Z')||(w[i][j]>='0'&&w[i][j]<='9')||w[i][j]=='_'){
+                    word++;isletter=true;isblank=false;
+                }else if(w[i][j]==10||w[i][j]==32){
+                    blank++;isletter=false;isblank=true;
+                }else{
+                    noblank++;isletter=false;isblank=false;
+                }
+                if(blank){
+                    if(word||noblank)
+                        if(isblank){
+                            word=0;noblank=0;
+                            type[i][j-1]=type[i][j-1]|4;
+                        }else{
+                            blank=0;
+                            type[i][j]=type[i][j]|2;
+                        }
+                }else if(word&&noblank){
+                    if(isletter)
+                        noblank=0;
+                    else
+                        word=0;
+                    type[i][j-1]=type[i][j-1]|16;
+                    type[i][j]=type[i][j]|8;
+                }
+            }
+        }
+        lwsx=0;lwsy=0;
+        lwex=0;lwey=0;
+        lswsx=0;lswsy=0;
+        lswex=0;lswey=0;
+        for(i=0;i<n;i++){
+            for(j=0;j<=m;j++){
+                laststart[i][j][0]=lswsx;
+                laststart[i][j][1]=lswsy;
+                lastend[i][j][0]=lswex;
+                lastend[i][j][1]=lswey;
+                lastbstart[i][j][0]=lwsx;
+                lastbstart[i][j][1]=lwsy;
+                lastbend[i][j][0]=lwex;
+                lastbend[i][j][1]=lwey;
+                if(type[i][j]&2){
+                    lswsx=i;lswsy=j;
+                    lwsx=i;lwsy=j;
+                }
+                if(type[i][j]&4){
+                    lswex=i;lswey=j;
+                    lwex=i;lwey=j;
+                }
+                if(type[i][j]&8){
+                    lswsx=i;lswsy=j;
+                }
+                if(type[i][j]&16){
+                    lswex=i;lswey=j;
+                }
+            }
+        }
+        lwsx=n-1;lwsy=m-1;
+        lwex=n-1;lwey=m-1;
+        lswsx=n-1;lswsy=m-1;
+        lswex=n-1;lswey=m-1;
+        for(i=n-1;i>=0;i--){
+            for(j=m-1;j>=0;j--){
+                nextstart[i][j][0]=lswsx;
+                nextstart[i][j][1]=lswsy;
+                nextend[i][j][0]=lswex;
+                nextend[i][j][1]=lswey;
+                nextbstart[i][j][0]=lwsx;
+                nextbstart[i][j][1]=lwsy;
+                nextbend[i][j][0]=lwex;
+                nextbend[i][j][1]=lwey;
+                if(type[i][j]&2){
+                    lswsx=i;lswsy=j;
+                    lwsx=i;lwsy=j;
+                }
+                if(type[i][j]&4){
+                    lswex=i;lswey=j;
+                    lwex=i;lwey=j;
+                }
+                if(type[i][j]&8){
+                    lswsx=i;lswsy=j;
+                }
+                if(type[i][j]&16){
+                    lswex=i;lswey=j;
+                }
+            }
+        }
+        memset(f,127,sizeof(f));
+        inf=f[0][0][0];f[sx][sy][0]=0;
+        q.push(sx);q.push(sy);q.push(0);
+        while(!q.empty()){
+            x=q.front();q.pop();
+            y=q.front();q.pop();
+            c=q.front();q.pop();
+            p=f[x][y][c]+1;
+            if(f[x][y][c xor 1]>p){//push caps lock
+                f[x][y][c xor 1]=p;
+                q.push(x);q.push(y);q.push(c xor 1);
+            }
+            p=f[x][y][c]+c+1;
+            px=x;py=y+1;
+            if(py<m&&s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            py=y-1;
+            if(py>=0&&s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=x+1;py=y;
+            if(px<n&&s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=x-1;
+            if(px>=0&&s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=nextstart[x][y][0];py=nextstart[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=nextend[x][y][0];py=nextend[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=laststart[x][y][0];py=laststart[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            p=f[x][y][c]+(c xor 1)+1;
+            px=nextbstart[x][y][0];py=nextbstart[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=nextbend[x][y][0];py=nextbend[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            px=lastbstart[x][y][0];py=lastbstart[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            p=f[x][y][c]+c*2+2;
+            px=lastend[x][y][0];py=lastend[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+            p=f[x][y][c]+3;
+            px=lastbend[x][y][0];py=lastbend[x][y][1];
+            if(s[px][py]==48&&f[px][py][c]>p){
+                f[px][py][c]=p;
+                q.push(px);q.push(py);q.push(c);
+            }
+        }
+        ans=min(f[ex][ey][0],f[ex][ey][1]);
+        if(ans>=inf)ans=-1;
+        printf("Case #%d: %d\n",ti,ans);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

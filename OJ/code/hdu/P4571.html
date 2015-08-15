@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4571</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4571</h3>
+                    <h5>2015/8/14 7:13:28</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4571</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/14 5:39:06
+//目前爬取的是hduoj第4571题
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <queue>
+#include <cstring>
+using namespace std;
+
+const int maxn=110;
+const int oo=0x3fffffff;
+int S[maxn], C[maxn];
+int mp[maxn], visit[maxn][3*maxn];
+int map[maxn][maxn], cap[maxn][maxn], dis[maxn][3*maxn];
+int n, m, V, T, st, sd, ss, dd;
+
+struct node
+{
+    int u, t;
+};
+
+void floyd()
+{
+    ss=n, dd=n+1, S[dd]=0;
+    for(int k=0; k<n; k++)
+        for(int i=0; i<n; i++)
+            for(int j=0; j<n; j++)
+                if(map[i][j]>map[i][k]+map[k][j]) map[i][j]=map[i][k]+map[k][j];
+
+    for(int i=0; i<n; i++)
+        for(int j=i+1; j<n; j++)
+        {
+            if(map[i][j]!=oo)
+            {
+                if(S[i]<S[j]) cap[i][j]=map[i][j]+C[j];
+                if(S[j]<S[i]) cap[j][i]=map[i][j]+C[i];
+            }
+        }
+    cap[ss][st]=C[st];
+    for(int i=0; i<n; i++)
+        if(i!=st&&map[st][i]!=oo) cap[ss][i]=map[st][i]+C[i];
+    for(int i=0; i<n; i++)
+        if(i!=sd&&map[i][sd]!=oo) cap[i][dd]=map[i][sd];
+
+}
+
+int spfa()
+{
+    queue<node>q;
+    for(int i=0; i<=n+1; i++)
+        for(int j=0; j<=V; j++) dis[i][j]=-oo, visit[i][j]=0;
+    node s, p;
+    s.u=ss, s.t=0;
+    q.push(s);
+    dis[ss][0]=0;
+    visit[ss][0]=1;
+    while(!q.empty())
+    {
+        p=q.front();
+        q.pop();
+        visit[p.u][p.t]=0;
+        for(int i=0; i<=n+1; i++)
+        {
+            if(p.u!=i&&cap[p.u][i]!=oo)
+            {
+                int tp=p.t+cap[p.u][i];
+                if(tp<=V&&dis[i][tp]<dis[p.u][p.t]+S[i])
+                {
+                    dis[i][tp]=dis[p.u][p.t]+S[i];
+                    s.u=i, s.t=tp;
+                    if(!visit[s.u][s.t]) visit[s.u][s.t]=1,q.push(s);
+                }
+            }
+        }
+    }
+    int maxx=0;
+    for(int i=0; i<=V; i++)
+    {
+        maxx=max(maxx,dis[sd][i]);
+        maxx=max(maxx,dis[dd][i]);
+    }
+    return maxx;
+}
+
+int main()
+{
+    cin >> T;
+    for(int tcase=1; tcase<=T; tcase++)
+    {
+        scanf("%d%d%d%d%d",&n,&m,&V,&st,&sd);
+        for(int i=0; i<=n+1; i++)
+            for(int j=0; j<=n+1; j++)
+            {
+                  map[i][j]=oo, cap[i][j]=oo;
+                  if(i==j) map[i][j]=cap[i][j]=0;
+            }
+        for(int i=0; i<n; i++) scanf("%d",C+i);
+        for(int i=0; i<n; i++) scanf("%d",S+i);
+        while(m--)
+        {
+            int u, v, val;
+            scanf("%d%d%d",&u,&v,&val);
+            map[u][v]=min(map[u][v],val);
+            map[v][u]=min(map[v][u],val);
+        }
+        floyd();
+        int ans=spfa();
+        printf("Case #%d:\n%d\n",tcase,ans);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>
