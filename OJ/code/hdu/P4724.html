@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4724</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4724</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4724</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:24:29
+//目前爬取的是hduoj第4724题
+#include <iostream>
+#include <string>
+#include <set>
+#include <map>
+using namespace std;
+
+typedef string String;
+#define M 5050
+
+map<String,int> Com;
+set<String> haveFile;
+set<String> fileLink[M];
+int addI,re_n;
+
+void clear()
+{
+    Com.clear();
+    haveFile.clear();
+    for(int i=0; i<M; i++)
+    {
+        fileLink[i].clear();
+    }
+    addI = 0;
+}
+
+void catString(String &s1)
+{
+    String s2;
+    if(s1[s1.length() - 1] == '\\')
+    {
+        s1[s1.length() - 1] = ' ';
+        while(getline(cin,s2))
+        {
+            s1 += s2;
+            if(s1[s1.length() - 1] == '\\')
+            {
+                s1[s1.length() - 1] = ' ';
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+}
+
+void eraseString(String &s1)    
+{
+    int finded = s1.find('#',0);
+    if(finded != String::npos)
+    {
+        s1.erase(finded,s1.length() - finded);
+    }
+}
+
+void addCom(String s1)
+{
+    String s2;
+    bool flag = true;
+    for(int i=0; i<s1.length(); i++)
+    {
+        if(s1[i] == ' ' || i == s1.length() - 1)
+        {
+            if(i == s1.length() - 1 && s1[i] != ' ')
+            {
+                s2 += s1[i];
+            }
+            if(s2 != "")
+            {
+                if(flag)
+                {
+                    flag = false;
+                    s2.erase(s2.length() - 1);
+                    Com.insert(pair<String,int>(s2,addI));
+                }
+                else
+                {
+                    fileLink[addI].insert(s2);
+                }
+            }
+            s2 = "";
+        }
+        else
+        {
+            s2 += s1[i];
+        }
+    }
+    addI++;
+}
+
+void addFile(String s1)
+{
+    int finded = s1.find(' ',0);
+    if(finded != String::npos)
+    {
+        s1.erase(finded,s1.length() - finded);
+    }
+    haveFile.insert(s1);
+}
+
+bool findRun(String s1)
+{
+    if(re_n == -1)    return false;
+    if(haveFile.find(s1) != haveFile.end())
+        return true;
+    if(Com.find(s1) == Com.end())
+        return false;
+    set<String> t = fileLink[Com[s1]];
+    for(set<String>::iterator i = t.begin(); i != t.end(); i++)
+    {
+        if(findRun(*i) == false)
+        {
+            re_n = -1;
+            return false;
+        }
+    }
+    re_n++;
+    haveFile.insert(s1);
+    return true;
+}
+
+void run(String s1)
+{
+    String s2;
+    for(int i=0; i<s1.length(); i++)
+    {
+        if(s1[i] == ' ' || i == s1.length() - 1)
+        {
+            if(i == s1.length() - 1 && s1[i] != ' ')
+            {
+                s2 += s1[i];
+            }
+            if(s2 != "")
+            {
+                if(s2 != "make")
+                {
+                    findRun(s2);
+                }
+            }
+            s2 = "";
+        }
+        else
+        {
+            s2 += s1[i];
+        }
+    }
+}
+
+int main(int argc, char* argv[])
+{
+    int t;
+    cin >> t;
+
+    String s1;
+    for(int i=1; i<=t; i++)
+    {
+        clear();
+        int n;
+        getchar();
+        while(getline(cin,s1))
+        {
+            if(s1 == "====")
+                break;
+            catString(s1);
+            eraseString(s1);
+            if(s1.find("g++",0) == String::npos)
+                addCom(s1);
+        }
+        cin >> n;
+        getchar();
+        while(n--)
+        {
+            getline(cin,s1);
+            catString(s1);
+            eraseString(s1);
+            addFile(s1);
+        }
+        cin >> n;
+        getchar();
+        cout << "Case #" << i << ":" << endl;
+        while(n--)
+        {
+            re_n = 0;
+            getline(cin,s1);
+            catString(s1);
+            eraseString(s1);
+            run(s1);
+            if(re_n == -1)
+                re_n++;
+            cout << re_n << endl;
+        }
+        if(i != t) cout << endl;
+    }
+
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

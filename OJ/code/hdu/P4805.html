@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4805</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4805</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4805</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:26:13
+//目前爬取的是hduoj第4805题
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <bitset>
+#include <cctype>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <cassert>
+#include <cstdlib>
+#include <cstring>
+#include <iomanip>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+#define PB push_back
+#define MP make_pair
+#define AA first
+#define BB second
+#define OP begin()
+#define ED end()
+#define SZ size()
+#define SORT(x) sort(x.OP,x.ED)
+#define SQ(x) ((x)*(x))
+#define SSP system("pause")
+#define cmin(x,y) x=min(x,y)
+#define cmax(x,y) x=max(x,y)
+typedef long long LL;
+typedef pair<int, int> PII;
+const double eps=1e-8;
+const double PI=acos(-1.);
+const LL MOD = 1000000007;
+int sign(double x) {return x<-eps?-1:x>eps;}
+struct spt {
+    double x,y,z;
+    spt(double _x=0,double _y=0,double _z=0) :x(_x),y(_y),z(_z) {}
+    spt operator + (spt s) {return spt(x+s.x,y+s.y,z+s.z);}
+    spt operator - (spt s) {return spt(x-s.x,y-s.y,z-s.z);}
+    spt operator * (double s) {return spt(x*s,y*s,z*s);}
+    spt operator / (double s) {return spt(x/s,y/s,z/s);}
+    double len() const {return sqrt(SQ(x)+SQ(y)+SQ(z));}
+    double operator * (spt s) {return x*s.x+y*s.y+z*s.z;}   
+    spt operator ^ (spt s) {    
+        spt ret;
+        ret.x=y*s.z-z*s.y;
+        ret.y=z*s.x-x*s.z;
+        ret.z=x*s.y-y*s.x;
+        return ret;
+    }
+    void output(char *s="") {printf("%s:%.6f %.6f %.6f\n",s,x,y,z);}
+    void input() {scanf("%lf%lf%lf",&x,&y,&z);}
+} Orz(0,0,0);
+spt S,T,V,A,B,C;
+double disLP(spt p1,spt p2,spt q) {
+    return fabs((p2-p1)*(q-p1)/(p2-p1).len());
+}
+double disLL(spt p1,spt p2,spt q1,spt q2) {
+    spt p=q1-p1,u=p2-p1,v=q2-q1;
+    double d=(u*u)*(v*v)-SQ(u*v);
+    if(sign(d)==0)return disLP(q1,q2,p1);
+    double s=((p*u)*(v*v)-(p*v)*(u*v))/d;
+    return disLP(q1,q2,p1+u*s);
+}
+int isFL(spt p,spt o,spt q1,spt q2,spt &is) {
+    double a=o*(q2-p),b=o*(q1-p);
+    double d=a-b;
+    if(sign(d)==0)return 0;
+    is=(q1*a-q2*b)/d;
+    return 1;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

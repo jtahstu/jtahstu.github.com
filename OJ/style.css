@@ -196,6 +196,10 @@ hr {
 .post .links .comments {} .post .links .permalink {
 	padding-left: 17px;
 }
+.post {
+	font-size: 12px;
+}
+
 /* Sidebar */
 
 #sidebar {

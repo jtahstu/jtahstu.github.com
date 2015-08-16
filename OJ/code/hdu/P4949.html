@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4949</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4949</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4949</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:29:06
+//目前爬取的是hduoj第4949题
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+using namespace std;
+
+#define HASH 100007
+#define STATE 500010
+#define maxd 15
+
+int maze[maxd][maxd];
+int code[maxd];
+int n,m;
+struct HASHMAP{
+    int head[HASH];
+    int state[STATE],nxt[STATE];
+    int f[STATE];
+    int sz;
+    void clear(){sz=0;memset(head,-1,sizeof(head));}
+    void push(int st,int ans){
+        int h=st%HASH;
+        for(int i=head[h];i!=-1;i=nxt[i]){
+            if(st==state[i]){
+                f[i] = f[i]<ans?f[i]:ans;
+                return ;
+            }
+        }
+        state[sz]=st,nxt[sz]=head[h],f[sz]=ans;
+        head[h]=sz++;
+    }
+}hm[2];
+void decode(int st){
+    for(int i=m;i>=0;--i) code[i]=st&3,st>>=2;
+}
+int encode(){
+    int ret=0;
+    for(int i=0;i<=m;++i) ret=ret<<2|code[i];
+    return ret;
+}
+void shift(){
+    for(int i=m;i;--i) code[i]=code[i-1];
+    code[0]=0;
+}
+int ans;
+int zo,oz,oo;
+void dpblank(int i,int j,int cur){
+    int mv = j==m?2:0;
+    int all = (1<<(2*(m+1)-mv) ) -1;
+    for(int k=0;k<hm[cur].sz;++k){
+        int st = hm[cur].state[k];
+        int left = st&(oo>>(2*(j-1))), up = st&(oo>>(2*j));
+        int L = left>>(2*(m-j+1)), U = up>>(2*(m-j));
+        int cnt = ((L>>1)+(U>>1))&1;
+        if(i==1 || U==2 || maze[i-1][j]==U){
+            int st2 = st^left^up;
+            if(cnt) st2 = st2 | (zo>>(2*(j-1))) | (zo>>(2*j));
+            hm[cur^1].push((st2>>mv)&all, hm[cur].f[k]);
+        }
+        if(hm[cur].f[k]+2<ans)
+        if(i==1 || U==2 || maze[i-1][j]==U){
+            int st2 = st^left^up;
+            if(!cnt) st2 = st2 | (zo>>(2*(j-1))) | (zo>>(2*j));
+            hm[cur^1].push((st2>>mv)&all, hm[cur].f[k]+2);
+        }
+        if(hm[cur].f[k]+1<ans)
+        if(i==1 || U==2 || maze[i-1][j]!=U){
+            int st2 = st^left^up;
+            if(j>1 && L!=2) st2 = st2 ^ (zo>>(2*(j-2)));
+            st2 = st2 | (oz>>(2*(j-1))) | (oz>>(2*j));
+            hm[cur^1].push((st2>>mv)&all, hm[cur].f[k]+1);
+        }
+    }
+}
+void solve(){
+    zo = 1<<(2*m);
+    oz = 2<<(2*m);
+    oo = 3<<(2*m);
+    int cur=0;
+    hm[0].clear();
+    hm[0].push(0,0);
+    for(int i=1;i<=n;++i){
+        for(int j=1;j<=m;++j){
+            hm[cur^1].clear();
+            dpblank(i,j,cur);
+            cur^=1;
+        }
+    }
+    for(int k=0;k<hm[cur].sz;++k){
+        bool yes=true;
+        decode(hm[cur].state[k]);
+        for(int j=1;j<=m;++j){
+            if(code[j]!=2 && code[j]!=maze[n][j]){
+                yes=false;
+                break;
+            }
+        }
+        if(yes) ans = ans<hm[cur].f[k]?ans:hm[cur].f[k];
+    }
+}
+int main(){
+    int ca=0;
+    while(~scanf("%d%d",&n,&m) && n){
+        printf("Case #%d: ",++ca);
+        ans=0;
+        for(int i=1;i<=n;++i) for(int j=1;j<=m;++j)
+            scanf("%1d",maze[i]+j), ans+=maze[i][j];
+        ans*=2;
+        solve();
+        printf("%d\n",ans);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

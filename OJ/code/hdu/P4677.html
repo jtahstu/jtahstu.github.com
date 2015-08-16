@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4677</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4677</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4677</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:23:36
+//目前爬取的是hduoj第4677题
+#include <iostream>
+#include <cstdio>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <cstring>
+using namespace std;
+#define N 30050
+struct Q
+{
+    int r,idx;
+    Q(int _r=0,int _idx=0):r(_r),idx(_idx){}
+};
+vector<Q>que[N];
+vector<int>edge[N];
+int fa[N][200],scc[200],rr[200];
+int ta[N],first[N],ans[N];
+int n,m,tot,every;
+int find(int i,int pos)
+{
+    return fa[i][pos]==i?i:fa[i][pos]=find(fa[i][pos],pos);
+}
+void init()
+{
+    for(int i=0;i<=n;++i)
+        edge[i].clear(),que[i].clear();
+    memset(scc,0,sizeof(scc));
+    every=tot=sqrt(n*1.0);
+    if(n*n!=tot) tot++;
+    for(int i=0;;++i)
+    {
+        rr[i]=i*every;
+        if(i*every>=n) break;
+    }
+    for(int i=0;i<=tot;++i)
+        for(int j=0;j<=n;++j)
+        fa[j][i]=j;
+    memset(first,-1,sizeof(first));
+}
+int main ()
+{
+    int T;scanf("%d",&T);
+    for(int kk=1;kk<=T;++kk)
+    {
+        scanf("%d%d",&n,&m);
+        init();
+        for(int i=1,u,v;i<=m;++i)
+        {
+            scanf("%d%d",&u,&v);
+            if(u==v) continue;
+            edge[u].push_back(v);
+            edge[v].push_back(u);
+        }
+        int q;scanf("%d",&q);
+        for(int i=1,u,v;i<=q;++i)
+        {
+            scanf("%d%d",&u,&v);
+            que[u].push_back(Q(v,i));
+        }
+        int run_clock=0;
+        for(int u=n;u>=1;--u)
+        {
+            for(int j=1;j<=tot;++j)
+            {
+                if(u>rr[j]) continue;
+                scc[j]++;
+                int inc=0;
+                for(int i=0;i<edge[u].size();++i)
+                {
+                    int v=edge[u][i];
+                    if(u<v&&v<=rr[j])
+                    {
+                        int u1=find(u,j);
+                        int v1=find(v,j);
+                        if(u1!=v1)
+                        {
+                            inc++;
+                            fa[v1][j]=u1;
+                        }
+                    }
+                }
+                scc[j]-=inc;
+            }
+            for(int z=0;z<que[u].size();++z)
+            {
+                run_clock++;
+                int right=que[u][z].r;
+                int pos;int inc=0;
+                for(pos=0;pos<tot;++pos)
+                    if(rr[pos]<right&&right<=rr[pos+1]) break;
+                for(int i=max(u+1,rr[pos]+1);i<=right;++i)
+                {
+                    if(first[i]!=run_clock)
+                    {
+                        first[i]=run_clock;
+                        fa[i][tot+1]=i;
+                    }
+                    for(int j=0;j<edge[i].size();++j)
+                        if(u<=edge[i][j]&&edge[i][j]<i)
+                        {
+                            int v1=find(edge[i][j],pos);
+                            if(first[v1]!=run_clock)
+                            {
+                                first[v1]=run_clock;
+                                fa[v1][tot+1]=v1;
+                            }
+                            if(find(i,tot+1)!=find(v1,tot+1))
+                            {
+                                fa[find(v1,tot+1)][tot+1]=find(i,tot+1);
+                                inc++;
+                            }
+                        }
+                }
+                ans[que[u][z].idx]=scc[pos]+right-max(rr[pos],u-1)-inc;
+            }
+        }
+        printf("Case #%d:\n",kk);
+        for(int i=1;i<=q;++i)
+            printf("%d\n",ans[i]);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

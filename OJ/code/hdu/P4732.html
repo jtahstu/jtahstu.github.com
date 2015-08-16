@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4732</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4732</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4732</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:24:37
+//目前爬取的是hduoj第4732题
+#include <set>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <cstdio>
+#include <iostream>
+using namespace std;
+typedef long long LL;
+typedef pair<int,int> PII;
+#define MP make_pair
+#define PB push_back
+#define AA first
+#define BB second
+#define OP begin()
+#define ED end()
+#define SZ size()
+#define cmin(x,y) x=min(x,y)
+#define cmax(x,y) x=max(x,y)
+const LL MOD = 1000000007;
+const int MXN = 200005;
+int mu[MXN], p[MXN], pn;
+bool flag[MXN];
+void init(int n=MXN-5) {
+    pn = 0;
+    mu[1] = 1;
+    for(int i = 2; i <= n; i++) {
+        if(!flag[i]) {
+            p[pn ++ ] = i;
+            mu[i] = -1;                     
+        }
+        for(int j = 0; j < pn && i * p[j] <= n; j++) {
+            flag[i * p [j]] = true;
+            if(i % p[j] == 0) {
+                mu[i * p[j]] = 0;         
+                break;
+            } else  mu[i * p[j]] = -mu[i];  
+        }
+    }
+}
+LL inv[200005];
+LL fact[200005];
+LL ifac[200005];
+LL comb(LL a,LL b){
+    return fact[a]*ifac[b]%MOD*ifac[a-b]%MOD;
+}
+LL play(int n,int m){
+    return comb(n+m-1,n-1);
+}
+int N,M,K,n;
+LL solve(int n,int M){
+    LL ans=0;
+    for(int i=0;i<=n&&i*K<=M;i++){
+        LL mul=comb(n,i);
+        LL add=play(n,M-i*K);
+        if(i&1)ans-=mul*add%MOD;
+        else ans+=mul*add%MOD;
+    }
+    return ans%MOD;
+}
+LL g(int x){
+    int d=n/x;
+    if(M%d)return 0;
+    return solve(x,M/d);
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

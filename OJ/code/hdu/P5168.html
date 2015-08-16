@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P5168</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P5168</h3>
+                    <h5>2015/8/16 16:39:30</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P5168</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:33:59
+//目前爬取的是hduoj第5168题
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <cmath>
+#include <cstring>
+#include <vector>
+#define LL __int64
+using namespace std;
+const LL INF=(LL)0x3f3f3f3f*0x3f3f3f3f;
+const int N=100010;
+const int M=200020;
+
+struct TEdge{
+    int u,v,w;
+    bool operator<(const TEdge& a)const {
+        if(w<a.w) return true;
+        return false;
+    }
+}Cedge[M];
+int tot;
+struct Point{
+    int lw;
+    LL alw;
+    Point(int c,LL e){lw=c; alw=e;}
+};
+
+vector<Point>point[N];
+int n,m,k;
+
+void addedge(int u,int v,int w){
+    Cedge[tot].u=u;
+    Cedge[tot].v=v;
+    Cedge[tot].w=w;
+    tot++;
+}
+
+void Push_into(int p,Point t){
+    point[p].push_back(t);
+}
+
+bool cmp(Point a,Point b){
+    if(a.lw==b.lw) return a.alw>b.alw;
+    return a.lw<b.lw;
+}
+
+int main(){
+    int T,u,v,w,sz;
+    scanf("%d",&T);
+    while(T--){
+        scanf("%d%d%d",&n,&m,&k);
+        tot=0;
+        for(int i=1;i<=n;i++){
+            point[i].clear();
+        }
+        for(int i=1;i<=m;i++){
+            scanf("%d%d%d",&u,&v,&w);
+            addedge(u,v,w);
+        }
+        sort(Cedge,Cedge+tot);
+        for(int i=0;i<tot;i++){
+            u=Cedge[i].u;
+            v=Cedge[i].v;
+            if(u==1){
+                if(point[v].empty()){
+                    Push_into(v,Point(Cedge[i].w,Cedge[i].w));
+                }
+                else{
+                    if(point[v][point[v].size()-1].alw>Cedge[i].w){
+                        Push_into(v,Point(Cedge[i].w,Cedge[i].w));
+                    }
+                }
+                continue;
+            }
+            if(point[u].empty()) continue;
+            else {
+                int p=upper_bound(point[u].begin(),point[u].end(),Point(Cedge[i].w-k,-INF),cmp)-point[u].begin();
+                if(p==0) continue;
+                else if(p>0 && p<point[u].size()) --p;
+                else if(point[u][point[u].size()-1].lw<=Cedge[i].w-k) p=point[u].size()-1;
+                else continue;
+                if(point[v].empty())
+                    Push_into(v,Point(Cedge[i].w,point[u][p].alw+(LL)Cedge[i].w));
+                else if(point[v][point[v].size()-1].alw>point[u][p].alw+(LL)Cedge[i].w)
+                    Push_into(v,Point(Cedge[i].w,point[u][p].alw+(LL)Cedge[i].w));
+            }
+        }
+        if(point[n].empty())
+        printf("-1\n");
+        else printf("%I64d\n",point[n][point[n].size()-1].alw);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

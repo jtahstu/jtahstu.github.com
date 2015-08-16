@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4609</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4609</h3>
+                    <h5>2015/8/16 16:39:28</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4609</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:22:17
+//目前爬取的是hduoj第4609题
+#include <stdio.h>
+#include <iostream>
+#include <string.h>
+#include <algorithm>
+#include <math.h>
+using namespace std;
+
+const double PI = acos(-1.0);
+struct complex
+{
+    double r,i;
+    complex(double _r = 0,double _i = 0)
+    {
+        r = _r; i = _i;
+    }
+    complex operator +(const complex &b)
+    {
+        return complex(r+b.r,i+b.i);
+    }
+    complex operator -(const complex &b)
+    {
+        return complex(r-b.r,i-b.i);
+    }
+    complex operator *(const complex &b)
+    {
+        return complex(r*b.r-i*b.i,r*b.i+i*b.r);
+    }
+};
+void change(complex y[],int len)
+{
+    int i,j,k;
+    for(i = 1, j = len/2;i < len-1;i++)
+    {
+        if(i < j)swap(y[i],y[j]);
+        k = len/2;
+        while( j >= k)
+        {
+            j -= k;
+            k /= 2;
+        }
+        if(j < k)j += k;
+    }
+}
+void fft(complex y[],int len,int on)
+{
+    change(y,len);
+    for(int h = 2;h <= len;h <<= 1)
+    {
+        complex wn(cos(-on*2*PI/h),sin(-on*2*PI/h));
+        for(int j = 0;j < len;j += h)
+        {
+            complex w(1,0);
+            for(int k = j;k < j+h/2;k++)
+            {
+                complex u = y[k];
+                complex t = w*y[k+h/2];
+                y[k] = u+t;
+                y[k+h/2] = u-t;
+                w = w*wn;
+            }
+        }
+    }
+    if(on == -1)
+        for(int i = 0;i < len;i++)
+            y[i].r /= len;
+}
+
+const int MAXN = 400040;
+complex x1[MAXN];
+int a[MAXN/4];
+long long num[MAXN];
+long long sum[MAXN];
+
+int main()
+{
+    int T;
+    int n;
+    scanf("%d",&T);
+    while(T--)
+    {
+        scanf("%d",&n);
+        memset(num,0,sizeof(num));
+        for(int i = 0;i < n;i++)
+        {
+            scanf("%d",&a[i]);
+            num[a[i]]++;
+        }
+        sort(a,a+n);
+        int len1 = a[n-1]+1;
+        int len = 1;
+        while( len < 2*len1 )len <<= 1;
+        for(int i = 0;i < len1;i++)
+            x1[i] = complex(num[i],0);
+        for(int i = len1;i < len;i++)
+            x1[i] = complex(0,0);
+        fft(x1,len,1);
+        for(int i = 0;i < len;i++)
+            x1[i] = x1[i]*x1[i];
+        fft(x1,len,-1);
+        for(int i = 0;i < len;i++)
+            num[i] = (long long)(x1[i].r+0.5);
+        len = 2*a[n-1];
+        for(int i = 0;i < n;i++)
+            num[a[i]+a[i]]--;
+        for(int i = 1;i <= len;i++)
+        {
+            num[i]/=2;
+        }
+        sum[0] = 0;
+        for(int i = 1;i <= len;i++)
+            sum[i] = sum[i-1]+num[i];
+        long long cnt = 0;
+        for(int i = 0;i < n;i++)
+        {
+            cnt += sum[len]-sum[a[i]];
+            cnt -= (long long)(n-1-i)*i;
+            cnt -= (n-1);
+            cnt -= (long long)(n-1-i)*(n-i-2)/2;
+        }
+        long long tot = (long long)n*(n-1)*(n-2)/6;
+        printf("%.7lf\n",(double)cnt/tot);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

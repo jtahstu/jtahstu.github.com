@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P5114</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P5114</h3>
+                    <h5>2015/8/16 16:39:30</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P5114</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:32:44
+//目前爬取的是hduoj第5114题
+#include <iostream>
+#include <cstring>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+int n,m;
+int MIN(int x,int y)
+{
+    if (x<y) return x;
+    return y;
+}
+int main()
+{
+    int x1,y1,x2,y2,t,ii,i,j,k,fx11,fx12,fx21,fx22,move,x1o,x2o,y1o,y2o;
+    double ansx,ansy;
+
+    scanf("%d",&t);
+    for (ii=1;ii<=t;ii++)
+    {
+        scanf("%d%d%d%d%d%d",&n,&m,&x1,&y1,&x2,&y2);
+        fx11=1;fx12=1;fx21=1;fx22=1;
+
+        if (x1==n&&fx11>0||x1==0&&fx11<0) fx11=-fx11;
+        if (y1==m&&fx12>0||y1==0&&fx12<0) fx12=-fx12;
+        if (x2==n&&fx21>0||x2==0&&fx21<0) fx21=-fx21;
+        if (y2==m&&fx22>0||y2==0&&fx22<0) fx22=-fx22;
+
+        for (i=1;i<=410000;i++)
+        {
+            if (abs(x1-x2)==abs(y1-y2)&&((x2-x1)/fx11>0)&&((y2-y1)/fx12>0)&&((x1-x2)/fx21 >0)&&((y1-y2)/fx22>0))//迎面相撞
+            {
+                ansx=(x1+x2)/2.0;
+                ansy=(y1+y2)/2.0;
+                break;
+            }
+
+            if (fx11>0) move=n-x1;
+                else move=x1;
+            if (fx12>0) move=MIN(move,m-y1);
+                else move=MIN(move,y1);
+
+            if (fx21>0) move=MIN(move,n-x2);
+                else move=MIN(move,x2);
+
+            if (fx22>0) move=MIN(move,m-y2);
+                else move=MIN(move,y2);
+//同行相撞
+            if (x1==x2&&((y2-y1)/fx12>0)&&((y1-y2)/fx22>0)&&fx11==fx21&&(x1+fx11*abs(y2-y1)/2.0)>=0&&(x1+fx11*abs(y2-y1)/2.0)<=n)
+            {
+                ansx=x1+fx11*abs(y2-y1)/2.0;
+                ansy=(y1+y2)/2.0;
+                break;
+            }
+//同列相撞
+            if (y1==y2&&((x2-x1)/fx11>0)&&((x1-x2)/fx21>0)&&fx12==fx22&&(y1+fx12*abs(x2-x1)/2.0)>=0&&(y1+fx12*abs(x2-x1)/2.0)<=m)
+            {
+                ansx=(x1+x2)/2.0;
+                ansy=(y1+fx12*abs(x2-x1)/2.0);
+                break;
+            }
+            x1=move*fx11+x1;
+            y1=move*fx12+y1;
+            x2=move*fx21+x2;
+            y2=move*fx22+y2;
+            if (x1==n&&fx11>0||x1==0&&fx11<0) fx11=-fx11;
+            if (y1==m&&fx12>0||y1==0&&fx12<0) fx12=-fx12;
+            if (x2==n&&fx21>0||x2==0&&fx21<0) fx21=-fx21;
+            if (y2==m&&fx22>0||y2==0&&fx22<0) fx22=-fx22;
+        }
+        printf("Case #%d:\n",ii);
+        if (i==410001)
+        {
+            printf("Collision will not happen.\n");
+            continue;
+        }
+        else 
+        {
+            printf("%.1lf %.1lf\n",ansx,ansy);
+        }
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

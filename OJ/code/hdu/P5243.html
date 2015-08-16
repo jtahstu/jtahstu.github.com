@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P5243</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P5243</h3>
+                    <h5>2015/8/16 16:39:30</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P5243</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:35:23
+//目前爬取的是hduoj第5243题
+#include <cstdio>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+#define V P
+const double eps = 1e-6;
+inline int dcmp (double x) {
+    return x < -eps ? -1 : x > eps;
+}
+struct P {
+    double x, y;
+    void scan() {
+        scanf("%lf%lf", &x, &y);
+    }
+    P(double _x = 0, double _y = 0) : x(_x), y(_y) { }
+    V operator + (V a) const {
+        return V(x + a.x, y + a.y);
+    }
+    V operator - (V a) const {
+        return V(x - a.x, y - a.y);
+    }
+    V operator * (double p) const {
+        return V(p * x, p * y);
+    }
+    V operator / (double p) const {
+        return V(x / p, y / p);
+    }
+    bool operator < (P a) const {
+        return x < a.x || (dcmp(x - a.x) == 0 && y < a.y);
+    }
+    bool operator == (P a) const {
+        return dcmp(x - a.x) == 0 && dcmp(y - a.y) == 0;
+    }
+};
+
+inline double dot(V a, V b) {
+    return a.x * b.x + a.y * b.y;
+}
+inline double len(V a) {
+    return sqrt(dot(a, a));
+}
+inline double dis(P a, P b) {
+    return len(b - a);
+}
+inline double ang(V a, V b) {
+    return acos(dot(a, b) / len(a) / len(b));
+}
+inline double cross(V a, V b) {
+    return a.x * b.y - a.y * b.x;
+}
+inline double area(P a, P b, P c) {
+    return cross(b - a, c - a);
+}
+V rot(V a, double p) {
+    return V(a.x * cos(p) - a.y * sin(p), a.x * sin(p) + a.y * cos(p));
+}
+V normal(V a) {
+    double L = len(a);
+    return V(-a.y / L, a.x / L);
+}
+P inter(P p, V v, P q, V w) {
+    V u = p - q;
+    double t = cross(w, u) / cross(v, w);
+    return p + v * t;
+}
+double dis(P p, P a, P b) {
+    V v1 = b - a, v2 = p - a;
+    return fabs(cross(v1, v2)) / len(v1);
+}
+double dis2(P p, P a, P b) {
+    if (a == b) return len(p - a);
+    V v1 = b - a, v2 = p - a, v3 = p - b;
+    if (dcmp(dot(v1, v2)) < 0) return len(v2);
+    else if (dcmp(dot(v1, v3)) > 0) return len(v3);
+    else return fabs(cross(v1, v2)) / len(v1);
+}
+P proj(P p, P a, P b) {
+    V v = b - a;
+    return a + v * (dot(v, p - a) / dot(v, v));
+}
+bool isInter(P a1, P a2, P b1, P b2) {
+    double c1 = cross(a2 - a1, b1 - a1), c2 = cross(a2 - a1, b2 - a1),
+           c3 = cross(b2 - b1, a1 - b1), c4 = cross(b2 - b1, a2 - b1);
+    return dcmp(c1) * dcmp(c2) < 0 && dcmp(c3) * dcmp(c4) < 0;
+}
+bool onSeg(P p, P a1, P a2) {
+    return dcmp(cross(a1 - p, a2 - p)) == 0 && dcmp(dot(a1 - p, a2 - p)) < 0;
+}
+
+double area(P* p, int n) {
+    double s = 0;
+    p[n] = p[0];
+    for (int i = 1; i < n; i ++)
+        s += cross(p[i] - p[0], p[i + 1] - p[0]);
+    return s / 2;
+}
+int graham(P* p, int n, P* ch) {
+    sort(p, p + n);
+    int m = 0;
+    for (int i = 0; i < n; i ++) {
+        while (m > 1 && cross(ch[m - 1] - ch[m - 2], p[i] - ch[m - 2]) <= 0) m --;
+        ch[m ++] = p[i];
+    }
+    int k = m;
+    for (int i = n - 2; i >= 0; i --) {
+        while (m > k && cross(ch[m - 1] - ch[m - 2], p[i] - ch[m - 2]) <= 0) m --;
+        ch[m ++] = p[i];
+    }
+    if (n > 1) m --;
+    return m;
+}
+struct L {
+    P p;
+    V v;
+    double ang;
+    L() {}
+    L(P _p, V _v) : p(_p), v(_v) { ang = atan2(v.y, v.y); }
+    bool operator < (const L& L) const {
+        return ang < L.ang;
+    }
+};
+inline int get(P a) {
+    if( a.x > 0 && a.y >= 0) return 1;
+    if( a.x <= 0 && a.y > 0) return 2;
+    if( a.x < 0 && a.y <= 0) return 3;
+    if( a.x >= 0 && a.y < 0) return 4;
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

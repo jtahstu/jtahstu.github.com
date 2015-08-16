@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P5193</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P5193</h3>
+                    <h5>2015/8/16 16:39:30</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P5193</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:34:28
+//目前爬取的是hduoj第5193题
+#include<cstdio>
+#include<cstring>
+using namespace std;
+const int m=150;
+inline int lowbit(int x)
+{
+    return x&-x;
+}
+void add(int c[],int pos,int x)
+{
+    while(pos<=20000)
+    {
+        c[pos]+=x;
+        pos+=lowbit(pos);
+    }
+}
+int sum(int c[],int l,int r)
+{
+    int sum1=0,sum2=0;
+    l--;
+    while(l>0)
+    {
+        sum1+=c[l];
+        l-=lowbit(l);
+    }
+    while(r>0)
+    {
+        sum2+=c[r];
+        r-=lowbit(r);
+    }
+    return sum2-sum1;
+}
+struct data
+{
+    int s,a[2*m+5];
+    data *next;
+    int c[20005];
+    data()
+    {
+        memset(c,0,sizeof(c));
+        next=NULL;
+    }
+};
+data *root;
+void insert(int x,int pos)
+{
+    if(root==NULL)
+    {
+        root=new data;
+        root->s=1;
+        root->a[1]=x;
+        add(root->c,x,1);
+        return ;
+    }
+    data *k=root;
+    while(pos>k->s && k->next!=NULL)
+    {
+        pos-=k->s;
+        k=k->next;
+    }
+    memmove(k->a+pos+1,k->a+pos,sizeof(int)*(k->s-pos+1));
+    k->s++;
+    k->a[pos]=x;
+    add(k->c,x,1);
+    if(k->s==2*m)
+    {
+        data *t=new data;
+        t->next=k->next;
+        k->next=t;
+        memcpy(t->a+1,k->a+m+1,sizeof(int)*m);
+        for(int i=1;i<=m;i++)
+        {
+            add(k->c,t->a[i],-1);
+            add(t->c,t->a[i],1);
+        }
+        t->s=k->s=m;
+    }
+}
+void del(int pos)
+{
+    data *k=root;
+    while(pos>k->s && k->next!=NULL)
+    {
+        pos-=k->s;
+        k=k->next;
+    }
+    add(k->c,k->a[pos],-1);
+    memmove(k->a+pos,k->a+pos+1,sizeof(int)*(k->s-pos));
+    k->s--;
+}
+int find(int pos)
+{
+    data *k=root;
+    while(pos>k->s && k->next!=NULL)
+    {
+        pos-=k->s;
+        k=k->next;
+    }
+    return k->a[pos];
+}
+int work(int pos)
+{
+    int res=0;
+    data *k=root;
+    int x=find(pos);
+    while(pos>k->s && k->next!=NULL)
+    {
+        pos-=k->s;
+        res+=sum(k->c,x+1,20000);
+        k=k->next;
+    }
+    for(int i=1;i<pos;i++) if(k->a[i]>x) res++;
+    for(int i=pos+1;i<=k->s;i++) if(k->a[i]<x) res++;
+    while(k->next!=NULL)
+    {
+        k=k->next;
+        res+=sum(k->c,1,x-1);
+    }
+    return res;
+}
+void destroy(data *k)
+{
+    if(k->next!=NULL) destroy(k->next);
+    delete k;
+}
+int main()
+{
+    int n,p;
+    while(~scanf("%d %d",&n,&p))
+    {
+        root=NULL;
+        int ans=0;
+        for(int i=1;i<=n;i++)
+        {
+            int x;
+            scanf("%d",&x);
+            insert(x,i);
+            ans+=work(i);
+        }
+        while(p--)
+        {
+            int c;
+            scanf("%d",&c);
+            if(c==0)
+            {
+                int x,y;
+                scanf("%d %d",&x,&y);
+                x++;
+                insert(y,x);
+                ans+=work(x);
+            }
+            else
+            {
+                int x;
+                scanf("%d",&x);
+                ans-=work(x);
+                del(x);
+            }
+            printf("%d\n",ans);
+        }
+        destroy(root);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4757</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4757</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4757</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:25:06
+//目前爬取的是hduoj第4757题
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#define maxn 200010
+
+using namespace std;
+
+struct ww {
+    int son[2];
+    int cnt;
+    ww() {
+        cnt=0;
+        memset(son,0,sizeof son);
+    }
+}t[maxn<<5];
+
+int n,m,l,tot;
+int a[maxn],pre[maxn<<1],other[maxn<<1],last[maxn],que[maxn],dis[maxn],jump[maxn][20];
+
+void connect(int x,int y) {
+    pre[++l]=last[x];
+    last[x]=l;
+    other[l]=y;
+}
+
+int lca(int x,int y) {
+    if (dis[x]>dis[y]) swap(x,y);
+    int dep=dis[y]-dis[x];
+    for (int i=0;i<=18;i++) if (dep&(1<<i)) y=jump[y][i];
+    if (x==y) return x;
+    for (int i=18;i>=0;i--) if (jump[x][i]!=jump[y][i]) x=jump[x][i],y=jump[y][i];
+    return jump[x][0];
+}
+
+void build(int &x,int dep) {
+    if (!x) x=++tot;
+    if (dep<0) return ;
+    build(t[x].son[0],dep-1); build(t[x].son[1],dep-1);
+}    
+
+void insert(int &x,int rot,int dep,int key) {
+    if (!x) x=++tot;
+    if (dep==-2) return ; 
+    if (key&(1<<dep)) {
+        insert(t[x].son[1],t[rot].son[1],dep-1,key);
+        t[x].son[0]=t[rot].son[0];
+    } else {
+        insert(t[x].son[0],t[rot].son[0],dep-1,key);
+        t[x].son[1]=t[rot].son[1];
+    }
+    t[x].cnt+=t[rot].cnt+1;
+}
+
+int query(int rx,int lx,int key,int dep) {
+    if (dep==-2) return 0;
+    int ans=0;
+    if (key&(1<<dep)) {
+        if (t[t[rx].son[0]].cnt-t[t[lx].son[0]].cnt) {
+            ans=1<<dep;
+            ans+=query(t[rx].son[0],t[lx].son[0],key,dep-1);
+        }
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

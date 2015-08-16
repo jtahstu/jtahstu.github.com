@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P5267</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P5267</h3>
+                    <h5>2015/8/16 16:39:30</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P5267</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:35:49
+//目前爬取的是hduoj第5267题
+#include<cstdio>
+#include<ctype.h>
+#include<algorithm>
+#include<iostream>
+#include<cstring>
+#include<vector>
+#include<cstdlib>
+#include<stack>
+#include<queue>
+#include<set>
+#include<map>
+#include<cmath>
+#include<ctime>
+#include<string.h>
+#include<string>
+#include<sstream>
+#include<bitset>
+using namespace std;
+#define ll __int64
+#define ull unsigned __int64
+#define eps 1e-8
+#define NMAX 30000
+#define MOD 998244353
+#define PI acos(-1)
+template<class T>
+inline void scan_d(T &ret)
+{
+    char c;
+    int flag = 0;
+    ret=0;
+    while(((c=getchar())<'0'||c>'9')&&c!='-');
+    if(c == '-')
+    {
+        flag = 1;
+        c = getchar();
+    }
+    while(c>='0'&&c<='9') ret=ret*10+(c-'0'),c=getchar();
+    if(flag) ret = -ret;
+}
+const int maxn = 10000+10;
+
+struct Edge
+{
+    int v,next;
+}e[maxn*2];
+int head[maxn],ecnt;
+
+void add_edge(int u, int v)
+{
+    e[ecnt].v = v;
+    e[ecnt].next = head[u];
+    head[u] = ecnt++;
+}
+
+int point;
+int Pos[maxn],Size[maxn];
+
+int dp[maxn],mi,pp,sz;
+
+struct Tree
+{
+    int zero,one,zz,oo,zo;
+}Tree[15][maxn];
+
+int ans[15];
+bool data[15][maxn],vis[maxn];
+
+void gao1(int u, int fa)
+{
+    dp[u] = 1;
+    sz++;
+    for(int i = head[u]; ~i; i = e[i].next)
+    {
+        int v = e[i].v;
+        if(v == fa || vis[v]) continue;
+        gao1(v,u);
+        dp[u] += dp[v];
+    }
+}
+
+void gao2(int u, int fa)
+{
+    int tmp = sz-dp[u];
+    for(int i = head[u]; ~i; i = e[i].next)
+    {
+        int v = e[i].v;
+        if(v == fa || vis[v]) continue;
+        gao2(v,u);
+        tmp = max(tmp,dp[v]);
+    }
+    if(tmp < mi)
+    {
+        mi = tmp;
+        pp = u;
+    }
+}
+
+int getbarycenter(int u)
+{
+    sz = 0;
+    gao1(u,u);
+    mi = 1000000;
+    gao2(u,u);
+    return pp;
+}
+
+struct node
+{
+    int root, ge, l, r;
+    node(){}
+    node(int _root, int _ge, int _l, int _r):root(_root),ge(_ge),l(_l),r(_r) {}
+};
+
+vector<node>vec[maxn];
+
+bool a[15][maxn];
+void solve(int u, int fa, int w, int rt, int tou, int flag)
+{
+    sz++;
+    a[flag][sz] = w;
+    int tmp = sz;
+    for(int i = head[u]; ~i; i = e[i].next)
+    {
+        int v = e[i].v;
+        if(v == fa || vis[v]) continue;
+        solve(v,u,w^data[flag][v],rt,tou,flag);
+    }
+    if(flag == 0) vec[u].push_back(node(rt,tou,tmp,sz));
+}
+
+int tot;
+int lson[maxn*30],rson[maxn*30];
+struct SegmentTree
+{
+    int zero,one;
+    bool flag;
+}T[15][maxn*30];
+
+int build(int l, int r)
+{
+    int rt = ++tot;
+    for(int i = 0; i <= 14; i++)
+        T[i][rt].flag = 0;
+    if(l == r)
+    {
+        for(int i = 0; i <= 14; i++)
+        {
+            T[i][rt].zero = T[i][rt].one = 0;
+            if(a[i][l] == 1) T[i][rt].one = 1;
+            else T[i][rt].zero = 1;
+        }
+        return rt;
+    }
+    int mid = (l+r)>>1;
+    lson[rt] = build(l,mid);
+    rson[rt] = build(mid+1,r);
+    for(int i = 0; i <= 14; i++)
+    {
+        T[i][rt].one = T[i][lson[rt]].one + T[i][rson[rt]].one;
+        T[i][rt].zero = T[i][lson[rt]].zero + T[i][rson[rt]].zero;
+    }
+    return rt;
+}
+
+void dfs(int u)
+{
+    u = getbarycenter(u);
+    if(sz == 1)
+    {
+        for(int i = 0; i <= 14; i++)
+            Tree[i][u].one = Tree[i][u].zero = Tree[i][u].oo = Tree[i][u].zz = Tree[i][u].zo = 0;
+        return;
+    }
+    int z[15] = {0}, o[15] = {0}, oo[15] = {0}, zz[15] = {0}, zo[15] = {0};
+    for(int i = head[u]; ~i; i = e[i].next)
+    {
+        int v = e[i].v;
+        if(vis[v]) continue;
+        for(int j = 0; j <= 14; j++)
+        {
+            sz = 0;
+            solve(v,u,data[j][v],u,point,j);
+        }
+        int pos = build(1,sz);
+        Pos[point] = pos;
+        Size[point++] = sz;
+        for(int j = 0; j <= 14; j++)
+        {
+            oo[j] += T[j][pos].one*o[j];
+            zz[j] += T[j][pos].zero*z[j];
+            zo[j] += T[j][pos].one*z[j]+T[j][pos].zero*o[j];
+            o[j] += T[j][pos].one;
+            z[j] += T[j][pos].zero;
+        }
+    }
+    for(int i = 0; i <= 14; i++)
+    {
+        Tree[i][u].one = o[i];
+        Tree[i][u].zero = z[i];
+        Tree[i][u].oo = oo[i];
+        Tree[i][u].zz = zz[i];
+        Tree[i][u].zo = zo[i];
+        if(data[i][u] == 1) ans[i] += oo[i]+zz[i]+z[i];
+        else ans[i] += zo[i]+o[i];
+    }
+    vis[u] = 1;
+    for(int i = head[u]; ~i; i = e[i].next)
+    {
+        int v = e[i].v;
+        if(vis[v]) continue;
+        dfs(v);
+    }
+}
+
+void init(int n)
+{
+    memset(ans,0,sizeof(ans));
+    memset(vis,0,sizeof(vis));
+    for(int i = 1; i <= n; i++)
+        vec[i].clear();
+}
+
+void pushdown(int rt, int flag)
+{
+    if(T[flag][rt].flag)
+    {
+        swap(T[flag][lson[rt]].zero,T[flag][lson[rt]].one);
+        swap(T[flag][rson[rt]].zero,T[flag][rson[rt]].one);
+        T[flag][lson[rt]].flag ^= 1;
+        T[flag][rson[rt]].flag ^= 1;
+        T[flag][rt].flag = 0;
+    }
+}
+
+void update(int L, int R, int l, int r, int rt, int flag)
+{
+    if(L <= l && R >= r)
+    {
+        T[flag][rt].flag ^= 1;
+        swap(T[flag][rt].zero,T[flag][rt].one);
+        return;
+    }
+    pushdown(rt,flag);
+    int mid = (l+r)>>1;
+    if(L <= mid) update(L,R,l,mid,lson[rt],flag);
+    if(R > mid) update(L,R,mid+1,r,rson[rt],flag);
+    T[flag][rt].one = T[flag][lson[rt]].one + T[flag][rson[rt]].one;
+    T[flag][rt].zero = T[flag][lson[rt]].zero + T[flag][rson[rt]].zero;
+}
+
+void rilegou(int x, int flag)
+{
+    int num = vec[x].size();
+    for(int i = 0; i < num; i++)
+    {
+        int rt = vec[x][i].root,ge = vec[x][i].ge;
+        if(data[flag][rt] == 1) ans[flag] -= Tree[flag][rt].zero+Tree[flag][rt].oo+Tree[flag][rt].zz;
+        else ans[flag] -= Tree[flag][rt].one+Tree[flag][rt].zo;
+        int z = T[flag][Pos[ge]].zero, o = T[flag][Pos[ge]].one;
+        Tree[flag][rt].oo -= (Tree[flag][rt].one-o)*o;
+        Tree[flag][rt].zz -= (Tree[flag][rt].zero-z)*z;
+        Tree[flag][rt].zo -= (Tree[flag][rt].one-o)*z+(Tree[flag][rt].zero-z)*o;
+        Tree[flag][rt].one -= o;
+        Tree[flag][rt].zero -= z;
+        update(vec[x][i].l,vec[x][i].r,1,Size[ge],Pos[ge],flag);
+        z = T[flag][Pos[ge]].zero;
+        o = T[flag][Pos[ge]].one;
+        Tree[flag][rt].oo += o*Tree[flag][rt].one;
+        Tree[flag][rt].zz += z*Tree[flag][rt].zero;
+        Tree[flag][rt].zo += o*Tree[flag][rt].zero+z*Tree[flag][rt].one;
+        Tree[flag][rt].one += o;
+        Tree[flag][rt].zero += z;
+        if(data[flag][rt] == 1) ans[flag] += Tree[flag][rt].zero+Tree[flag][rt].oo+Tree[flag][rt].zz;
+        else ans[flag] += Tree[flag][rt].one+Tree[flag][rt].zo;
+    }
+    if(data[flag][x] == 1)
+    {
+        ans[flag] -= Tree[flag][x].zero+Tree[flag][x].oo+Tree[flag][x].zz;
+        ans[flag] += Tree[flag][x].one+Tree[flag][x].zo;
+        data[flag][x] = 0;
+    }
+    else
+    {
+        ans[flag] -= Tree[flag][x].one+Tree[flag][x].zo;
+        ans[flag] += Tree[flag][x].zero+Tree[flag][x].oo+Tree[flag][x].zz;
+        data[flag][x] = 1;
+    }
+}
+
+int main()
+{
+    int n,q;
+    while(~scanf("%d%d",&n,&q))
+    {
+        memset(head,-1,sizeof(head));
+        ecnt = point = tot = 0;
+        init(n);
+        for(int i = 1; i <= n; i++)
+        {
+            int tmp;
+            scanf("%d",&tmp);
+            for(int j = 0; j <= 14; j++)
+                data[j][i] = !!(tmp&(1<<j));
+        }
+        for(int i = 1; i < n; i++)
+        {
+            int u,v;
+            scanf("%d%d",&u,&v);
+            add_edge(u,v);
+            add_edge(v,u);
+        }
+        dfs(1);
+        ll ret = 0;
+        for(int i = 0; i <= 14; i++)
+            ret += (ll)ans[i]*(1LL<<i);
+        while(q--)
+        {
+            int x,y;
+            scanf("%d%d",&x,&y);
+            for(int i = 0; i <= 14; i++)
+            {
+                if(data[i][x] == !!(y&(1<<i))) continue;
+                ret -= (ll)ans[i]*(1LL<<i);
+                rilegou(x,i);
+                ret += (ll)ans[i]*(1LL<<i);
+            }
+            printf("%I64d\n",ret*2LL);
+        }
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

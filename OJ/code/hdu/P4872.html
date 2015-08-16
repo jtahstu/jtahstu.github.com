@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P4872</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P4872</h3>
+                    <h5>2015/8/16 16:39:29</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P4872</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:27:34
+//目前爬取的是hduoj第4872题
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+using namespace std;
+#define maxn 105
+#define FOR(i,a,b) for(int i=a;i<=b;++i)
+typedef __int64  LL;
+int n,m,q;
+
+LL flag1z[maxn][maxn][maxn];
+LL flag1f[maxn][maxn][maxn];
+LL flag2z[maxn][maxn][maxn];
+LL flag2f[maxn][maxn][maxn];
+
+LL dpz[maxn][maxn][maxn];
+LL dpf[maxn][maxn][maxn];
+LL ans[maxn][maxn][maxn];
+
+LL si[maxn][maxn][maxn];
+LL yoz[maxn][maxn][maxn];
+LL rec[maxn][maxn][maxn];
+LL tri[maxn][maxn][maxn];
+
+LL d[maxn][maxn][maxn];
+
+void init()
+{
+    memset(flag1z,0,sizeof(flag1z));
+    memset(flag1f,0,sizeof(flag1f));
+    memset(flag2z,0,sizeof(flag2z));
+    memset(flag2f,0,sizeof(flag2f));
+}
+
+void solve1(int x,int y,int z,int a)
+{
+    int i,j,k;
+
+    flag1z[x][y][z]++;
+    flag1z[x+a][y+a][z+a]--;
+
+    flag2z[x][y+1][z]++;
+    flag2z[x+a][y+a+1][z+a]--;
+
+    flag1f[x+a][y][z]++;
+    flag1f[x+a][y+a][z+a]--;
+
+    flag2f[x+a][y+a+1][z]++;
+    flag2f[x+a][y+a+1][z+a]--;
+}
+
+void solve2()
+{
+    int i,j,k;
+
+    FOR(i,1,n) FOR(j,1,n) FOR(k,1,n){
+        flag1z[i][j][k]+=flag1z[i-1][j-1][k-1];
+        flag2z[i][j][k]+=flag2z[i-1][j-1][k-1];
+        flag1f[i][j][k]+=flag1f[i][j-1][k-1];
+        flag2f[i][j][k]+=flag2f[i][j][k-1];
+        }
+
+    FOR(i,1,n) FOR(j,1,n) FOR(k,1,n){
+        dpz[i][j][k]=dpz[i-1][j][k]+flag1z[i][j][k]-flag1f[i][j][k];
+        dpf[i][j][k]=dpf[i-1][j-1][k]+flag2z[i][j][k]-flag2f[i][j][k];
+        ans[i][j][k]=ans[i][j-1][k]+dpz[i][j][k]-dpf[i][j][k];
+        }
+
+    FOR(i,1,n) FOR(j,1,n) FOR(k,1,n){
+                d[i][j][k]=d[i][j][k-1]+ans[i][j][k];
+                yoz[i][j][k]=yoz[i][j-1][k-1]+d[i][j][k];
+                si[i][j][k]=si[i-1][j-1][k-1]+yoz[i][j][k];
+                rec[i][j][k]=rec[i][j-1][k]+d[i][j][k];
+                tri[i][j][k]=tri[i-1][j-1][k]+rec[i][j][k];
+        }
+
+    FOR(i,1,n) FOR(j,1,n) FOR(k,1,n){
+                yoz[i][j][k]+=yoz[i-1][j][k];
+                rec[i][j][k]+=rec[i-1][j][k];
+        }
+}
+
+LL solve3(int x,int y,int z,int a)
+{
+    return si[x+a-1][y+a-1][z+a-1]-si[x-1][y-1][z-1]-(yoz[x+a-1][y-1][z-1]-yoz[x-1][y-1][z-1])-(tri[x+a-1][y+a-1][z-1]-(rec[x+a-1][y-1][z-1]-rec[x-1][y-1][z-1])-tri[x-1][y-1][z-1]);
+}
+
+int main()
+{
+    int i,j,k;
+    int x,y,z,a;
+    while(scanf("%d%d%d",&n,&m,&q)!=EOF)
+    {
+        for(i=0;i<m;i++)
+        {
+            scanf("%d%d%d%d",&x,&y,&z,&a);
+            solve1(x,y,z,a);
+        }
+        solve2();
+
+        for(i=0;i<q;i++)
+        {
+            scanf("%d%d%d%d",&x,&y,&z,&a);
+            printf("%I64d\n",solve3(x,y,z,a));
+        }
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>

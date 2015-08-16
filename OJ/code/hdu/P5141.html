@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HDUOJ_P5141</title>
+    <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine&amp;v1" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <h1>jtahstu's blogs</h1>
+                <div class="slogan">Here some notes!</div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="current" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>
+                        <a href="../../../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../../../OJ/index.html">OJ题解</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/biji/index.html">笔记</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/zongjie/index.html">总结</a>
+                    </li>
+                    <li>
+                        <a href="../../../classify/wenzhang/index.html">文章</a>
+                    </li>
+                    <li>
+                        <a href="../../../aboute me/resume/index.html">About me</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <img class="paperclip" src="style/paperclip.png" alt="paperclip" />
+                <div class="sidebar">
+                    <h3>HDUOJ_P5141</h3>
+                    <h5>2015/8/16 16:39:30</h5>
+                    <p>
+                        hduoj题解
+                        <br />
+                        <h4>
+                            网页右击->查看网页源代码->在中间部分找到代码复制、粘贴
+                            <h4></p>
+                        </div>
+                    </div>
+                    <div id="content">
+                        <!-- insert the page content here -->
+                        <h1>HDUOJ_P5141</h1>
+                        <p>
+                            <pre>//这是来自jtahstu的网络爬虫 at 2015/8/16 16:33:21
+//目前爬取的是hduoj第5141题
+#include<iostream>
+#include<cstring>
+#include<cstdio>
+#include<algorithm>
+#define ls(p) p<<1
+#define rs(p) p<<1|1
+using namespace std;
+typedef long long LL;
+const int N=100010;
+
+int a[N],b[N];
+int dp[N];
+int sta[N],en[N];
+int len,st;
+struct node{
+    int l,r;
+    int len,sta;
+}tree[N<<2];
+
+void pushup(int p)
+{
+    if(tree[ls(p)].len>tree[rs(p)].len)
+    {
+        tree[p].len=tree[ls(p)].len;
+        tree[p].sta=tree[ls(p)].sta;
+    }
+    else if(tree[rs(p)].len>tree[ls(p)].len)
+    {
+        tree[p].len=tree[rs(p)].len;
+        tree[p].sta=tree[rs(p)].sta;
+    }
+    else
+        tree[p].sta=max(tree[ls(p)].sta,tree[rs(p)].sta);
+}
+
+void build(int p,int l,int r)
+{
+    tree[p].l=l;tree[p].r=r;
+    tree[p].len=-1;
+    tree[p].sta=-1;
+    if(l==r)
+        return;
+    int m=(l+r)>>1;
+    build(ls(p),l,m);
+    build(rs(p),m+1,r);
+}
+
+void update(int p,int pos,int len,int st)
+{
+    if(tree[p].l==tree[p].r)
+    {
+        if(tree[p].len==len&&tree[p].sta<st)
+            tree[p].sta=st;
+        else if(tree[p].len<len)
+        {
+            tree[p].len=len;
+            tree[p].sta=st;
+        }
+        return;
+    }
+    int m=(tree[p].l+tree[p].r)>>1;
+    if(pos<=m) update(ls(p),pos,len,st);
+    else update(rs(p),pos,len,st);
+    pushup(p);
+}
+
+void query(int p,int l,int r)
+{
+    if(l<=tree[p].l&&tree[p].r<=r)
+    {
+        if(tree[p].len>len)
+        {
+            len=tree[p].len;
+            st=tree[p].sta;
+        }
+        else if(tree[p].len==len&&st<tree[p].sta)
+            st=tree[p].sta;
+        return;
+    }
+    int m=(tree[p].l+tree[p].r)>>1;
+    if(l<=m) query(ls(p),l,r);
+    if(r>m) query(rs(p),l,r);
+}
+
+int main()
+{
+    int n;
+    while(scanf("%d",&n)==1)
+    {
+        LL ret=0;
+        int cnt;
+        for(int i=1;i<=n;i++)
+        {
+            scanf("%d",a+i);
+            b[i]=a[i];
+        }
+        if(n==1)
+        {
+            printf("1\n");
+            continue;
+        }
+        sort(b+1,b+1+n);
+        cnt=unique(b+1,b+1+n)-(b+1);
+        dp[1]=sta[1]=1;
+        build(1,1,cnt);
+        int mpp;
+        int lest=-1;
+        for(int i=1;i<=n;i++)
+        {
+            len=st=-1;
+            mpp=lower_bound(b+1,b+1+cnt,a[i])-b;
+            if(mpp==1)
+            {
+                dp[i]=1;
+                sta[i]=i;
+            }
+            else
+                query(1,1,mpp-1);
+            if(st==-1)
+            {
+                dp[i]=1;
+                sta[i]=i;
+            }
+            else
+            {
+                dp[i]=len+1;
+                sta[i]=st;
+            }
+            update(1,mpp,dp[i],sta[i]);
+            lest=max(lest,dp[i]);
+        }
+
+        int last=n+1;
+        for(int i=n;i>=1;i--)
+        {
+            if(dp[i]==lest)
+            {
+                en[i]=last-1;
+                last=i;
+            }
+        }
+        for (int i=1;i<=n;++i)
+        {
+            if (dp[i]==lest)
+                ret+=(LL)sta[i]*(LL)(en[i]-i+1);
+        }
+        printf("%I64d\n", ret);
+    }
+    return 0;
+}
+</pre>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="footer">
+                    <p>
+                        Copyright &copy; 2015/2-
+                        <span id="nowyear"></span>
+                        /
+                        <span id="nowmonth"></span>
+                        , All Rights Reserved . by jtahstu . 时至
+                        <span id="now2"></span>
+                        博客开创已
+                        <span id="timeShow"></span>
+                        天
+                    </p>
+                </div>
+            </div>
+            <script language="javascript" type="text/javascript">
+        //统计博客开创日期
+        window.onload = function () {
+            showtime();
+        }
+
+        function showtime() {
+            var timedate = new Date("February 17,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
+
+            var now = new Date(); //获取当前时间
+            var now2 = now.getFullYear() + "/" + (now.getMonth() + 1) + "/" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            var date = now.getTime() - timedate.getTime(); //得出的为毫秒
+
+            var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
+            if (time > 0) {
+                document.getElementById('timeShow').innerHTML = time;
+                document.getElementById('now2').innerHTML = now2;
+                document.getElementById('nowyear').innerHTML = now.getFullYear();
+                document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
+            }
+            setTimeout(showtime, 500);
+        }
+    </script>
+</body>
+        </html>
