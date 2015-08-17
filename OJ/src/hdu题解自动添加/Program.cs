@@ -8,7 +8,7 @@ using System.IO;
 namespace hdu题解自动添加 {
     class Program {
         static void Main(string[] args) {
-            for (int i = 1000; i <= 5299; i++) {
+            for (int i = 4366; i <= 5299; i++) {
                 try {
                     var utf8WithBom = new System.Text.UTF8Encoding(true);
                     string index = @"D:\Github\jtahstu.github.com\OJ\index.html";
@@ -16,7 +16,7 @@ namespace hdu题解自动添加 {
                     string s = cin.ReadToEnd();
                     cin.Close();
                     string file = "P" + i.ToString();
-                    string str = "<a href=\"code/hdu/" + file + ".html\"" + " target=\"_blank\">" + file + "&nbsp;&nbsp;</a>";
+                    string str = "<a href=\"code\\hdu\\" + file + ".html\"" + " target=\"_blank\">" + file + "&nbsp;&nbsp;</a>";
                     if (i % 14 == 0) str = str + "<br />";
                     int start = s.IndexOf("<p id=\"insert\">");
                     int start2 = s.IndexOf("</p>", start + 100);

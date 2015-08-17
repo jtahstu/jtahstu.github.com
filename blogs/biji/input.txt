@@ -86,8 +86,10 @@ namespace AK1083 {
             Array.Sort(sql, 0, j, new MyComparer());
             int rank = 1;
             for (int i = 0; i < j; i++) {
-                if (sql[i].chu >= a[4] && sql[i].yin >= a[0] && sql[i].zheng >= a[1] && sql[i].shu >= a[2] && sql[i].zhuan >= a[3] && sql[i].fu >= 60)
-                    Console.WriteLine("{0} {1} {2} {3} {4}", sql[i].name, sql[i].chu, sql[i].fu, sql[i].zong.ToString("0.0"), rank++);
+                if (sql[i].chu >= a[4] && sql[i].yin >= a[0] && sql[i].zheng >= a[1] 
+                && sql[i].shu >= a[2] && sql[i].zhuan >= a[3] && sql[i].fu >= 60)
+                    Console.WriteLine("{0} {1} {2} {3} {4}", sql[i].name, sql[i].chu, 
+                    sql[i].fu, sql[i].zong.ToString("0.0"), rank++);
             }
             Console.ReadLine();
         }

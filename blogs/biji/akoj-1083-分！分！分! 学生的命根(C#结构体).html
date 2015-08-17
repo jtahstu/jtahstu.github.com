@@ -40,7 +40,7 @@ akoj-1083-分！分！分! 学生的命根(C#结构体)
                     <h3>
 akoj-1083-分！分！分! 学生的命根(C#结构体)
 </h3>
-                    <h5>2015/8/17 12:20:09</h5>
+                    <h5>2015/8/17 22:52:17</h5>
                     <p>
 akoj题解
 </p>
@@ -83,7 +83,7 @@ Peng 352 60 235.2 1<br>
 LiMing 335 67 227.8 2<br>
 WeiQin 324 70 222.4 3
 </p>
-                <p>AC Code 
+                <p>
 <pre>
 using System;
 using System.Collections.Generic;
@@ -133,8 +133,8 @@ namespace AK1083 {
             for (int i = 0; i < j; i++) {
                 if (sql[i].chu >= a[4] && sql[i].yin >= a[0] && sql[i].zheng >= a[1] 
                 && sql[i].shu >= a[2] && sql[i].zhuan >= a[3] && sql[i].fu >= 60)
-                    Console.WriteLine("{0} {1} {2} {3} {4}", sql[i].name, sql[i].chu, sql[i].fu, 
-                    sql[i].zong.ToString("0.0"), rank++);
+                    Console.WriteLine("{0} {1} {2} {3} {4}", sql[i].name, sql[i].chu, 
+                    sql[i].fu, sql[i].zong.ToString("0.0"), rank++);
             }
             Console.ReadLine();
         }
