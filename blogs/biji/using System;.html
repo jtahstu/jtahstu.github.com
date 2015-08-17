@@ -3,7 +3,7 @@
 
 <head>
     <title>
-爬虫意外产物之博客轰炸机
+akoj-1083-分！分！分! 学生的命根(C#结构体)
 </title>
     <link rel="shortcut icon" href="/jtahstu.github.com/images/favicon.ico" />
     <meta name="description" content="website description" />
@@ -38,68 +38,108 @@
                 <img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" /><img class="paperclip" src="style/paperclip.png" alt="paperclip" />
                 <div class="sidebar">
                     <h3>
-爬虫意外产物之博客轰炸机
+akoj-1083-分！分！分! 学生的命根(C#结构体)
 </h3>
-                    <h5>2015/8/13 19:34:17</h5>
+                    <h5>2015/8/17 12:19:44</h5>
                     <p>
-写爬虫时的小意外，用以实现博客任意次数浏览量，PS：只要你有时间跑这个程序
+akoj题解
 </p>
                 </div>
             </div>
             <div id="content">
                 <!-- insert the page content here -->
                 <h1>
-爬虫意外产物之博客轰炸机
+akoj-1083-分！分！分! 学生的命根(C#结构体)
 </h1>
                 <p>
-这个程序是前两天写爬虫时的一个小意外，虽然程序很简单，但有时候就是那个想法很关键。<br>
+Description<br>
+大家都知道，考研包括初试和复试，院校根据初试成绩和复试成绩综合决定是否录取你，具体的计算总成绩的方案是(初试总成绩)*0.6+(复试成绩)*0.4.这不Pmathticol还没玩够，又要开始准备万恶的复试了。不仅如此，对各科也还都有要求，所以院校会划定各科成绩线要求以及总分要求，只有过了各个单科分数线且总分足够才有资格进入复试。另外若是复试分数(满分为100分)不及格，则也不被录取。假定录取名额没有限制，只要符合上述条件的就被录取。我们知道初试科目包括数学，英语，政治，专业课。给定n个同学的各科成绩和复试成绩(假设每位同学都有复试成绩)，以及报考院校的各个单科分数线和总分线。要你求最后被录取的名单以及他们的相关信息。
 </p>
                 <p>
-我们知道博客的浏览量的计算是按次计算的，而且这个浏览量是只要访问一次这个页面就增加1。<br>
-那么想法就是使用循环，多次访问这个页面即可达到目的。
+Input<br>
+
+只有一组测试数据，第一行是报考院校的单科要求(英语，政治，数学，专业)和总分要求<br>
+接下来包括n名同学(10<=n<=200),每行的格式如下：<br>
+姓名 英语 政治 数学 专业 复试成绩
 </p>
                 <p>
-代码如下
-<!-- <pre>
+Output<br>
+输出被录取的同学信息(姓名 初试成绩 复试成绩 总成绩 复试序号)，并按照最终成绩从高到低排序。成绩相同的，按照名字字母顺序先后排序。所有的数据都用double型输入，最后结果初试和复试成绩四舍五入为整数输出，总成绩保留1位小数。
+</p>
+                <p>
+Sample Input<br>
+50 50 80 80 320<br>
+LiMing 53 73 110 99  67<br>
+WangHao 51 69 100 90 83<br> 
+Pan 48 69 119 92 64 <br>
+FengDan 52 52 85 82 58<br>
+LiuDong 48 56 109 87 90 <br>
+Peng 51 74 127 100 60<br>
+WeiQin 59 73 93 99 70
+</p>
+                <p>
+Sample Output<br>
+Peng 352 60 235.2 1<br>
+LiMing 335 67 227.8 2<br>
+WeiQin 324 70 222.4 3
+</p>
+                <p>
+<pre>
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Net;
-using System.Threading;
+using System.Text.RegularExpressions;
 
-namespace 博客访问量 {
+namespace AK1083 {
     class Program {
-        /// < summary>
-        /// 用try catch,然后写continue的话，这个程序不跑完绝对不会停止，如果出现异常，就继续尝试，这样正和我意
-        /// good job O(∩_∩)O哈哈~
-        /// < /summary>
-        /// <param name="args"></param>
-        static void Main(string[] args) {
-            System.Net.WebClient client = new WebClient();
-            for (int i = 0; i < 10000; i++) {
-                try {
-                    Stream strm = client.OpenRead("http://blog.csdn.net/jtahstu/article/details/47411757");
-                    strm.Close();
-                    Console.WriteLine("目前正在执行第{0}次轰炸", i);
-                } catch (Exception e) {
-                    Console.WriteLine(e.Message);
-                    continue;
+        struct people {
+            public string name;
+            public double yin, zheng, shu, zhuan;
+            public double zong;
+            public double chu;
+            public double fu;
+        };
+        public class MyComparer : IComparer<people> {
+            int IComparer<people>.Compare(people x, people y) {
+                if (x.zong == y.zong) {
+                    return x.name.CompareTo(y.name);
                 }
+                return x.zong < y.zong ? 1 : -1;
             }
+        }
+        static void Main(string[] args) {
+            string[] s = Console.ReadLine().Split();
+            double[] a = new double[5 + 2];
+            for (int i = 0; i < 5; i++)
+                a[i] = double.Parse(s[i]);
+            string str;
+            people[] sql = new people[205];
+            int j = 0;
+            while ((str = Console.ReadLine()) != null) {
+                string[] ss = Regex.Split(str, @"<br>s+");
+                sql[j].name = ss[0];
+                sql[j].yin = double.Parse(ss[1]);
+                sql[j].zheng = double.Parse(ss[2]);
+                sql[j].shu = double.Parse(ss[3]);
+                sql[j].zhuan = double.Parse(ss[4]);
+                sql[j].chu = sql[j].yin + sql[j].zheng + sql[j].shu + sql[j].zhuan;
+                sql[j].fu = double.Parse(ss[5]);
+                sql[j].zong = sql[j].chu * 0.6 + sql[j].fu * 0.4;
+                j++;
+            }
+            Array.Sort(sql, 0, j, new MyComparer());
+            int rank = 1;
+            for (int i = 0; i < j; i++) {
+                if (sql[i].chu >= a[4] && sql[i].yin >= a[0] && sql[i].zheng >= a[1] && sql[i].shu >= a[2] && sql[i].zhuan >= a[3] && sql[i].fu >= 60)
+                    Console.WriteLine("{0} {1} {2} {3} {4}", sql[i].name, sql[i].chu, sql[i].fu, sql[i].zong.ToString("0.0"), rank++);
+            }
+            Console.ReadLine();
         }
     }
 }
-</pre> -->
+</pre>
 </p>
-                <p>
-实际代码就一行，然后就是处理异常的问题了。<br>
-这个方法如果想延伸至QQ空间的话就没用了，QQ空间的访问量是按访问的qq账号计算的，显然这个方法就行不通了，也就拿来玩玩博客了，过两天去学校本人来跑个三天三夜，O(∩_∩)O哈哈~
-</p>
-                
-                
                 
                 
                 
