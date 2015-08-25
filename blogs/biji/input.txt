@@ -1,104 +1,44 @@
 ﻿~t
-akoj-1083-分！分！分! 学生的命根(C#结构体)
+MD5加密
 ~t
 
 ~i
-akoj题解
+加密算法
 ~i
 
 p1
-Description\
-大家都知道，考研包括初试和复试，院校根据初试成绩和复试成绩综合决定是否录取你，具体的计算总成绩的方案是(初试总成绩)*0.6+(复试成绩)*0.4.这不Pmathticol还没玩够，又要开始准备万恶的复试了。不仅如此，对各科也还都有要求，所以院校会划定各科成绩线要求以及总分要求，只有过了各个单科分数线且总分足够才有资格进入复试。另外若是复试分数(满分为100分)不及格，则也不被录取。假定录取名额没有限制，只要符合上述条件的就被录取。我们知道初试科目包括数学，英语，政治，专业课。给定n个同学的各科成绩和复试成绩(假设每位同学都有复试成绩)，以及报考院校的各个单科分数线和总分线。要你求最后被录取的名单以及他们的相关信息。
-p1
-p2
-Input\
-
-只有一组测试数据，第一行是报考院校的单科要求(英语，政治，数学，专业)和总分要求\
-接下来包括n名同学(10<=n<=200),每行的格式如下：\
-姓名 英语 政治 数学 专业 复试成绩
-p2
-p3
-Output\
-输出被录取的同学信息(姓名 初试成绩 复试成绩 总成绩 复试序号)，并按照最终成绩从高到低排序。成绩相同的，按照名字字母顺序先后排序。所有的数据都用double型输入，最后结果初试和复试成绩四舍五入为整数输出，总成绩保留1位小数。
-p3
-p4
-Sample Input\
-50 50 80 80 320\
-LiMing 53 73 110 99  67\
-WangHao 51 69 100 90 83\ 
-Pan 48 69 119 92 64 \
-FengDan 52 52 85 82 58\
-LiuDong 48 56 109 87 90 \
-Peng 51 74 127 100 60\
-WeiQin 59 73 93 99 70
-p4
-p5
-Sample Output\
-Peng 352 60 235.2 1\
-LiMing 335 67 227.8 2\
-WeiQin 324 70 222.4 3
-p5
-p6
+MD5加密算法
 <pre>
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
-namespace AK1083 {
+namespace MD5 {
     class Program {
-        struct people {
-            public string name;
-            public double yin, zheng, shu, zhuan;
-            public double zong;
-            public double chu;
-            public double fu;
-        };
-        public class MyComparer : IComparer<people> {
-            int IComparer<people>.Compare(people x, people y) {
-                if (x.zong == y.zong) {
-                    return x.name.CompareTo(y.name);
-                }
-                return x.zong < y.zong ? 1 : -1;
-            }
-        }
         static void Main(string[] args) {
-            string[] s = Console.ReadLine().Split();
-            double[] a = new double[5 + 2];
-            for (int i = 0; i < 5; i++)
-                a[i] = double.Parse(s[i]);
-            string str;
-            people[] sql = new people[205];
-            int j = 0;
-            while ((str = Console.ReadLine()) != null) {
-                string[] ss = Regex.Split(str, @"\s+");
-                sql[j].name = ss[0];
-                sql[j].yin = double.Parse(ss[1]);
-                sql[j].zheng = double.Parse(ss[2]);
-                sql[j].shu = double.Parse(ss[3]);
-                sql[j].zhuan = double.Parse(ss[4]);
-                sql[j].chu = sql[j].yin + sql[j].zheng + sql[j].shu + sql[j].zhuan;
-                sql[j].fu = double.Parse(ss[5]);
-                sql[j].zong = sql[j].chu * 0.6 + sql[j].fu * 0.4;
-                j++;
+            string s = GetMD5("jtahstu");
+            Console.WriteLine(s);
+            Console.ReadKey();
+        }
+
+        public static string GetMD5(string str) {
+            MD5 md5 = MD5.Create();
+            byte[] buffer = Encoding.GetEncoding("GBK").GetBytes(str);
+            byte[] MD5Buffer = md5.ComputeHash(buffer);
+            string strNew = "";
+            for (int i = 0; i < MD5Buffer.Length; i++) {
+                strNew += MD5Buffer[i].ToString("x2");
             }
-            Array.Sort(sql, 0, j, new MyComparer());
-            int rank = 1;
-            for (int i = 0; i < j; i++) {
-                if (sql[i].chu >= a[4] && sql[i].yin >= a[0] && sql[i].zheng >= a[1] 
-                && sql[i].shu >= a[2] && sql[i].zhuan >= a[3] && sql[i].fu >= 60)
-                    Console.WriteLine("{0} {1} {2} {3} {4}", sql[i].name, sql[i].chu, 
-                    sql[i].fu, sql[i].zong.ToString("0.0"), rank++);
-            }
-            Console.ReadLine();
+            return strNew;
         }
     }
 }
+
 </pre>
-p6
-
-
+p1
 ~n
-6
+1
 ~n
