@@ -9,9 +9,9 @@ namespace 博客笔记自动生成 {
         #region 写入标题,时间，简介
         static void r_and_w_title(string file) {
             var utf8WithBom = new System.Text.UTF8Encoding(true);
-            StreamReader reader = new StreamReader(@"D:\Github\jtahstu.github.com\blogs\biji\biji_Template.html", utf8WithBom);
+            StreamReader reader = new StreamReader(@"G:\Github\jtahstu.github.com\blogs\biji\biji_Template.html", utf8WithBom);
             String a = reader.ReadToEnd();
-            StreamReader reader_input = new StreamReader(@"D:\Github\jtahstu.github.com\blogs\biji\input.txt", utf8WithBom);
+            StreamReader reader_input = new StreamReader(@"G:\Github\jtahstu.github.com\blogs\biji\input.txt", utf8WithBom);
             string input = reader_input.ReadToEnd();
             reader.Close();
             reader_input.Close();
@@ -39,7 +39,7 @@ namespace 博客笔记自动生成 {
             a = a.Replace(ss3, s3);
 
             //写入文件
-            string filename = @"D:\Github\jtahstu.github.com\blogs\biji\" + file + ".html";
+            string filename = @"G:\Github\jtahstu.github.com\blogs\biji\" + file + ".html";
             StreamWriter readTxt = new StreamWriter(filename, false, utf8WithBom);
             readTxt.Write(a);
             readTxt.Flush();
@@ -49,14 +49,14 @@ namespace 博客笔记自动生成 {
 
         #region 写入段落
         static void r_and_w_p(string file) {
-            string filename = @"D:\Github\jtahstu.github.com\blogs\biji\" + file + ".html";
+            string filename = @"G:\Github\jtahstu.github.com\blogs\biji\" + file + ".html";
             //设置文件编码为utf-8包含BOM
             var utf8WithBom = new System.Text.UTF8Encoding(true);
             //先读取模板文件
             StreamReader reader = new StreamReader(filename, utf8WithBom);
             String a = reader.ReadToEnd();
             //然后读取输入文件
-            StreamReader reader_input = new StreamReader(@"D:\Github\jtahstu.github.com\blogs\biji\input.txt", utf8WithBom);
+            StreamReader reader_input = new StreamReader(@"G:\Github\jtahstu.github.com\blogs\biji\input.txt", utf8WithBom);
             string input = reader_input.ReadToEnd();
             int st = input.IndexOf("~n");
             int en = input.IndexOf("~n", st + 2);

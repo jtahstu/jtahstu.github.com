@@ -4,3 +4,9 @@ D:\Users\Administrator\Documents\visual studio 2013\Projects\CSharp\CSharp\博�
 D:\Users\Administrator\Documents\visual studio 2013\Projects\CSharp\CSharp\博客笔记自动生成\obj\Debug\博客笔记自动生成.exe
 D:\Users\Administrator\Documents\visual studio 2013\Projects\CSharp\CSharp\博客笔记自动生成\obj\Debug\博客笔记自动生成.pdb
 D:\Users\Administrator\Documents\visual studio 2013\Projects\CSharp\CSharp\博客笔记自动生成\obj\Debug\博客笔记自动生成.csprojResolveAssemblyReference.cache
+G:\Github\jtahstu.github.com\src\博客笔记自动生成\bin\Debug\博客笔记自动生成.exe.config
+G:\Github\jtahstu.github.com\src\博客笔记自动生成\obj\Debug\博客笔记自动生成.exe
+G:\Github\jtahstu.github.com\src\博客笔记自动生成\obj\Debug\博客笔记自动生成.pdb
+G:\Github\jtahstu.github.com\src\博客笔记自动生成\bin\Debug\博客笔记自动生成.exe
+G:\Github\jtahstu.github.com\src\博客笔记自动生成\bin\Debug\博客笔记自动生成.pdb
+G:\Github\jtahstu.github.com\src\博客笔记自动生成\obj\Debug\博客笔记自动生成.csprojResolveAssemblyReference.cache

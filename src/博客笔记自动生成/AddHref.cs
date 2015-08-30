@@ -18,7 +18,7 @@ namespace 博客笔记自动生成 {
         }
         internal void Add() {
             var utf8WithBom = new System.Text.UTF8Encoding(true);
-            string index = @"D:\Github\jtahstu.github.com\classify\biji\index.html";
+            string index = @"G:\Github\jtahstu.github.com\classify\biji\index.html";
             StreamReader cin = new StreamReader(index, utf8WithBom);
             string s = cin.ReadToEnd();
             cin.Close();
