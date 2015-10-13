@@ -46,6 +46,8 @@
 								</p>
 								<div style="clear: both;">&nbsp;</div>
 								<div class="entry">
+									<p><a href="http://www.css88.com/book/css/" target="_blank">CSS3参考手册</a> by jtahstu on 2015/10/13 19:00:00</p>
+									<p><a href="http://www.css88.com/doc/codeguide/" target="_blank">编写灵活、稳定、高质量的 HTML 和 CSS 代码的规范</a> by jtahstu on 2015/10/13 19:00:00</p>
 									<p><a href="../../blogs/zongjie/images/1.png" target="_blank">《C#入门经典》第1章-第7章要点</a> by jtahstu on 2015/8/20 1:35:20</p>
 									<p><a href="../../blogs/zongjie/String 类 (System).html" target="_blank">String 类 (System)</a> by jtahstu on 2015/8/10 14:55:13</p>
 									<p><a href="../../blogs/zongjie/Math 类 (System).html" target="_blank">Math 类 (System)</a> by jtahstu on 2015/8/10 14:54:54</p>
@@ -114,18 +116,15 @@
 		</div>
 		<!-- end #footer -->
 		<script language="javascript" type="text/javascript">
-			//统计博客开创日期
+			 //统计博客开创日期
 			window.onload = function() {　　
 				showtime();
 			}
 
 			function showtime() {
 				var timedate = new Date("February 17 0:00:00,2015"); //自定义开始时间  February（二月） var born = new Date("July 21, 1983 01:15:00")
-				　　
-				var now = new Date(); //获取当前时间
-				　　
-				var date = now.getTime() - timedate.getTime(); //得出的为毫秒
-				　　
+				var now = new Date(); //获取当前时间				　　
+				var date = now.getTime() - timedate.getTime(); //得出的为毫秒				　　
 				var time = Math.ceil(date / (1000 * 60 * 60 * 24)); //1000 * 60 * 60 * 24一天的秒数
 				//	var time1=Math.ceil(date/(1000*60*60)%24)-1;
 				//	var time2=Math.ceil(date/(1000*60)%60)-1;
@@ -141,7 +140,7 @@
 					document.getElementById('timeShow3').innerHTML = time3; //秒
 					document.getElementById('now2').innerHTML = now2;
 					document.getElementById('nowyear').innerHTML = now.getFullYear();
-					document.getElementById('nowmonth').innerHTML = (now.getMonth()+1);
+					document.getElementById('nowmonth').innerHTML = (now.getMonth() + 1);
 				}
 				setTimeout(showtime, 500);
 			}
